@@ -53,12 +53,15 @@ export async function saveVaultSubmission(formData) {
     customerName: formData.name,
     email: formData.email.toLowerCase(),
     phone: formData.phone || null,
+    category: formData.category || 'sports',
     tier: formData.tier,
+    japaneseAddonQty: formData.japaneseAddonQty ?? 0,
     expectedTotal: formData.totalAmount, // Shows in your CRM so you can verify the amount paid
     monthlyRate: formData.monthlyRate,
     preferences: formData.preferences,
     vipCode: formData.vipCode,
     paymentStatus: 'pending', // Updates to "paid" after Square
+    fulfilled: false,
     sourceSubdomain: 'vault.epiccard.quest',
     createdAt: serverTimestamp(),
   });

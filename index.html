@@ -332,7 +332,7 @@
               onclick="selectBoxEdition('pokemon-cn-kr')"
               class="edition-pill rounded-xl border border-transparent bg-transparent px-2.5 py-2 text-center text-[11px] font-bold leading-tight text-slate-400 transition-all hover:text-white"
             >
-              Pokémon • CN &amp; KR ($25 / $35 / $50)
+              Pokémon ($25 / $35 / $50)
             </button>
             <button
               type="button"
@@ -340,93 +340,116 @@
               onclick="selectBoxEdition('pokemon-jp')"
               class="edition-pill rounded-xl border border-transparent bg-transparent px-2.5 py-2 text-center text-[11px] font-bold leading-tight text-slate-400 transition-all hover:text-white"
             >
-              Pokémon • Japanese (+$10/box)
+              Japanese ($20 Pack / Tier)
             </button>
           </div>
 
-          <!-- Tier 1: Starter Rip -->
-          <div
-            role="button"
-            tabindex="0"
-            onclick="selectPreferredTier('Starter Rip')"
-            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPreferredTier('Starter Rip');}"
-            class="flex cursor-pointer items-center justify-between gap-3 rounded-2xl border border-slate-800 bg-surface px-4 py-3.5 transition-all hover:border-royal/70"
-          >
-            <div class="flex items-center gap-3">
-              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-royal/15 text-xs font-extrabold text-blue-400 ring-1 ring-royal/30">
-                01
-              </span>
-              <div>
-                <div class="text-sm font-extrabold text-white">Starter Rip</div>
-                <div class="text-xs text-[#94A3B8]">
-                  3 curated booster packs, 1 guaranteed foil/parallel hit, ECQ loyalty stamp.
+          <!-- Standard 3-Tier Stack (Sports & Pokémon) -->
+          <div id="standard-tiers-stack" class="space-y-3">
+            <!-- Tier 1: $25 Tier -->
+            <div
+              role="button"
+              tabindex="0"
+              onclick="selectPreferredTier('Starter Rip')"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPreferredTier('Starter Rip');}"
+              class="flex cursor-pointer items-center justify-between gap-3 rounded-2xl border border-slate-800 bg-surface px-4 py-3.5 transition-all hover:border-royal/70"
+            >
+              <div class="flex items-center gap-3">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-royal/15 text-xs font-extrabold text-blue-400 ring-1 ring-royal/30">
+                  01
+                </span>
+                <div>
+                  <div id="tier-title-starter" class="text-sm font-extrabold text-white">Sports Vault — $25 Tier</div>
+                  <div id="tier-desc-starter" class="text-xs text-[#94A3B8]">
+                    2 packs of cards from various sets • 1 numbered card + 2 unnumbered cards • ECQ Loyalty stamp.
+                  </div>
                 </div>
               </div>
+              <div class="shrink-0 text-right">
+                <span id="tier-price-starter" class="text-lg font-black text-white">$25</span>
+                <span class="text-xs font-medium text-slate-400">/mo</span>
+              </div>
             </div>
-            <div class="shrink-0 text-right">
-              <span id="tier-price-starter" class="text-lg font-black text-white">$25</span>
-              <span class="text-xs font-medium text-slate-400">/mo</span>
+
+            <!-- Tier 2: $35 Tier (Featured with Foil Gold Border & MOST POPULAR Badge) -->
+            <div
+              role="button"
+              tabindex="0"
+              onclick="selectPreferredTier('Pro')"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPreferredTier('Pro');}"
+              class="holo-sheen animate-border-glow relative flex cursor-pointer items-center justify-between gap-3 rounded-2xl border-2 border-foil bg-surfaceElevated px-4 py-3.5 transition-transform hover:scale-[1.005]"
+            >
+              <div class="flex items-center gap-3">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-foil/20 text-xs font-extrabold text-foil ring-1 ring-foil/40">
+                  02
+                </span>
+                <div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span id="tier-title-pro" class="text-sm font-extrabold text-white">Sports Vault — $35 Tier</span>
+                    <span class="rounded bg-foil px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-obsidian">
+                      MOST POPULAR
+                    </span>
+                  </div>
+                  <div id="tier-desc-pro" class="text-xs text-slate-200">
+                    3 packs of cards from various sets • 2 numbered cards + 3 unnumbered cards • ECQ Loyalty stamp • 5% off singles purchases.
+                  </div>
+                </div>
+              </div>
+              <div class="shrink-0 text-right">
+                <span id="tier-price-pro" class="text-lg font-black text-foil">$35</span>
+                <span class="text-xs font-medium text-slate-300">/mo</span>
+              </div>
+            </div>
+
+            <!-- Tier 3: $50 Tier -->
+            <div
+              role="button"
+              tabindex="0"
+              onclick="selectPreferredTier('Quest Master')"
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPreferredTier('Quest Master');}"
+              class="flex cursor-pointer items-center justify-between gap-3 rounded-2xl border border-slate-800 bg-surface px-4 py-3.5 transition-all hover:border-royal/70"
+            >
+              <div class="flex items-center gap-3">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-royal/15 text-xs font-extrabold text-blue-400 ring-1 ring-royal/30">
+                  03
+                </span>
+                <div>
+                  <div id="tier-title-quest-master" class="text-sm font-extrabold text-white">Sports Vault — $50 Tier</div>
+                  <div id="tier-desc-quest-master" class="text-xs text-[#94A3B8]">
+                    4 packs of cards from various sets • 3 numbered cards + 5 unnumbered cards • ECQ Loyalty stamp • 10% off purchases in stores • Early release ordering • VIP Rip Nights.
+                  </div>
+                </div>
+              </div>
+              <div class="shrink-0 text-right">
+                <span id="tier-price-quest-master" class="text-lg font-black text-white">$50</span>
+                <span class="text-xs font-medium text-slate-400">/mo</span>
+              </div>
             </div>
           </div>
 
-          <!-- Tier 2: Pro (Featured with Foil Gold Border & MOST POPULAR Badge) -->
-          <div
-            role="button"
-            tabindex="0"
-            onclick="selectPreferredTier('Pro')"
-            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPreferredTier('Pro');}"
-            class="holo-sheen animate-border-glow relative flex cursor-pointer items-center justify-between gap-3 rounded-2xl border-2 border-foil bg-surfaceElevated px-4 py-3.5 transition-transform hover:scale-[1.005]"
-          >
-            <div class="flex items-center gap-3">
-              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-foil/20 text-xs font-extrabold text-foil ring-1 ring-foil/40">
-                02
-              </span>
-              <div>
-                <div class="flex flex-wrap items-center gap-2">
-                  <span class="text-sm font-extrabold text-white">Pro</span>
-                  <span class="rounded bg-foil px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-obsidian">
-                    MOST POPULAR
-                  </span>
-                </div>
-                <div class="text-xs text-slate-200">
-                  6 modern &amp; vintage packs, 1 guaranteed Illustration Rare / numbered hit, exclusive ECQ promo card, 10% off in-store singles.
+          <!-- Standalone Japanese $20 Tier Card (Shown when Japanese ($20) tab is selected) -->
+          <div id="japanese-tier-card" class="hidden">
+            <div class="holo-sheen animate-border-glow flex items-center justify-between gap-3 rounded-2xl border-2 border-foil bg-surfaceElevated px-4 py-4">
+              <div class="flex items-center gap-3">
+                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-foil/20 text-xs font-extrabold text-foil ring-1 ring-foil/40">
+                  JP
+                </span>
+                <div>
+                  <div class="text-sm font-extrabold text-white">Japanese Pack / Tier — $20</div>
+                  <div class="text-xs text-slate-200">
+                    Japanese edition pack selection ($20). You can also add Japanese packs ($20 each) onto any Sports or Pokémon Vault tier.
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="shrink-0 text-right">
-              <span id="tier-price-pro" class="text-lg font-black text-foil">$35</span>
-              <span class="text-xs font-medium text-slate-300">/mo</span>
-            </div>
-          </div>
-
-          <!-- Tier 3: Quest Master -->
-          <div
-            role="button"
-            tabindex="0"
-            onclick="selectPreferredTier('Quest Master')"
-            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPreferredTier('Quest Master');}"
-            class="flex cursor-pointer items-center justify-between gap-3 rounded-2xl border border-slate-800 bg-surface px-4 py-3.5 transition-all hover:border-royal/70"
-          >
-            <div class="flex items-center gap-3">
-              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-royal/15 text-xs font-extrabold text-blue-400 ring-1 ring-royal/30">
-                03
-              </span>
-              <div>
-                <div class="text-sm font-extrabold text-white">Quest Master</div>
-                <div class="text-xs text-[#94A3B8]">
-                  10 premium &amp; hobby packs, 1 guaranteed graded slab or auto/relic hit, early access to allocated drops, VIP rip night entry.
-                </div>
+              <div class="shrink-0 text-right">
+                <span class="text-lg font-black text-foil">$20</span>
               </div>
-            </div>
-            <div class="shrink-0 text-right">
-              <span id="tier-price-quest-master" class="text-lg font-black text-white">$50</span>
-              <span class="text-xs font-medium text-slate-400">/mo</span>
             </div>
           </div>
 
           <!-- Pricing Callout Note -->
           <p class="rounded-xl border border-slate-800/90 bg-obsidian/75 px-3.5 py-2.5 text-xs leading-relaxed text-slate-300">
-            <span class="font-bold text-foil">Note:</span> Base pricing ($25 / $35 / $50) applies to Sports and Chinese/Korean Pokémon boxes. Japanese Pokémon boxes add +$10/mo per tier.
+            <span class="font-bold text-foil">Note:</span> Sports &amp; Pokémon Vault tiers are $25 / $35 / $50. Add Japanese Packs for <strong class="text-white">$20 each</strong>—or order the standalone $20 Japanese Pack / Tier.
           </p>
         </div>
       </div>
@@ -612,22 +635,74 @@
                 </div>
               </div>
 
+              <!-- Optional $20 Japanese Packs Add-On (shown for Sports / Pokémon) -->
+              <div id="japanese-addon-row" class="flex items-center justify-between gap-3 rounded-xl border border-slate-700/90 bg-obsidian px-4 py-3">
+                <div>
+                  <div class="text-xs font-extrabold text-white">Add Japanese Packs <span class="text-foil">($20 each)</span></div>
+                  <div class="text-[11px] text-slate-400">Include Japanese packs with your Vault order</div>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <button
+                    type="button"
+                    onclick="adjustJapaneseQty(-1)"
+                    class="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-700 bg-surfaceElevated text-sm font-black text-white hover:border-foil hover:text-foil transition-colors"
+                    aria-label="Decrease Japanese pack quantity"
+                  >
+                    −
+                  </button>
+                  <span id="japanese-qty-display" class="w-5 text-center font-mono text-sm font-extrabold text-foil">0</span>
+                  <button
+                    type="button"
+                    onclick="adjustJapaneseQty(1)"
+                    class="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-700 bg-surfaceElevated text-sm font-black text-white hover:border-foil hover:text-foil transition-colors"
+                    aria-label="Increase Japanese pack quantity"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+
+              <!-- Optional Preferences / Notes -->
+              <div>
+                <label for="collector-preferences" class="mb-1.5 block text-xs font-extrabold uppercase tracking-wider text-slate-300">
+                  Preferences / Notes <span class="font-normal text-slate-500">(Optional)</span>
+                </label>
+                <textarea
+                  id="collector-preferences"
+                  name="collectorPreferences"
+                  rows="2"
+                  placeholder="Favorite teams, players, or Pokémon sets..."
+                  class="w-full rounded-xl border border-slate-700 bg-obsidian px-4 py-2.5 text-sm text-white placeholder-slate-500 transition-colors focus:border-royal focus:outline-none focus:ring-2 focus:ring-royal/30"
+                ></textarea>
+              </div>
+
+              <!-- Live Square Checkout Total Banner -->
+              <div class="rounded-xl border border-foil/35 bg-foil/10 px-4 py-3 text-xs">
+                <div class="flex items-center justify-between font-extrabold text-sm text-foilLight">
+                  <span>Total Due at Square Checkout:</span>
+                  <span id="checkout-total-display" class="font-mono text-base">$35.00</span>
+                </div>
+                <p class="mt-1 text-slate-300">
+                  After clicking below, enter <strong id="checkout-total-inline" class="text-white">$35.00</strong> on the Square payment screen to complete your order.
+                </p>
+              </div>
+
               <!-- Inline Submission Error -->
               <p id="err-submit" class="hidden rounded-xl border border-rose-500/40 bg-rose-500/10 px-3.5 py-2.5 text-xs font-semibold text-rose-300"></p>
 
               <!-- Submit CTA -->
-              <div class="pt-2">
+              <div class="pt-1">
                 <button
                   type="submit"
                   id="vip-submit-btn"
                   class="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-foil via-amber-400 to-foil px-6 py-4 text-sm font-black uppercase tracking-wider text-obsidian shadow-[0_10px_30px_rgba(245,158,11,0.35)] transition-all duration-200 hover:scale-[1.01] hover:brightness-110 active:scale-[0.99]"
                 >
-                  <span id="vip-submit-label">Join VIP Drop List →</span>
+                  <span id="vip-submit-label">Continue to Square ($35.00) →</span>
                 </button>
               </div>
 
               <p class="text-center text-[11px] text-slate-400">
-                No payment due today. You’ll receive your private Square subscription link 24 hours before public drop.
+                Your order &amp; VIP Founder Pass are saved instantly before redirecting to Square checkout.
               </p>
             </form>
           </div>
@@ -984,21 +1059,45 @@
     let selectedHobby = 'Sports Cards';
     let selectedTier = 'Pro';
     let selectedFulfillment = 'Valley Mall Pickup';
+    let japaneseQty = 0;
 
     const EDITION_CONFIG = {
       sports: {
+        category: 'sports',
         prices: { starter: 25, pro: 35, questMaster: 50 },
-        badge: 'Sports Edition • Base Pricing',
+        titles: {
+          starter: 'Sports Vault — $25 Tier',
+          pro: 'Sports Vault — $35 Tier',
+          questMaster: 'Sports Vault — $50 Tier',
+        },
+        descs: {
+          starter: '2 packs of cards from various sets • 1 numbered card + 2 unnumbered cards • ECQ Loyalty stamp.',
+          pro: '3 packs of cards from various sets • 2 numbered cards + 3 unnumbered cards • ECQ Loyalty stamp • 5% off singles purchases.',
+          questMaster: '4 packs of cards from various sets • 3 numbered cards + 5 unnumbered cards • ECQ Loyalty stamp • 10% off purchases in stores • Early release ordering • VIP Rip Nights.',
+        },
+        badge: 'Sports Vault • $25 / $35 / $50',
         hobby: 'Sports Cards',
       },
       'pokemon-cn-kr': {
+        category: 'pokemon',
         prices: { starter: 25, pro: 35, questMaster: 50 },
-        badge: 'Pokémon CN & KR • Base Pricing',
+        titles: {
+          starter: 'Pokémon Vault — $25 Tier',
+          pro: 'Pokémon Vault — $35 Tier',
+          questMaster: 'Pokémon Vault — $50 Tier',
+        },
+        descs: {
+          starter: 'Standard $25 Pokémon Vault package • ECQ Loyalty stamp.',
+          pro: 'Upgraded Pokémon pack & hit assortment (no numbered hit) • ECQ Loyalty stamp • 5% off singles purchases.',
+          questMaster: '8 packs of cards • 1 SR or 1 SAR guaranteed • Chance at a graded card • Early access to allocated drops • VIP Rip Nights.',
+        },
+        badge: 'Pokémon Vault • $25 / $35 / $50',
         hobby: 'Pokémon (CN / KR)',
       },
       'pokemon-jp': {
-        prices: { starter: 35, pro: 45, questMaster: 60 },
-        badge: 'Pokémon Japanese • +$10/box Add-on',
+        category: 'japanese',
+        prices: { starter: 20, pro: 20, questMaster: 20 },
+        badge: 'Japanese Pack / Tier • $20',
         hobby: 'Pokémon (Japanese +$10)',
       },
     };
@@ -1009,6 +1108,37 @@
       'Quest Master': 50,
     };
 
+    function getCalculatedTotal() {
+      if (selectedEdition === 'pokemon-jp') return 20;
+      const base = TIER_BASE_PRICES[selectedTier] || 35;
+      return base + japaneseQty * 20;
+    }
+
+    function updateCheckoutTotal() {
+      const total = getCalculatedTotal();
+      const formatted = `$${total}.00`;
+      const disp = document.getElementById('checkout-total-display');
+      const inlineEl = document.getElementById('checkout-total-inline');
+      const qtyEl = document.getElementById('japanese-qty-display');
+      const submitLabel = document.getElementById('vip-submit-label');
+
+      if (disp) disp.textContent = formatted;
+      if (inlineEl) inlineEl.textContent = formatted;
+      if (qtyEl) qtyEl.textContent = String(japaneseQty);
+
+      const hasSquareLink = Boolean(getSquarePaymentLink(selectedTier));
+      if (submitLabel) {
+        submitLabel.textContent = hasSquareLink
+          ? `Continue to Square (${formatted}) →`
+          : `Join VIP Drop List (${formatted}) →`;
+      }
+    }
+
+    function adjustJapaneseQty(delta) {
+      japaneseQty = Math.max(0, Math.min(20, japaneseQty + delta));
+      updateCheckoutTotal();
+    }
+
     /**
      * Updates the Mystery Box tier cards and Preferred Tier pills when an Edition is selected.
      */
@@ -1017,11 +1147,28 @@
       if (!config) return;
 
       selectedEdition = editionKey;
+      const isJapaneseStandalone = editionKey === 'pokemon-jp';
 
-      // Update left-column tier card prices
-      document.getElementById('tier-price-starter').textContent = `$${config.prices.starter}`;
-      document.getElementById('tier-price-pro').textContent = `$${config.prices.pro}`;
-      document.getElementById('tier-price-quest-master').textContent = `$${config.prices.questMaster}`;
+      // Toggle standard 3-tier stack vs standalone $20 Japanese card + add-on stepper
+      const stdStack = document.getElementById('standard-tiers-stack');
+      const jpCard = document.getElementById('japanese-tier-card');
+      const jpAddonRow = document.getElementById('japanese-addon-row');
+      if (stdStack) stdStack.classList.toggle('hidden', isJapaneseStandalone);
+      if (jpCard) jpCard.classList.toggle('hidden', !isJapaneseStandalone);
+      if (jpAddonRow) jpAddonRow.classList.toggle('hidden', isJapaneseStandalone);
+
+      if (!isJapaneseStandalone && config.titles && config.descs) {
+        document.getElementById('tier-title-starter').textContent = config.titles.starter;
+        document.getElementById('tier-desc-starter').textContent = config.descs.starter;
+        document.getElementById('tier-title-pro').textContent = config.titles.pro;
+        document.getElementById('tier-desc-pro').textContent = config.descs.pro;
+        document.getElementById('tier-title-quest-master').textContent = config.titles.questMaster;
+        document.getElementById('tier-desc-quest-master').textContent = config.descs.questMaster;
+
+        document.getElementById('tier-price-starter').textContent = `$${config.prices.starter}`;
+        document.getElementById('tier-price-pro').textContent = `$${config.prices.pro}`;
+        document.getElementById('tier-price-quest-master').textContent = `$${config.prices.questMaster}`;
+      }
 
       // Update right-column Preferred Tier pill prices
       document.querySelectorAll('.tier-pill-price').forEach((span) => {
@@ -1034,7 +1181,7 @@
       const badgeEl = document.getElementById('edition-status-badge');
       badgeEl.textContent = config.badge;
       badgeEl.className =
-        editionKey === 'pokemon-jp'
+        isJapaneseStandalone
           ? 'text-[11px] font-bold text-foil'
           : 'text-[11px] font-semibold text-blue-400';
 
@@ -1042,7 +1189,7 @@
       document.querySelectorAll('.edition-pill').forEach((btn) => {
         if (btn.dataset.edition === editionKey) {
           btn.className =
-            editionKey === 'pokemon-jp'
+            isJapaneseStandalone
               ? 'edition-pill rounded-xl border-2 border-foil bg-foil/15 px-2.5 py-2 text-center text-[11px] font-extrabold leading-tight text-white transition-all shadow-[0_0_16px_rgba(245,158,11,0.2)]'
               : 'edition-pill rounded-xl border-2 border-royal bg-royal/20 px-2.5 py-2 text-center text-[11px] font-extrabold leading-tight text-white transition-all shadow-[0_0_16px_rgba(37,99,235,0.2)]';
         } else {
@@ -1054,6 +1201,7 @@
       if (syncHobby) {
         selectHobbyFocus(config.hobby, false);
       }
+      updateCheckoutTotal();
     }
 
     /**
@@ -1096,6 +1244,7 @@
             'tier-pill rounded-xl border border-slate-700 bg-obsidian px-2 py-2.5 text-xs font-bold text-slate-400 transition-all hover:border-slate-500 hover:text-white';
         }
       });
+      updateCheckoutTotal();
     }
 
     /**
@@ -1270,14 +1419,26 @@
       const randomDigits = Math.floor(1000 + Math.random() * 9000);
       const priorityCode = `ECQ-VIP-${randomDigits}`;
 
-      const baseRate = TIER_BASE_PRICES[selectedTier] || 35;
-      const isJapanese = selectedHobby === 'Pokémon (Japanese +$10)';
-      const monthlyRate = isJapanese ? baseRate + 10 : baseRate;
-      const tierSummary = isJapanese
-        ? `${selectedTier} ($${monthlyRate}/mo • incl. +$10 JP)`
-        : selectedHobby === 'Both'
-          ? `${selectedTier} ($${monthlyRate}/mo • +$10 if JP)`
-          : `${selectedTier} ($${monthlyRate}/mo)`;
+      const editionCfg = EDITION_CONFIG[selectedEdition] || EDITION_CONFIG.sports;
+      const isJapaneseStandalone = selectedEdition === 'pokemon-jp';
+      const monthlyRate = getCalculatedTotal();
+      const baseTierLabel = isJapaneseStandalone
+        ? 'Japanese Pack / Tier — $20'
+        : `${editionCfg.category === 'pokemon' ? 'Pokémon' : 'Sports'} Vault — $${TIER_BASE_PRICES[selectedTier] || 35} Tier`;
+      const tierSummary =
+        !isJapaneseStandalone && japaneseQty > 0
+          ? `${baseTierLabel} + ${japaneseQty}x Japanese ($20 ea)`
+          : baseTierLabel;
+
+      const userNotes = (document.getElementById('collector-preferences')?.value || '').trim();
+      const combinedPreferences = [
+        selectedHobby,
+        selectedFulfillment,
+        priorityCode,
+        userNotes ? `Notes: ${userNotes}` : '',
+      ]
+        .filter(Boolean)
+        .join(' • ');
 
       const leadPayload = {
         full_name: nameVal,
@@ -1296,11 +1457,13 @@
         name: nameVal,
         email: emailVal,
         phone: phoneVal || null,
+        category: editionCfg.category,
         tier: tierSummary,
+        japaneseAddonQty: isJapaneseStandalone ? 1 : japaneseQty,
         totalAmount: Number(monthlyRate.toFixed(2)),
         monthlyRate: Number(monthlyRate.toFixed(2)),
         vipCode: priorityCode,
-        preferences: `${selectedHobby} • ${selectedFulfillment} • ${priorityCode}`,
+        preferences: combinedPreferences,
         squarePaymentLinkUrl: getSquarePaymentLink(selectedTier),
       };
 
@@ -1344,7 +1507,7 @@
       } finally {
         submitBtn.disabled = false;
         submitBtn.classList.remove('opacity-80');
-        submitLabel.textContent = 'Join VIP Drop List →';
+        updateCheckoutTotal();
       }
     });
 
@@ -1390,12 +1553,17 @@
      */
     function resetWaitlistForm() {
       document.getElementById('vip-waitlist-form').reset();
+      japaneseQty = 0;
       selectBoxEdition('sports', true);
       selectPreferredTier('Pro');
       selectFulfillment('Valley Mall Pickup');
       document.getElementById('founder-pass-container').classList.add('hidden');
       document.getElementById('waitlist-form-container').classList.remove('hidden');
+      updateCheckoutTotal();
     }
+
+    // Initialize total & CTA label on load
+    updateCheckoutTotal();
 
     /**
      * Live ECQ Consignment SKU Preview Generator ([Initials]-[Set Code]-[Card #]).

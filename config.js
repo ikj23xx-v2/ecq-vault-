@@ -23,7 +23,7 @@ window.ECQ_VAULT_CONFIG = {
   // Square Payment Links (paste your universal link in defaultPaymentLink, or per-tier links below;
   // when empty or placeholder, displays the instant VIP Founder Pass confirmation UI)
   squareCheckoutLinks: {
-    defaultPaymentLink: "", // e.g. "https://square.link/u/YOUR_SQUARE_LINK"
+    defaultPaymentLink: "https://square.link/u/z3ec9Nlf",
     starter: "",
     pro: "",
     questMaster: "",
