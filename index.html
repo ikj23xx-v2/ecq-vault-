@@ -350,12 +350,13 @@
             <div
               role="button"
               tabindex="0"
+              data-tier-card="Starter Rip"
               onclick="selectPreferredTier('Starter Rip')"
               onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPreferredTier('Starter Rip');}"
-              class="flex cursor-pointer items-center justify-between gap-3 rounded-2xl border border-slate-800 bg-surface px-4 py-3.5 transition-all hover:border-royal/70"
+              class="tier-showcase-card flex cursor-pointer items-center justify-between gap-3 rounded-2xl border border-slate-800 bg-surface px-4 py-3.5 transition-all hover:border-royal/70"
             >
               <div class="flex items-center gap-3">
-                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-royal/15 text-xs font-extrabold text-blue-400 ring-1 ring-royal/30">
+                <span data-tier-badge="Starter Rip" class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-royal/15 text-xs font-extrabold text-blue-400 ring-1 ring-royal/30 transition-colors">
                   01
                 </span>
                 <div>
@@ -366,7 +367,7 @@
                 </div>
               </div>
               <div class="shrink-0 text-right">
-                <span id="tier-price-starter" class="text-lg font-black text-white">$25</span>
+                <span id="tier-price-starter" data-tier-price-text="Starter Rip" class="text-lg font-black text-white transition-colors">$25</span>
                 <span class="text-xs font-medium text-slate-400">/mo</span>
               </div>
             </div>
@@ -375,12 +376,13 @@
             <div
               role="button"
               tabindex="0"
+              data-tier-card="Pro"
               onclick="selectPreferredTier('Pro')"
               onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPreferredTier('Pro');}"
-              class="holo-sheen animate-border-glow relative flex cursor-pointer items-center justify-between gap-3 rounded-2xl border-2 border-foil bg-surfaceElevated px-4 py-3.5 transition-transform hover:scale-[1.005]"
+              class="tier-showcase-card holo-sheen animate-border-glow relative flex cursor-pointer items-center justify-between gap-3 rounded-2xl border-2 border-foil bg-surfaceElevated px-4 py-3.5 transition-all"
             >
               <div class="flex items-center gap-3">
-                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-foil/20 text-xs font-extrabold text-foil ring-1 ring-foil/40">
+                <span data-tier-badge="Pro" class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-foil/20 text-xs font-extrabold text-foil ring-1 ring-foil/40 transition-colors">
                   02
                 </span>
                 <div>
@@ -396,7 +398,7 @@
                 </div>
               </div>
               <div class="shrink-0 text-right">
-                <span id="tier-price-pro" class="text-lg font-black text-foil">$35</span>
+                <span id="tier-price-pro" data-tier-price-text="Pro" class="text-lg font-black text-foil transition-colors">$35</span>
                 <span class="text-xs font-medium text-slate-300">/mo</span>
               </div>
             </div>
@@ -405,12 +407,13 @@
             <div
               role="button"
               tabindex="0"
+              data-tier-card="Quest Master"
               onclick="selectPreferredTier('Quest Master')"
               onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPreferredTier('Quest Master');}"
-              class="flex cursor-pointer items-center justify-between gap-3 rounded-2xl border border-slate-800 bg-surface px-4 py-3.5 transition-all hover:border-royal/70"
+              class="tier-showcase-card flex cursor-pointer items-center justify-between gap-3 rounded-2xl border border-slate-800 bg-surface px-4 py-3.5 transition-all hover:border-royal/70"
             >
               <div class="flex items-center gap-3">
-                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-royal/15 text-xs font-extrabold text-blue-400 ring-1 ring-royal/30">
+                <span data-tier-badge="Quest Master" class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-royal/15 text-xs font-extrabold text-blue-400 ring-1 ring-royal/30 transition-colors">
                   03
                 </span>
                 <div>
@@ -421,7 +424,7 @@
                 </div>
               </div>
               <div class="shrink-0 text-right">
-                <span id="tier-price-quest-master" class="text-lg font-black text-white">$50</span>
+                <span id="tier-price-quest-master" data-tier-price-text="Quest Master" class="text-lg font-black text-white transition-colors">$50</span>
                 <span class="text-xs font-medium text-slate-400">/mo</span>
               </div>
             </div>
@@ -1230,6 +1233,29 @@
             'tier-pill rounded-xl border border-slate-700 bg-obsidian px-2 py-2.5 text-xs font-bold text-slate-400 transition-all hover:border-slate-500 hover:text-white';
         }
       });
+
+      // Sync active highlight styling across the 3 left-column tier showcase cards
+      document.querySelectorAll('.tier-showcase-card').forEach((card) => {
+        const isSelected = card.dataset.tierCard === tier;
+        card.className = isSelected
+          ? 'tier-showcase-card holo-sheen animate-border-glow relative flex cursor-pointer items-center justify-between gap-3 rounded-2xl border-2 border-foil bg-surfaceElevated px-4 py-3.5 transition-all'
+          : 'tier-showcase-card flex cursor-pointer items-center justify-between gap-3 rounded-2xl border border-slate-800 bg-surface px-4 py-3.5 transition-all hover:border-royal/70';
+
+        const badge = card.querySelector('[data-tier-badge]');
+        if (badge) {
+          badge.className = isSelected
+            ? 'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-foil/20 text-xs font-extrabold text-foil ring-1 ring-foil/40 transition-colors'
+            : 'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-royal/15 text-xs font-extrabold text-blue-400 ring-1 ring-royal/30 transition-colors';
+        }
+
+        const priceText = card.querySelector('[data-tier-price-text]');
+        if (priceText) {
+          priceText.className = isSelected
+            ? 'text-lg font-black text-foil transition-colors'
+            : 'text-lg font-black text-white transition-colors';
+        }
+      });
+
       updateCheckoutTotal();
     }
 
