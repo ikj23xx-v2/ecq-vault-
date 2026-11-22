@@ -149,8 +149,9 @@
     }
   </style>
 
-  <!-- Central Supabase / Webhook / Square Configuration -->
+  <!-- Central Firebase / Supabase / Webhook / Square Configuration -->
   <script src="./config.js"></script>
+  <script type="module" src="./firebase.js"></script>
 </head>
 <body class="collector-backdrop flex min-h-screen flex-col justify-between bg-obsidian font-sans text-[#F8FAFC] antialiased selection:bg-foil selection:text-obsidian">
 
@@ -1140,11 +1141,24 @@
     }
 
     /**
-     * Sends waitlist entry to Supabase REST API and/or Webhook if configured in config.js.
-     * Returns { mode: 'verified' | 'duplicate' | 'preview' }.
+     * Resolves an optional Square Payment Link for the chosen tier from config.js.
      */
-    async function dispatchWaitlistLead(payload) {
+    function getSquarePaymentLink(tierName) {
+      const links = (window.ECQ_VAULT_CONFIG && window.ECQ_VAULT_CONFIG.squareCheckoutLinks) || {};
+      if (tierName === 'Starter Rip') return (links.starter || '').trim();
+      if (tierName === 'Pro') return (links.pro || '').trim();
+      if (tierName === 'Quest Master') return (links.questMaster || '').trim();
+      return '';
+    }
+
+    /**
+     * Sends waitlist / vault submission to Firebase Firestore (`vault_submissions`),
+     * Supabase REST API (`vault_waitlist`), and/or Webhook if configured in config.js.
+     * Returns { mode: 'verified' | 'duplicate' | 'preview', firestoreDocId: string | null }.
+     */
+    async function dispatchWaitlistLead(payload, firestoreFormData) {
       const cfg = window.ECQ_VAULT_CONFIG || {};
+      const hasFirebase = Boolean(window.ECQ_FIREBASE && window.ECQ_FIREBASE.isConfigured());
       const hasSupabase = Boolean(
         cfg.supabaseUrl &&
         cfg.supabaseAnonKey &&
@@ -1155,6 +1169,12 @@
       const hasWebhook = Boolean(cfg.webhookUrl && cfg.webhookUrl.trim());
 
       let mode = 'preview';
+      let firestoreDocId = null;
+
+      if (hasFirebase) {
+        firestoreDocId = await window.ECQ_FIREBASE.saveVaultSubmission(firestoreFormData);
+        mode = 'verified';
+      }
 
       if (hasSupabase) {
         const cleanUrl = cfg.supabaseUrl.replace(/\/+$/, '');
@@ -1190,7 +1210,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
         });
-        if (!hasSupabase) {
+        if (!hasFirebase && !hasSupabase) {
           if (!hookRes.ok) {
             throw new Error(`Unable to reach waitlist webhook (${hookRes.status}). Please try again.`);
           }
@@ -1198,7 +1218,7 @@
         }
       }
 
-      return { mode };
+      return { mode, firestoreDocId };
     }
 
     /**
@@ -1268,13 +1288,35 @@
         status: 'waitlist',
       };
 
+      const firestoreFormData = {
+        name: nameVal,
+        email: emailVal,
+        phone: phoneVal || null,
+        tier: selectedTier,
+        monthlyRate: Number(monthlyRate.toFixed(2)),
+        vipCode: priorityCode,
+        preferences: {
+          hobbyFocus: selectedHobby,
+          fulfillmentMethod: selectedFulfillment,
+          edition: selectedEdition,
+          japaneseAddon: isJapanese,
+        },
+        squarePaymentLinkUrl: getSquarePaymentLink(selectedTier),
+      };
+
       // Save locally in browser storage
       try {
         localStorage.setItem('ecq_vip_founder_pass', JSON.stringify(leadPayload));
       } catch (e) {}
 
       try {
-        const result = await dispatchWaitlistLead(leadPayload);
+        const result = await dispatchWaitlistLead(leadPayload, firestoreFormData);
+
+        // If a live Square Payment Link is configured for this tier, redirect directly to checkout
+        if (firestoreFormData.squarePaymentLinkUrl) {
+          window.location.href = firestoreFormData.squarePaymentLinkUrl;
+          return;
+        }
 
         // Populate Metallic VIP Founder Pass
         document.getElementById('founder-pass-code').textContent = priorityCode;
