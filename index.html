@@ -340,13 +340,13 @@
               onclick="selectBoxEdition('pokemon-jp')"
               class="edition-pill rounded-xl border border-transparent bg-transparent px-2.5 py-2 text-center text-[11px] font-bold leading-tight text-slate-400 transition-all hover:text-white"
             >
-              Japanese ($20 Pack / Tier)
+              Pokémon • Japanese (+$20)
             </button>
           </div>
 
-          <!-- Standard 3-Tier Stack (Sports & Pokémon) -->
+          <!-- 3-Tier Stack (Sports, Pokémon, and Pokémon Japanese +$20) -->
           <div id="standard-tiers-stack" class="space-y-3">
-            <!-- Tier 1: $25 Tier -->
+            <!-- Tier 1: Starter -->
             <div
               role="button"
               tabindex="0"
@@ -359,7 +359,7 @@
                   01
                 </span>
                 <div>
-                  <div id="tier-title-starter" class="text-sm font-extrabold text-white">Sports Vault — $25 Tier</div>
+                  <div id="tier-title-starter" class="text-sm font-extrabold text-white">Sports Vault Starter Tier</div>
                   <div id="tier-desc-starter" class="text-xs text-[#94A3B8]">
                     2 packs of cards from various sets • 1 numbered card + 2 unnumbered cards • ECQ Loyalty stamp.
                   </div>
@@ -371,7 +371,7 @@
               </div>
             </div>
 
-            <!-- Tier 2: $35 Tier (Featured with Foil Gold Border & MOST POPULAR Badge) -->
+            <!-- Tier 2: Pro (Featured with Foil Gold Border & MOST POPULAR Badge) -->
             <div
               role="button"
               tabindex="0"
@@ -385,7 +385,7 @@
                 </span>
                 <div>
                   <div class="flex flex-wrap items-center gap-2">
-                    <span id="tier-title-pro" class="text-sm font-extrabold text-white">Sports Vault — $35 Tier</span>
+                    <span id="tier-title-pro" class="text-sm font-extrabold text-white">Sports Vault Pro Tier</span>
                     <span class="rounded bg-foil px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-obsidian">
                       MOST POPULAR
                     </span>
@@ -401,7 +401,7 @@
               </div>
             </div>
 
-            <!-- Tier 3: $50 Tier -->
+            <!-- Tier 3: Quest Master -->
             <div
               role="button"
               tabindex="0"
@@ -414,7 +414,7 @@
                   03
                 </span>
                 <div>
-                  <div id="tier-title-quest-master" class="text-sm font-extrabold text-white">Sports Vault — $50 Tier</div>
+                  <div id="tier-title-quest-master" class="text-sm font-extrabold text-white">Sports Vault Quest Master Tier</div>
                   <div id="tier-desc-quest-master" class="text-xs text-[#94A3B8]">
                     4 packs of cards from various sets • 3 numbered cards + 5 unnumbered cards • ECQ Loyalty stamp • 10% off purchases in stores • Early release ordering • VIP Rip Nights.
                   </div>
@@ -427,29 +427,9 @@
             </div>
           </div>
 
-          <!-- Standalone Japanese $20 Tier Card (Shown when Japanese ($20) tab is selected) -->
-          <div id="japanese-tier-card" class="hidden">
-            <div class="holo-sheen animate-border-glow flex items-center justify-between gap-3 rounded-2xl border-2 border-foil bg-surfaceElevated px-4 py-4">
-              <div class="flex items-center gap-3">
-                <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-foil/20 text-xs font-extrabold text-foil ring-1 ring-foil/40">
-                  JP
-                </span>
-                <div>
-                  <div class="text-sm font-extrabold text-white">Japanese Pack / Tier — $20</div>
-                  <div class="text-xs text-slate-200">
-                    Japanese edition pack selection ($20). You can also add Japanese packs ($20 each) onto any Sports or Pokémon Vault tier.
-                  </div>
-                </div>
-              </div>
-              <div class="shrink-0 text-right">
-                <span class="text-lg font-black text-foil">$20</span>
-              </div>
-            </div>
-          </div>
-
           <!-- Pricing Callout Note -->
           <p class="rounded-xl border border-slate-800/90 bg-obsidian/75 px-3.5 py-2.5 text-xs leading-relaxed text-slate-300">
-            <span class="font-bold text-foil">Note:</span> Sports &amp; Pokémon Vault tiers are $25 / $35 / $50. Add Japanese Packs for <strong class="text-white">$20 each</strong>—or order the standalone $20 Japanese Pack / Tier.
+            <span class="font-bold text-foil">Note:</span> Sports &amp; Standard Pokémon Vault tiers are $25 / $35 / $50. Add Japanese Pack Selection (+$20) on any Pokémon tier for <strong class="text-white">$45 / $55 / $70</strong> with locked-price Square checkout.
           </p>
         </div>
       </div>
@@ -552,11 +532,11 @@
                   </button>
                   <button
                     type="button"
-                    data-hobby="Pokémon (Japanese +$10)"
-                    onclick="selectHobbyFocus('Pokémon (Japanese +$10)')"
+                    data-hobby="Pokémon (Japanese +$20)"
+                    onclick="selectHobbyFocus('Pokémon (Japanese +$20)')"
                     class="hobby-pill rounded-xl border border-slate-700 bg-obsidian px-3 py-2.5 text-xs font-bold text-slate-400 transition-all hover:border-slate-500 hover:text-white"
                   >
-                    Pokémon (Japanese +$10)
+                    Pokémon (Japanese +$20)
                   </button>
                   <button
                     type="button"
@@ -635,32 +615,26 @@
                 </div>
               </div>
 
-              <!-- Optional $20 Japanese Packs Add-On (shown for Sports / Pokémon) -->
-              <div id="japanese-addon-row" class="flex items-center justify-between gap-3 rounded-xl border border-slate-700/90 bg-obsidian px-4 py-3">
+              <!-- Japanese +$20 Add-On Toggle (Visible on Pokémon only) -->
+              <label
+                id="japanese-addon-row"
+                class="hidden flex cursor-pointer items-center justify-between gap-3 rounded-xl border border-slate-700/90 bg-obsidian px-4 py-3 transition-colors hover:border-foil/70"
+              >
                 <div>
-                  <div class="text-xs font-extrabold text-white">Add Japanese Packs <span class="text-foil">($20 each)</span></div>
-                  <div class="text-[11px] text-slate-400">Include Japanese packs with your Vault order</div>
+                  <div class="text-xs font-extrabold text-white">
+                    Add Japanese Pack Selection <span class="text-foil">(+$20)</span>
+                  </div>
+                  <div id="japanese-addon-sub" class="text-[11px] text-slate-400">
+                    Upgrades to Pokémon Vault Pro Tier Japanese ($55.00)
+                  </div>
                 </div>
-                <div class="flex items-center gap-2.5">
-                  <button
-                    type="button"
-                    onclick="adjustJapaneseQty(-1)"
-                    class="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-700 bg-surfaceElevated text-sm font-black text-white hover:border-foil hover:text-foil transition-colors"
-                    aria-label="Decrease Japanese pack quantity"
-                  >
-                    −
-                  </button>
-                  <span id="japanese-qty-display" class="w-5 text-center font-mono text-sm font-extrabold text-foil">0</span>
-                  <button
-                    type="button"
-                    onclick="adjustJapaneseQty(1)"
-                    class="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-700 bg-surfaceElevated text-sm font-black text-white hover:border-foil hover:text-foil transition-colors"
-                    aria-label="Increase Japanese pack quantity"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
+                <input
+                  type="checkbox"
+                  id="japanese-addon-checkbox"
+                  onchange="toggleJapaneseCheckbox(this.checked)"
+                  class="h-5 w-5 cursor-pointer rounded accent-amber-500"
+                />
+              </label>
 
               <!-- Optional Preferences / Notes -->
               <div>
@@ -676,14 +650,14 @@
                 ></textarea>
               </div>
 
-              <!-- Live Square Checkout Total Banner -->
+              <!-- Live Locked-Price Square Checkout Summary -->
               <div class="rounded-xl border border-foil/35 bg-foil/10 px-4 py-3 text-xs">
                 <div class="flex items-center justify-between font-extrabold text-sm text-foilLight">
-                  <span>Total Due at Square Checkout:</span>
+                  <span id="checkout-tier-label">Sports Vault Pro Tier</span>
                   <span id="checkout-total-display" class="font-mono text-base">$35.00</span>
                 </div>
                 <p class="mt-1 text-slate-300">
-                  After clicking below, enter <strong id="checkout-total-inline" class="text-white">$35.00</strong> on the Square payment screen to complete your order.
+                  Locked-price Square checkout—your order &amp; VIP Founder Pass save automatically before redirecting.
                 </p>
               </div>
 
@@ -697,7 +671,7 @@
                   id="vip-submit-btn"
                   class="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-foil via-amber-400 to-foil px-6 py-4 text-sm font-black uppercase tracking-wider text-obsidian shadow-[0_10px_30px_rgba(245,158,11,0.35)] transition-all duration-200 hover:scale-[1.01] hover:brightness-110 active:scale-[0.99]"
                 >
-                  <span id="vip-submit-label">Continue to Square ($35.00) →</span>
+                  <span id="vip-submit-label">Pay $35.00 with Square →</span>
                 </button>
               </div>
 
@@ -1055,20 +1029,20 @@
     })();
 
     // Interactive State
-    let selectedEdition = 'sports';
+    let selectedEdition = 'sports'; // 'sports' | 'pokemon-cn-kr' | 'pokemon-jp'
     let selectedHobby = 'Sports Cards';
     let selectedTier = 'Pro';
     let selectedFulfillment = 'Valley Mall Pickup';
-    let japaneseQty = 0;
+    let includeJapanese = false;
 
     const EDITION_CONFIG = {
       sports: {
         category: 'sports',
         prices: { starter: 25, pro: 35, questMaster: 50 },
         titles: {
-          starter: 'Sports Vault — $25 Tier',
-          pro: 'Sports Vault — $35 Tier',
-          questMaster: 'Sports Vault — $50 Tier',
+          starter: 'Sports Vault Starter Tier',
+          pro: 'Sports Vault Pro Tier',
+          questMaster: 'Sports Vault Quest Master Tier',
         },
         descs: {
           starter: '2 packs of cards from various sets • 1 numbered card + 2 unnumbered cards • ECQ Loyalty stamp.',
@@ -1082,9 +1056,9 @@
         category: 'pokemon',
         prices: { starter: 25, pro: 35, questMaster: 50 },
         titles: {
-          starter: 'Pokémon Vault — $25 Tier',
-          pro: 'Pokémon Vault — $35 Tier',
-          questMaster: 'Pokémon Vault — $50 Tier',
+          starter: 'Pokémon Vault Starter Tier',
+          pro: 'Pokémon Vault Pro Tier',
+          questMaster: 'Pokémon Vault Quest Master Tier',
         },
         descs: {
           starter: 'Standard $25 Pokémon Vault package • ECQ Loyalty stamp.',
@@ -1095,10 +1069,20 @@
         hobby: 'Pokémon (CN / KR)',
       },
       'pokemon-jp': {
-        category: 'japanese',
-        prices: { starter: 20, pro: 20, questMaster: 20 },
-        badge: 'Japanese Pack / Tier • $20',
-        hobby: 'Pokémon (Japanese +$10)',
+        category: 'pokemon',
+        prices: { starter: 45, pro: 55, questMaster: 70 },
+        titles: {
+          starter: 'Pokémon Vault Starter Tier Japanese',
+          pro: 'Pokémon Vault Pro Tier Japanese',
+          questMaster: 'Pokémon Vault Quest Master Tier Japanese',
+        },
+        descs: {
+          starter: 'Standard $25 Pokémon Vault package + $20 Japanese Pack Selection • ECQ Loyalty stamp.',
+          pro: 'Upgraded Pokémon pack & hit assortment + $20 Japanese Pack Selection • ECQ Loyalty stamp • 5% off singles purchases.',
+          questMaster: '8 packs of cards • 1 SR or 1 SAR guaranteed • Chance at a graded card + $20 Japanese Pack Selection • Early access • VIP Rip Nights.',
+        },
+        badge: 'Pokémon Japanese (+$20) • $45 / $55 / $70',
+        hobby: 'Pokémon (Japanese +$20)',
       },
     };
 
@@ -1108,35 +1092,46 @@
       'Quest Master': 50,
     };
 
-    function getCalculatedTotal() {
-      if (selectedEdition === 'pokemon-jp') return 20;
-      const base = TIER_BASE_PRICES[selectedTier] || 35;
-      return base + japaneseQty * 20;
+    function getActiveTierMeta() {
+      const cfg = EDITION_CONFIG[selectedEdition] || EDITION_CONFIG.sports;
+      const basePrice = TIER_BASE_PRICES[selectedTier] || 35;
+      const isPokemon = cfg.category === 'pokemon';
+      const isJapaneseApplied = isPokemon && (includeJapanese || selectedEdition === 'pokemon-jp');
+      const total = basePrice + (isJapaneseApplied ? 20 : 0);
+      const tierKey = selectedTier === 'Starter Rip' ? 'starter' : selectedTier === 'Quest Master' ? 'questMaster' : 'pro';
+      const linkKey = `${cfg.category}-${basePrice}${isJapaneseApplied ? '-jp' : ''}`;
+      const baseTitle = EDITION_CONFIG[isPokemon ? 'pokemon-cn-kr' : 'sports'].titles[tierKey];
+      const orderTitle = isJapaneseApplied ? `${baseTitle} Japanese` : baseTitle;
+      return { category: cfg.category, basePrice, isPokemon, isJapaneseApplied, total, linkKey, baseTitle, orderTitle };
     }
 
     function updateCheckoutTotal() {
-      const total = getCalculatedTotal();
-      const formatted = `$${total}.00`;
+      const meta = getActiveTierMeta();
+      const formatted = `$${meta.total}.00`;
       const disp = document.getElementById('checkout-total-display');
-      const inlineEl = document.getElementById('checkout-total-inline');
-      const qtyEl = document.getElementById('japanese-qty-display');
+      const tierLbl = document.getElementById('checkout-tier-label');
       const submitLabel = document.getElementById('vip-submit-label');
+      const jpSub = document.getElementById('japanese-addon-sub');
+      const jpCb = document.getElementById('japanese-addon-checkbox');
+      const jpRow = document.getElementById('japanese-addon-row');
 
       if (disp) disp.textContent = formatted;
-      if (inlineEl) inlineEl.textContent = formatted;
-      if (qtyEl) qtyEl.textContent = String(japaneseQty);
+      if (tierLbl) tierLbl.textContent = meta.orderTitle;
+      if (jpRow) jpRow.classList.toggle('hidden', !meta.isPokemon);
+      if (jpCb) jpCb.checked = meta.isJapaneseApplied;
+      if (jpSub) jpSub.textContent = `Upgrades to ${meta.baseTitle} Japanese ($${meta.basePrice + 20}.00)`;
 
-      const hasSquareLink = Boolean(getSquarePaymentLink(selectedTier));
+      const hasSquareLink = Boolean(getSquarePaymentLink(meta.linkKey));
       if (submitLabel) {
         submitLabel.textContent = hasSquareLink
-          ? `Continue to Square (${formatted}) →`
+          ? `Pay ${formatted} with Square →`
           : `Join VIP Drop List (${formatted}) →`;
       }
     }
 
-    function adjustJapaneseQty(delta) {
-      japaneseQty = Math.max(0, Math.min(20, japaneseQty + delta));
-      updateCheckoutTotal();
+    function toggleJapaneseCheckbox(checked) {
+      includeJapanese = Boolean(checked);
+      selectBoxEdition(includeJapanese ? 'pokemon-jp' : 'pokemon-cn-kr', true);
     }
 
     /**
@@ -1147,17 +1142,10 @@
       if (!config) return;
 
       selectedEdition = editionKey;
-      const isJapaneseStandalone = editionKey === 'pokemon-jp';
+      includeJapanese = editionKey === 'pokemon-jp';
+      const isJapanese = editionKey === 'pokemon-jp';
 
-      // Toggle standard 3-tier stack vs standalone $20 Japanese card + add-on stepper
-      const stdStack = document.getElementById('standard-tiers-stack');
-      const jpCard = document.getElementById('japanese-tier-card');
-      const jpAddonRow = document.getElementById('japanese-addon-row');
-      if (stdStack) stdStack.classList.toggle('hidden', isJapaneseStandalone);
-      if (jpCard) jpCard.classList.toggle('hidden', !isJapaneseStandalone);
-      if (jpAddonRow) jpAddonRow.classList.toggle('hidden', isJapaneseStandalone);
-
-      if (!isJapaneseStandalone && config.titles && config.descs) {
+      if (config.titles && config.descs) {
         document.getElementById('tier-title-starter').textContent = config.titles.starter;
         document.getElementById('tier-desc-starter').textContent = config.descs.starter;
         document.getElementById('tier-title-pro').textContent = config.titles.pro;
@@ -1180,18 +1168,16 @@
 
       const badgeEl = document.getElementById('edition-status-badge');
       badgeEl.textContent = config.badge;
-      badgeEl.className =
-        isJapaneseStandalone
-          ? 'text-[11px] font-bold text-foil'
-          : 'text-[11px] font-semibold text-blue-400';
+      badgeEl.className = isJapanese
+        ? 'text-[11px] font-bold text-foil'
+        : 'text-[11px] font-semibold text-blue-400';
 
       // Style active edition pill
       document.querySelectorAll('.edition-pill').forEach((btn) => {
         if (btn.dataset.edition === editionKey) {
-          btn.className =
-            isJapaneseStandalone
-              ? 'edition-pill rounded-xl border-2 border-foil bg-foil/15 px-2.5 py-2 text-center text-[11px] font-extrabold leading-tight text-white transition-all shadow-[0_0_16px_rgba(245,158,11,0.2)]'
-              : 'edition-pill rounded-xl border-2 border-royal bg-royal/20 px-2.5 py-2 text-center text-[11px] font-extrabold leading-tight text-white transition-all shadow-[0_0_16px_rgba(37,99,235,0.2)]';
+          btn.className = isJapanese
+            ? 'edition-pill rounded-xl border-2 border-foil bg-foil/15 px-2.5 py-2 text-center text-[11px] font-extrabold leading-tight text-white transition-all shadow-[0_0_16px_rgba(245,158,11,0.2)]'
+            : 'edition-pill rounded-xl border-2 border-royal bg-royal/20 px-2.5 py-2 text-center text-[11px] font-extrabold leading-tight text-white transition-all shadow-[0_0_16px_rgba(37,99,235,0.2)]';
         } else {
           btn.className =
             'edition-pill rounded-xl border border-transparent bg-transparent px-2.5 py-2 text-center text-[11px] font-bold leading-tight text-slate-400 transition-all hover:text-white';
@@ -1224,7 +1210,7 @@
           selectBoxEdition('sports', false);
         } else if (hobby === 'Pokémon (CN / KR)') {
           selectBoxEdition('pokemon-cn-kr', false);
-        } else if (hobby === 'Pokémon (Japanese +$10)') {
+        } else if (hobby === 'Pokémon (Japanese +$20)') {
           selectBoxEdition('pokemon-jp', false);
         }
       }
@@ -1290,16 +1276,11 @@
     }
 
     /**
-     * Resolves an optional Square Payment Link for the chosen tier (or universal defaultPaymentLink) from config.js.
+     * Resolves the exact locked-price Square Payment Link for the active tierId (e.g. "pokemon-35-jp").
      */
-    function getSquarePaymentLink(tierName) {
-      const links = (window.ECQ_VAULT_CONFIG && window.ECQ_VAULT_CONFIG.squareCheckoutLinks) || {};
-      let url = '';
-      if (tierName === 'Starter Rip') url = (links.starter || '').trim();
-      else if (tierName === 'Pro') url = (links.pro || '').trim();
-      else if (tierName === 'Quest Master') url = (links.questMaster || '').trim();
-
-      if (!url) url = (links.defaultPaymentLink || '').trim();
+    function getSquarePaymentLink(linkKey) {
+      const map = (window.ECQ_VAULT_CONFIG && window.ECQ_VAULT_CONFIG.squareLinks) || {};
+      const url = (map[linkKey] || '').trim();
       if (!url || url.includes('YOUR_SQUARE_LINK')) return '';
       return url;
     }
@@ -1419,16 +1400,9 @@
       const randomDigits = Math.floor(1000 + Math.random() * 9000);
       const priorityCode = `ECQ-VIP-${randomDigits}`;
 
-      const editionCfg = EDITION_CONFIG[selectedEdition] || EDITION_CONFIG.sports;
-      const isJapaneseStandalone = selectedEdition === 'pokemon-jp';
-      const monthlyRate = getCalculatedTotal();
-      const baseTierLabel = isJapaneseStandalone
-        ? 'Japanese Pack / Tier — $20'
-        : `${editionCfg.category === 'pokemon' ? 'Pokémon' : 'Sports'} Vault — $${TIER_BASE_PRICES[selectedTier] || 35} Tier`;
-      const tierSummary =
-        !isJapaneseStandalone && japaneseQty > 0
-          ? `${baseTierLabel} + ${japaneseQty}x Japanese ($20 ea)`
-          : baseTierLabel;
+      const meta = getActiveTierMeta();
+      const monthlyRate = meta.total;
+      const tierSummary = meta.orderTitle;
 
       const userNotes = (document.getElementById('collector-preferences')?.value || '').trim();
       const combinedPreferences = [
@@ -1457,14 +1431,15 @@
         name: nameVal,
         email: emailVal,
         phone: phoneVal || null,
-        category: editionCfg.category,
+        category: meta.category,
+        tierId: meta.linkKey,
         tier: tierSummary,
-        japaneseAddonQty: isJapaneseStandalone ? 1 : japaneseQty,
+        japaneseAddon: meta.isJapaneseApplied,
         totalAmount: Number(monthlyRate.toFixed(2)),
         monthlyRate: Number(monthlyRate.toFixed(2)),
         vipCode: priorityCode,
         preferences: combinedPreferences,
-        squarePaymentLinkUrl: getSquarePaymentLink(selectedTier),
+        squarePaymentLinkUrl: getSquarePaymentLink(meta.linkKey),
       };
 
       // Save locally in browser storage
@@ -1553,7 +1528,7 @@
      */
     function resetWaitlistForm() {
       document.getElementById('vip-waitlist-form').reset();
-      japaneseQty = 0;
+      includeJapanese = false;
       selectBoxEdition('sports', true);
       selectPreferredTier('Pro');
       selectFulfillment('Valley Mall Pickup');

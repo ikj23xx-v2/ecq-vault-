@@ -54,9 +54,10 @@ export async function saveVaultSubmission(formData) {
     email: formData.email.toLowerCase(),
     phone: formData.phone || null,
     category: formData.category || 'sports',
+    tierId: formData.tierId || null,
     tier: formData.tier,
-    japaneseAddonQty: formData.japaneseAddonQty ?? 0,
-    expectedTotal: formData.totalAmount, // Shows in your CRM so you can verify the amount paid
+    japaneseAddon: Boolean(formData.japaneseAddon),
+    expectedTotal: formData.totalAmount,
     monthlyRate: formData.monthlyRate,
     preferences: formData.preferences,
     vipCode: formData.vipCode,

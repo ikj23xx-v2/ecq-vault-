@@ -20,13 +20,21 @@ window.ECQ_VAULT_CONFIG = {
   // Optional webhook mirror
   webhookUrl: "",
 
-  // Square Payment Links (paste your universal link in defaultPaymentLink, or per-tier links below;
-  // when empty or placeholder, displays the instant VIP Founder Pass confirmation UI)
-  squareCheckoutLinks: {
-    defaultPaymentLink: "https://square.link/u/z3ec9Nlf",
-    starter: "",
-    pro: "",
-    questMaster: "",
-    portalUrl: ""
+  // Locked-price Square Payment Links mapped by tierId
+  squareLinks: {
+    // Sports Tiers
+    "sports-25": "https://square.link/u/4UyKo91X", // Sports Vault Starter Tier ($25)
+    "sports-35": "https://square.link/u/b1JHcRNn", // Sports Vault Pro Tier ($35)
+    "sports-50": "https://square.link/u/ERnlpCPt", // Sports Vault Quest Master Tier ($50)
+
+    // Pokémon Standard Tiers
+    "pokemon-25": "https://square.link/u/y3YMqNRA", // Pokémon Vault Starter Tier ($25)
+    "pokemon-35": "https://square.link/u/Fl8DSl8u", // Pokémon Vault Pro Tier ($35)
+    "pokemon-50": "https://square.link/u/GdBpDjST", // Pokémon Vault Quest Master Tier ($50)
+
+    // Pokémon Tiers + $20 Japanese Add-On
+    "pokemon-25-jp": "https://square.link/u/INjYK8XT", // Pokémon Vault Starter Tier Japanese ($45)
+    "pokemon-35-jp": "https://square.link/u/r6LrxIHB", // Pokémon Vault Pro Tier Japanese ($55)
+    "pokemon-50-jp": "https://square.link/u/Igp1T3tc", // Pokémon Vault Quest Master Tier Japanese ($70)
   }
 };
