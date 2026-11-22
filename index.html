@@ -956,7 +956,9 @@
       const hasSupabase = Boolean(
         cfg.supabaseUrl &&
         cfg.supabaseAnonKey &&
-        !cfg.supabaseUrl.includes('your-project-ref')
+        !cfg.supabaseUrl.toLowerCase().includes('your_project_ref') &&
+        !cfg.supabaseUrl.toLowerCase().includes('your-project-ref') &&
+        !cfg.supabaseAnonKey.toLowerCase().includes('your_supabase_anon_key')
       );
       const hasWebhook = Boolean(cfg.webhookUrl && cfg.webhookUrl.trim());
 
