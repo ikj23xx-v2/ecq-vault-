@@ -433,7 +433,7 @@
           <!-- Pricing Callout Note -->
           <div class="space-y-2 rounded-xl border border-slate-800/90 bg-obsidian/75 px-3.5 py-2.5 text-xs leading-relaxed text-slate-300">
             <p>
-              <span class="font-bold text-foil">Note:</span> Sports &amp; Standard Pokémon Vault tiers are $25 / $35 / $50. Add Japanese Pack Selection (+$20) on any Pokémon tier for <strong class="text-white">$45 / $55 / $70</strong> with locked-price Square checkout.
+              <span class="font-bold text-foil">Note:</span> Base pricing ($25 / $35 / $50) applies to Sports and Chinese/Korean Pokémon boxes (with a chance at English). Japanese Pokémon boxes add +$20/mo per tier.
             </p>
             <p class="text-slate-300">
               Quest Master members get <strong class="text-foil">early access before the site launches</strong> on allocated drops and restocks, plus entry to VIP Rip Nights.
@@ -614,11 +614,11 @@
                   </button>
                   <button
                     type="button"
-                    data-fulfillment="Ship to Door"
-                    onclick="selectFulfillment('Ship to Door')"
+                    data-fulfillment="Ship"
+                    onclick="selectFulfillment('Ship')"
                     class="fulfillment-pill rounded-xl border border-slate-700 bg-obsidian px-3 py-2.5 text-xs font-bold text-slate-400 transition-all hover:border-slate-500 hover:text-white"
                   >
-                    Ship to Door
+                    Ship
                   </button>
                 </div>
               </div>
@@ -656,6 +656,11 @@
                   placeholder="Favorite teams, players, or Pokémon sets..."
                   class="w-full rounded-xl border border-slate-700 bg-obsidian px-4 py-2.5 text-sm text-white placeholder-slate-500 transition-colors focus:border-royal focus:outline-none focus:ring-2 focus:ring-royal/30"
                 ></textarea>
+              </div>
+
+              <!-- Two-Step Checkout Notice (Visible when Both is selected) -->
+              <div id="both-checkout-notice" class="hidden rounded-xl border border-blue-500/35 bg-blue-500/10 px-4 py-3 text-xs text-blue-200">
+                <strong class="text-white">2-Step Checkout:</strong> You’ll complete <strong id="both-step1-label" class="text-foil">Sports Vault Pro Tier ($35)</strong> first, then return automatically to finish <strong id="both-step2-label" class="text-foil">Pokémon Vault Pro Tier ($35)</strong>.
               </div>
 
               <!-- Live Locked-Price Square Checkout Summary -->
@@ -1101,16 +1106,58 @@
     };
 
     function getActiveTierMeta() {
+      const isBoth = selectedHobby === 'Both';
       const cfg = EDITION_CONFIG[selectedEdition] || EDITION_CONFIG.sports;
       const basePrice = TIER_BASE_PRICES[selectedTier] || 35;
-      const isPokemon = cfg.category === 'pokemon';
+      const isPokemon = isBoth || cfg.category === 'pokemon';
       const isJapaneseApplied = isPokemon && (includeJapanese || selectedEdition === 'pokemon-jp');
-      const total = basePrice + (isJapaneseApplied ? 20 : 0);
       const tierKey = selectedTier === 'Starter Rip' ? 'starter' : selectedTier === 'Quest Master' ? 'questMaster' : 'pro';
+
+      const sportsTitle = EDITION_CONFIG.sports.titles[tierKey];
+      const pokemonBaseTitle = EDITION_CONFIG['pokemon-cn-kr'].titles[tierKey];
+      const pokemonTitle = isJapaneseApplied ? `${pokemonBaseTitle} Japanese` : pokemonBaseTitle;
+      const sportsLinkKey = `sports-${basePrice}`;
+      const pokemonLinkKey = `pokemon-${basePrice}${isJapaneseApplied ? '-jp' : ''}`;
+      const pokemonFinalPrice = basePrice + (isJapaneseApplied ? 20 : 0);
+
+      if (isBoth) {
+        return {
+          category: 'both',
+          isBoth: true,
+          basePrice,
+          isPokemon: true,
+          isJapaneseApplied,
+          total: basePrice + pokemonFinalPrice,
+          step1Price: basePrice,
+          linkKey: `${sportsLinkKey} + ${pokemonLinkKey}`,
+          firstLinkKey: sportsLinkKey,
+          secondLinkKey: pokemonLinkKey,
+          baseTitle: pokemonBaseTitle,
+          sportsLabel: `${sportsTitle} ($${basePrice})`,
+          pokemonLabel: `${pokemonTitle} ($${pokemonFinalPrice})`,
+          orderTitle: `${sportsTitle} + ${pokemonTitle}`,
+        };
+      }
+
       const linkKey = `${cfg.category}-${basePrice}${isJapaneseApplied ? '-jp' : ''}`;
       const baseTitle = EDITION_CONFIG[isPokemon ? 'pokemon-cn-kr' : 'sports'].titles[tierKey];
       const orderTitle = isJapaneseApplied ? `${baseTitle} Japanese` : baseTitle;
-      return { category: cfg.category, basePrice, isPokemon, isJapaneseApplied, total, linkKey, baseTitle, orderTitle };
+      return {
+        category: cfg.category,
+        isBoth: false,
+        basePrice,
+        isPokemon,
+        isJapaneseApplied,
+        total: basePrice + (isJapaneseApplied ? 20 : 0),
+        step1Price: basePrice + (isJapaneseApplied ? 20 : 0),
+        linkKey,
+        firstLinkKey: linkKey,
+        secondLinkKey: null,
+        baseTitle,
+        sportsLabel: `${sportsTitle} ($${basePrice})`,
+        pokemonLabel: `${pokemonTitle} ($${pokemonFinalPrice})`,
+        orderTitle,
+      };
     }
 
     function updateCheckoutTotal() {
@@ -1122,24 +1169,38 @@
       const jpSub = document.getElementById('japanese-addon-sub');
       const jpCb = document.getElementById('japanese-addon-checkbox');
       const jpRow = document.getElementById('japanese-addon-row');
+      const bothNotice = document.getElementById('both-checkout-notice');
+      const bothStep1 = document.getElementById('both-step1-label');
+      const bothStep2 = document.getElementById('both-step2-label');
 
       if (disp) disp.textContent = formatted;
       if (tierLbl) tierLbl.textContent = meta.orderTitle;
       if (jpRow) jpRow.classList.toggle('hidden', !meta.isPokemon);
       if (jpCb) jpCb.checked = meta.isJapaneseApplied;
-      if (jpSub) jpSub.textContent = `Upgrades to ${meta.baseTitle} Japanese ($${meta.basePrice + 20}.00)`;
+      if (jpSub) jpSub.textContent = `Upgrades Pokémon box to ${meta.baseTitle} Japanese ($${meta.basePrice + 20}.00)`;
+      if (bothNotice) bothNotice.classList.toggle('hidden', !meta.isBoth);
+      if (bothStep1) bothStep1.textContent = meta.sportsLabel;
+      if (bothStep2) bothStep2.textContent = meta.pokemonLabel;
 
-      const hasSquareLink = Boolean(getSquarePaymentLink(meta.linkKey));
+      const hasSquareLink = Boolean(getSquarePaymentLink(meta.firstLinkKey));
       if (submitLabel) {
-        submitLabel.textContent = hasSquareLink
-          ? `Pay ${formatted} with Square →`
-          : `Join VIP Drop List (${formatted}) →`;
+        if (hasSquareLink && meta.isBoth) {
+          submitLabel.textContent = `Step 1 of 2: Pay $${meta.step1Price}.00 (Total ${formatted}) →`;
+        } else if (hasSquareLink) {
+          submitLabel.textContent = `Pay ${formatted} with Square →`;
+        } else {
+          submitLabel.textContent = `Join VIP Drop List (${formatted}) →`;
+        }
       }
     }
 
     function toggleJapaneseCheckbox(checked) {
       includeJapanese = Boolean(checked);
-      selectBoxEdition(includeJapanese ? 'pokemon-jp' : 'pokemon-cn-kr', true);
+      if (selectedHobby === 'Both') {
+        updateCheckoutTotal();
+      } else {
+        selectBoxEdition(includeJapanese ? 'pokemon-jp' : 'pokemon-cn-kr', true);
+      }
     }
 
     /**
@@ -1220,6 +1281,8 @@
           selectBoxEdition('pokemon-cn-kr', false);
         } else if (hobby === 'Pokémon (Japanese +$20)') {
           selectBoxEdition('pokemon-jp', false);
+        } else if (hobby === 'Both') {
+          updateCheckoutTotal();
         }
       }
     }
@@ -1458,6 +1521,9 @@
         status: 'waitlist',
       };
 
+      const firstCheckoutUrl = getSquarePaymentLink(meta.firstLinkKey);
+      const secondCheckoutUrl = meta.secondLinkKey ? getSquarePaymentLink(meta.secondLinkKey) : null;
+
       const firestoreFormData = {
         name: nameVal,
         email: emailVal,
@@ -1470,12 +1536,27 @@
         monthlyRate: Number(monthlyRate.toFixed(2)),
         vipCode: priorityCode,
         preferences: combinedPreferences,
-        squarePaymentLinkUrl: getSquarePaymentLink(meta.linkKey),
+        squarePaymentLinkUrl: firstCheckoutUrl,
       };
 
-      // Save locally in browser storage
+      // Save locally in browser storage (including 2-step checkout metadata for /thank-you)
       try {
         localStorage.setItem('ecq_vip_founder_pass', JSON.stringify(leadPayload));
+        localStorage.setItem(
+          'pendingVaultOrder',
+          JSON.stringify({
+            isBoth: meta.isBoth,
+            step: 1,
+            customerName: nameVal,
+            email: emailVal,
+            phone: phoneVal || '',
+            tier: tierSummary,
+            totalAmount: Number(monthlyRate.toFixed(2)),
+            sportsLabel: meta.sportsLabel,
+            pokemonLabel: meta.pokemonLabel,
+            secondCheckoutUrl,
+          })
+        );
       } catch (e) {}
 
       try {

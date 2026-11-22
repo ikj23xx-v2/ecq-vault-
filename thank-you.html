@@ -65,6 +65,24 @@
         </p>
       </div>
 
+      <!-- Step 2 of 2 Prompt (Shown only for "Both" Sports + Pokémon orders after Step 1) -->
+      <div id="step2-panel" class="hidden rounded-2xl border-2 border-blue-500/50 bg-blue-500/10 p-5 text-center space-y-4">
+        <div class="inline-flex items-center gap-1.5 rounded-full bg-blue-500/20 px-3 py-1 text-[10px] font-extrabold uppercase tracking-widest text-blue-200">
+          Step 1 of 2 Complete
+        </div>
+        <h2 class="text-xl font-black text-white">Finish Your Pokémon Vault Box</h2>
+        <p class="text-xs sm:text-sm text-slate-300">
+          Your <strong id="step2-sports-label" class="text-white">Sports Vault</strong> checkout is done. Click below to complete <strong id="step2-pokemon-label" class="text-foil">Pokémon Vault</strong> on Square.
+        </p>
+        <button
+          type="button"
+          id="step2-continue-btn"
+          class="w-full rounded-xl bg-gradient-to-r from-foil via-amber-400 to-foil py-3.5 text-sm font-black uppercase tracking-wider text-obsidian shadow-[0_10px_30px_rgba(245,158,11,0.35)] hover:brightness-110 transition-all"
+        >
+          Continue to Step 2: Pokémon Checkout →
+        </button>
+      </div>
+
       <!-- Confirmed VIP Founder Pass -->
       <div class="rounded-2xl border-2 border-foil bg-gradient-to-br from-[#162038] via-[#0F172A] to-[#1E3A8A]/70 p-5 shadow-[0_20px_55px_rgba(245,158,11,0.25)]">
         <div class="flex items-center justify-between border-b border-slate-700/80 pb-3.5">
@@ -180,6 +198,25 @@
           }
         }
 
+        const rawPending = localStorage.getItem('pendingVaultOrder');
+        const pendingOrder = rawPending ? JSON.parse(rawPending) : null;
+
+        // Handle 2-step "Both" (Sports + Pokémon) checkout flow
+        if (pendingOrder && pendingOrder.isBoth && pendingOrder.step === 1 && pendingOrder.secondCheckoutUrl) {
+          document.getElementById('ty-status-pill').textContent = '✓ Step 1 of 2 Complete';
+          document.getElementById('ty-heading').textContent = 'One More Step!';
+          document.getElementById('step2-sports-label').textContent = pendingOrder.sportsLabel || 'Sports Vault';
+          document.getElementById('step2-pokemon-label').textContent = pendingOrder.pokemonLabel || 'Pokémon Vault';
+          document.getElementById('step2-panel').classList.remove('hidden');
+
+          document.getElementById('step2-continue-btn').addEventListener('click', () => {
+            pendingOrder.step = 2;
+            localStorage.setItem('pendingVaultOrder', JSON.stringify(pendingOrder));
+            window.location.href = pendingOrder.secondCheckoutUrl;
+          });
+          return;
+        }
+
         const submissionId = localStorage.getItem('pendingSubmissionId');
         if (submissionId) {
           // 1. Mark the Vault order as Paid
@@ -191,11 +228,14 @@
           }
 
           localStorage.removeItem('pendingSubmissionId');
+          localStorage.removeItem('pendingVaultOrder');
         }
       } catch (err) {
         console.error('Post-checkout sync error:', err);
       } finally {
-        document.getElementById('ty-heading').textContent = 'Order Confirmed!';
+        if (document.getElementById('step2-panel').classList.contains('hidden')) {
+          document.getElementById('ty-heading').textContent = 'Order Confirmed!';
+        }
       }
     })();
 
