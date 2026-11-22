@@ -366,9 +366,18 @@
                   </div>
                 </div>
               </div>
-              <div class="shrink-0 text-right">
-                <span id="tier-price-starter" data-tier-price-text="Starter Rip" class="text-lg font-black text-white transition-colors">$25</span>
-                <span class="text-xs font-medium text-slate-400">/mo</span>
+              <div class="flex shrink-0 items-center gap-3 text-right">
+                <img
+                  id="tier-art-starter"
+                  src="/packs/sports-starter.png"
+                  alt="Starter Rip Pack Art"
+                  onerror="this.classList.add('hidden')"
+                  class="tier-pack-art hidden h-16 w-20 rounded-lg object-cover drop-shadow-[0_6px_12px_rgba(0,0,0,0.6)] pointer-events-none"
+                />
+                <div>
+                  <span id="tier-price-starter" data-tier-price-text="Starter Rip" class="text-lg font-black text-white transition-colors">$25</span>
+                  <span class="text-xs font-medium text-slate-400">/mo</span>
+                </div>
               </div>
             </div>
 
@@ -395,11 +404,25 @@
                   <div id="tier-desc-pro" class="text-xs text-slate-200">
                     3 packs of cards from various sets • 2 numbered cards + 3 unnumbered cards • ECQ Loyalty stamp • 5% off singles purchases.
                   </div>
+                  <div class="mt-2 flex flex-wrap gap-1.5">
+                    <span class="rounded-full border border-slate-700 bg-obsidian/80 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-slate-300">
+                      5% OFF SINGLES
+                    </span>
+                  </div>
                 </div>
               </div>
-              <div class="shrink-0 text-right">
-                <span id="tier-price-pro" data-tier-price-text="Pro" class="text-lg font-black text-foil transition-colors">$35</span>
-                <span class="text-xs font-medium text-slate-300">/mo</span>
+              <div class="flex shrink-0 items-center gap-3 text-right">
+                <img
+                  id="tier-art-pro"
+                  src="/packs/sports-pro.png"
+                  alt="Pro Tier Pack Art"
+                  onerror="this.classList.add('hidden')"
+                  class="tier-pack-art hidden h-16 w-20 rounded-lg object-cover drop-shadow-[0_6px_12px_rgba(0,0,0,0.6)] pointer-events-none"
+                />
+                <div>
+                  <span id="tier-price-pro" data-tier-price-text="Pro" class="text-lg font-black text-foil transition-colors">$35</span>
+                  <span class="text-xs font-medium text-slate-300">/mo</span>
+                </div>
               </div>
             </div>
 
@@ -421,11 +444,31 @@
                   <div id="tier-desc-quest-master" class="text-xs text-[#94A3B8]">
                     4 packs of cards from various sets • 3 numbered cards + 5 unnumbered cards • ECQ Loyalty stamp • 10% off purchases in stores • Early access before the site launches • VIP Rip Nights.
                   </div>
+                  <div class="mt-2 flex flex-wrap gap-1.5">
+                    <span class="rounded-full border border-slate-700 bg-obsidian/80 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-slate-300">
+                      ECQ LOYALTY STAMP
+                    </span>
+                    <span class="rounded-full border border-slate-700 bg-obsidian/80 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-slate-300">
+                      EARLY ACCESS
+                    </span>
+                    <span class="rounded-full border border-slate-700 bg-obsidian/80 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-slate-300">
+                      VIP RIP NIGHTS
+                    </span>
+                  </div>
                 </div>
               </div>
-              <div class="shrink-0 text-right">
-                <span id="tier-price-quest-master" data-tier-price-text="Quest Master" class="text-lg font-black text-white transition-colors">$50</span>
-                <span class="text-xs font-medium text-slate-400">/mo</span>
+              <div class="flex shrink-0 items-center gap-3 text-right">
+                <img
+                  id="tier-art-quest-master"
+                  src="/packs/sports-master.png"
+                  alt="Quest Master Pack Art"
+                  onerror="this.classList.add('hidden')"
+                  class="tier-pack-art hidden h-16 w-20 rounded-lg object-cover drop-shadow-[0_6px_12px_rgba(0,0,0,0.6)] pointer-events-none"
+                />
+                <div>
+                  <span id="tier-price-quest-master" data-tier-price-text="Quest Master" class="text-lg font-black text-white transition-colors">$50</span>
+                  <span class="text-xs font-medium text-slate-400">/mo</span>
+                </div>
               </div>
             </div>
           </div>
@@ -1338,6 +1381,7 @@
       if (syncHobby) {
         selectHobbyFocus(config.hobby, false);
       }
+      syncPackArtwork(config.category);
       updateCheckoutTotal();
     }
 
@@ -1770,7 +1814,37 @@
       updateCheckoutTotal();
     }
 
-    // Initialize total & CTA label on load
+    // Optional Pack Artwork toggle (?art=1 or ?art=0 overrides default)
+    const SHOW_PACK_ART = true;
+    function shouldShowPackArt() {
+      const override = new URLSearchParams(window.location.search).get('art');
+      if (override === '0') return false;
+      if (override === '1') return true;
+      return SHOW_PACK_ART;
+    }
+
+    function syncPackArtwork(category) {
+      const prefix = category === 'pokemon' ? 'pokemon' : 'sports';
+      const show = shouldShowPackArt();
+      const map = [
+        ['tier-art-starter', `/packs/${prefix}-starter.png`],
+        ['tier-art-pro', `/packs/${prefix}-pro.png`],
+        ['tier-art-quest-master', `/packs/${prefix}-master.png`],
+      ];
+      map.forEach(([id, src]) => {
+        const img = document.getElementById(id);
+        if (!img) return;
+        if (!show) {
+          img.classList.add('hidden');
+          return;
+        }
+        img.classList.remove('hidden');
+        if (img.getAttribute('src') !== src) img.src = src;
+      });
+    }
+
+    // Initialize total, pack art, & CTA label on load
+    syncPackArtwork('sports');
     updateCheckoutTotal();
 
     /**
