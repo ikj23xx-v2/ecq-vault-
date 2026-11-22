@@ -1,0 +1,22 @@
+# macOS / OS files
+.DS_Store
+Thumbs.db
+
+# Environment & secrets
+.env
+.env.local
+.env.*.local
+
+# Editor & build artifacts
+.vscode/
+.idea/
+node_modules/
+dist/
+.vercel/
+.wrangler/
+
+# Local raw source artwork (exported web assets live in assets/)
+ECQ v1 .jpeg
+imagev1.jpeg
+imagev2.jpeg
+assets/og-card-raw.png

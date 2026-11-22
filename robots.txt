@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vault.epiccard.quest/sitemap.xml
