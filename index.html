@@ -1292,15 +1292,10 @@
         name: nameVal,
         email: emailVal,
         phone: phoneVal || null,
-        tier: selectedTier,
+        tier: tierSummary,
         monthlyRate: Number(monthlyRate.toFixed(2)),
         vipCode: priorityCode,
-        preferences: {
-          hobbyFocus: selectedHobby,
-          fulfillmentMethod: selectedFulfillment,
-          edition: selectedEdition,
-          japaneseAddon: isJapanese,
-        },
+        preferences: `${selectedHobby} • ${selectedFulfillment} • ${priorityCode}`,
         squarePaymentLinkUrl: getSquarePaymentLink(selectedTier),
       };
 
