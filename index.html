@@ -1141,14 +1141,18 @@
     }
 
     /**
-     * Resolves an optional Square Payment Link for the chosen tier from config.js.
+     * Resolves an optional Square Payment Link for the chosen tier (or universal defaultPaymentLink) from config.js.
      */
     function getSquarePaymentLink(tierName) {
       const links = (window.ECQ_VAULT_CONFIG && window.ECQ_VAULT_CONFIG.squareCheckoutLinks) || {};
-      if (tierName === 'Starter Rip') return (links.starter || '').trim();
-      if (tierName === 'Pro') return (links.pro || '').trim();
-      if (tierName === 'Quest Master') return (links.questMaster || '').trim();
-      return '';
+      let url = '';
+      if (tierName === 'Starter Rip') url = (links.starter || '').trim();
+      else if (tierName === 'Pro') url = (links.pro || '').trim();
+      else if (tierName === 'Quest Master') url = (links.questMaster || '').trim();
+
+      if (!url) url = (links.defaultPaymentLink || '').trim();
+      if (!url || url.includes('YOUR_SQUARE_LINK')) return '';
+      return url;
     }
 
     /**
@@ -1293,6 +1297,7 @@
         email: emailVal,
         phone: phoneVal || null,
         tier: tierSummary,
+        totalAmount: Number(monthlyRate.toFixed(2)),
         monthlyRate: Number(monthlyRate.toFixed(2)),
         vipCode: priorityCode,
         preferences: `${selectedHobby} • ${selectedFulfillment} • ${priorityCode}`,

@@ -52,6 +52,7 @@ export async function saveVaultSubmission(formData) {
     email: formData.email.toLowerCase(),
     phone: formData.phone || null,
     tier: formData.tier,
+    expectedTotal: formData.totalAmount, // Shows in your CRM so you can verify the amount paid
     monthlyRate: formData.monthlyRate,
     preferences: formData.preferences,
     vipCode: formData.vipCode,

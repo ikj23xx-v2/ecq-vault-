@@ -20,9 +20,10 @@ window.ECQ_VAULT_CONFIG = {
   // Optional webhook mirror
   webhookUrl: "",
 
-  // Square Payment Links (when populated, form redirects to checkout after saving to Firestore;
-  // when empty, displays the instant VIP Founder Pass confirmation UI)
+  // Square Payment Links (paste your universal link in defaultPaymentLink, or per-tier links below;
+  // when empty or placeholder, displays the instant VIP Founder Pass confirmation UI)
   squareCheckoutLinks: {
+    defaultPaymentLink: "", // e.g. "https://square.link/u/YOUR_SQUARE_LINK"
     starter: "",
     pro: "",
     questMaster: "",

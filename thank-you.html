@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You — Epic Card Quest Mystery Vault</title>
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#0F172A" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="64x64" href="/assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            obsidian: '#0F172A',
+            surface: '#131C31',
+            surfaceElevated: '#162038',
+            royal: '#2563EB',
+            foil: '#F59E0B',
+          },
+        },
+      },
+    };
+  </script>
+</head>
+<body class="min-h-screen bg-obsidian text-slate-100 font-sans antialiased flex flex-col justify-between">
+  <header class="w-full border-b border-slate-800/80 bg-obsidian/90 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-4xl items-center justify-between px-4 py-4 sm:px-6">
+      <a href="/" class="flex items-center gap-3">
+        <img src="/assets/favicon.svg" alt="ECQ Crest" class="h-10 w-10 rounded-lg" />
+        <div>
+          <div class="text-sm font-black uppercase tracking-[0.12em] text-white">EPIC CARD QUEST</div>
+          <div class="text-[10px] font-extrabold uppercase tracking-[0.16em] text-foil">MYSTERY VAULT</div>
+        </div>
+      </a>
+      <a href="/" class="rounded-lg border border-slate-700 px-3.5 py-2 text-xs font-bold text-slate-300 hover:border-foil hover:text-foil transition-colors">
+        ← Back to Vault
+      </a>
+    </div>
+  </header>
+
+  <main class="mx-auto flex w-full max-w-xl flex-1 items-center px-4 py-12 sm:px-6">
+    <div class="w-full rounded-3xl border border-slate-800 bg-surface p-6 shadow-[0_25px_75px_rgba(0,0,0,0.65)] sm:p-8">
+      <div class="text-center">
+        <span class="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-3.5 py-1 text-[11px] font-extrabold uppercase tracking-widest text-emerald-300">
+          ✓ Square Checkout Complete
+        </span>
+        <h1 class="mt-4 text-2xl font-black text-white sm:text-3xl">
+          Welcome to the ECQ Vault!
+        </h1>
+        <p class="mt-2 text-sm text-slate-400">
+          Your submission and Square payment are synced with our Hagerstown team. Save your VIP Founder Pass code below.
+        </p>
+      </div>
+
+      <div class="mt-6 rounded-2xl border-2 border-foil bg-gradient-to-br from-[#162038] via-[#0F172A] to-[#1E3A8A]/70 p-5 shadow-[0_20px_55px_rgba(245,158,11,0.25)]">
+        <div class="flex items-center justify-between border-b border-slate-700/80 pb-3.5">
+          <div>
+            <div class="text-xs font-black tracking-wider text-white">EPIC CARD QUEST</div>
+            <div class="text-[10px] font-extrabold uppercase tracking-[0.18em] text-foil">VIP FOUNDER PASS</div>
+          </div>
+          <span class="rounded-md bg-emerald-500/20 border border-emerald-500/40 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-emerald-300">
+            CONFIRMED
+          </span>
+        </div>
+
+        <div class="my-4 rounded-xl border border-foil/40 bg-obsidian/90 px-4 py-3 text-center">
+          <div class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Priority Access Code</div>
+          <div id="ty-vip-code" class="mt-0.5 font-mono text-2xl font-black tracking-wider text-foil">ECQ-VIP-FOUNDER</div>
+        </div>
+
+        <div class="space-y-2.5 text-xs sm:text-sm">
+          <div class="flex items-center justify-between border-b border-slate-800/90 pb-2">
+            <span class="text-slate-400">Collector</span>
+            <span id="ty-name" class="font-bold text-white">Vault Member</span>
+          </div>
+          <div class="flex items-center justify-between border-b border-slate-800/90 pb-2">
+            <span class="text-slate-400">Selected Tier</span>
+            <span id="ty-tier" class="font-bold text-white">Mystery Vault</span>
+          </div>
+          <div class="flex items-center justify-between border-b border-slate-800/90 pb-2">
+            <span class="text-slate-400">Hobby Focus</span>
+            <span id="ty-hobby" class="font-bold text-blue-300">Pokémon / Sports</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400">Fulfillment</span>
+            <span id="ty-fulfillment" class="font-bold text-foil">Hagerstown, MD</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="mt-5 text-center text-xs text-slate-400">
+        Questions about pickup at <strong class="text-white">Valley Mall</strong> or <strong class="text-white">Hagerstown Premium Outlets</strong>? Bring your VIP code to the counter.
+      </p>
+    </div>
+  </main>
+
+  <footer class="w-full border-t border-slate-800/80 bg-obsidian/90 py-5 text-center text-xs text-slate-500">
+    Epic Card Quest • Valley Mall &amp; Hagerstown Premium Outlets, MD
+  </footer>
+
+  <script>
+    (function hydrateThankYou() {
+      try {
+        const saved = localStorage.getItem('ecq_vip_founder_pass');
+        if (saved) {
+          const data = JSON.parse(saved);
+          if (data.vip_code) document.getElementById('ty-vip-code').textContent = data.vip_code;
+          if (data.full_name) document.getElementById('ty-name').textContent = data.full_name;
+          if (data.preferred_tier) {
+            const rate = data.monthly_rate ? ` ($${data.monthly_rate}/mo)` : '';
+            document.getElementById('ty-tier').textContent = `${data.preferred_tier}${rate}`;
+          }
+          if (data.hobby_focus) document.getElementById('ty-hobby').textContent = data.hobby_focus;
+          if (data.fulfillment_method) document.getElementById('ty-fulfillment').textContent = data.fulfillment_method;
+        }
+        // Clear pending submission marker after successful return from Square
+        localStorage.removeItem('pendingSubmissionId');
+      } catch (_) {}
+    })();
+  </script>
+</body>
+</html>
