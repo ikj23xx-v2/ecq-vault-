@@ -10,6 +10,8 @@ import {
   getFirestore,
   collection,
   addDoc,
+  doc,
+  updateDoc,
   serverTimestamp,
 } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 
@@ -68,8 +70,32 @@ export async function saveVaultSubmission(formData) {
   return docRef.id;
 }
 
-// Expose bridge to inline script in index.html
+export async function markSubmissionPaid(submissionId) {
+  if (!submissionId) return false;
+  const db = getDb();
+  if (!db) return false;
+
+  const collectionName =
+    (window.ECQ_VAULT_CONFIG &&
+      window.ECQ_VAULT_CONFIG.firebase &&
+      window.ECQ_VAULT_CONFIG.firebase.collection) ||
+    'vault_submissions';
+
+  await updateDoc(doc(db, collectionName, submissionId), {
+    paymentStatus: 'paid',
+    paidAt: serverTimestamp(),
+  });
+
+  try {
+    localStorage.removeItem('pendingSubmissionId');
+  } catch (_) {}
+
+  return true;
+}
+
+// Expose bridge to inline script in index.html & thank-you.html
 window.ECQ_FIREBASE = {
   isConfigured: () => Boolean(getFirebaseConfig()),
   saveVaultSubmission,
+  markSubmissionPaid,
 };

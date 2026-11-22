@@ -32,6 +32,8 @@
       },
     };
   </script>
+  <script src="./config.js"></script>
+  <script type="module" src="./firebase.js"></script>
 </head>
 <body class="min-h-screen bg-obsidian text-slate-100 font-sans antialiased flex flex-col justify-between">
   <header class="w-full border-b border-slate-800/80 bg-obsidian/90 backdrop-blur-xl">
@@ -109,8 +111,10 @@
     Epic Card Quest • Valley Mall &amp; Hagerstown Premium Outlets, MD
   </footer>
 
-  <script>
-    (function hydrateThankYou() {
+  <script type="module">
+    import { markSubmissionPaid } from './firebase.js';
+
+    (async function hydrateThankYou() {
       try {
         const saved = localStorage.getItem('ecq_vip_founder_pass');
         if (saved) {
@@ -124,9 +128,14 @@
           if (data.hobby_focus) document.getElementById('ty-hobby').textContent = data.hobby_focus;
           if (data.fulfillment_method) document.getElementById('ty-fulfillment').textContent = data.fulfillment_method;
         }
-        // Clear pending submission marker after successful return from Square
-        localStorage.removeItem('pendingSubmissionId');
-      } catch (_) {}
+
+        const submissionId = localStorage.getItem('pendingSubmissionId');
+        if (submissionId) {
+          await markSubmissionPaid(submissionId);
+        }
+      } catch (err) {
+        console.error('Error updating submission:', err);
+      }
     })();
   </script>
 </body>
