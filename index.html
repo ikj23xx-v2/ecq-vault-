@@ -623,6 +623,82 @@
                 </div>
               </div>
 
+              <!-- Conditional Shipping Address Block (Slides open only when "Ship" is selected) -->
+              <div
+                id="shipping-address-panel"
+                class="max-h-0 overflow-hidden opacity-0 transition-all duration-300 ease-in-out"
+                aria-hidden="true"
+              >
+                <div class="rounded-2xl border border-royal/40 bg-obsidian/90 p-4 space-y-3">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <span class="text-xs font-extrabold uppercase tracking-wider text-blue-300">
+                      Shipping Address <span class="text-foil">*</span>
+                    </span>
+                    <span class="rounded-md bg-royal/15 px-2 py-0.5 text-[10px] font-bold text-blue-300 ring-1 ring-royal/30">
+                      Tracked USPS • Ships Monthly
+                    </span>
+                  </div>
+
+                  <div>
+                    <input
+                      type="text"
+                      id="ship-street"
+                      name="shipStreet"
+                      autocomplete="street-address"
+                      placeholder="Street Address (e.g. 123 Main St, Apt 4)"
+                      oninput="clearFieldError('ship-street')"
+                      class="w-full rounded-xl border border-slate-700 bg-surface px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-royal focus:outline-none focus:ring-2 focus:ring-royal/30"
+                    />
+                  </div>
+
+                  <div class="grid grid-cols-6 gap-2.5">
+                    <div class="col-span-3">
+                      <input
+                        type="text"
+                        id="ship-city"
+                        name="shipCity"
+                        autocomplete="address-level2"
+                        placeholder="City"
+                        oninput="clearFieldError('ship-city')"
+                        class="w-full rounded-xl border border-slate-700 bg-surface px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-royal focus:outline-none focus:ring-2 focus:ring-royal/30"
+                      />
+                    </div>
+                    <div class="col-span-1">
+                      <input
+                        type="text"
+                        id="ship-state"
+                        name="shipState"
+                        maxlength="2"
+                        autocomplete="address-level1"
+                        placeholder="MD"
+                        oninput="this.value=this.value.toUpperCase();clearFieldError('ship-state')"
+                        class="w-full rounded-xl border border-slate-700 bg-surface px-2.5 py-2.5 text-center text-sm uppercase text-white placeholder-slate-500 focus:border-royal focus:outline-none focus:ring-2 focus:ring-royal/30"
+                      />
+                    </div>
+                    <div class="col-span-2">
+                      <input
+                        type="text"
+                        id="ship-zip"
+                        name="shipZip"
+                        maxlength="10"
+                        autocomplete="postal-code"
+                        placeholder="ZIP Code"
+                        oninput="clearFieldError('ship-zip')"
+                        class="w-full rounded-xl border border-slate-700 bg-surface px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-royal focus:outline-none focus:ring-2 focus:ring-royal/30"
+                      />
+                    </div>
+                  </div>
+
+                  <p id="err-shipping-address" class="hidden text-xs font-semibold text-rose-400">
+                    Please complete your Street, City, State, and ZIP Code for shipping.
+                  </p>
+
+                  <p class="text-[11px] leading-relaxed text-slate-400">
+                    <strong class="text-slate-200">Shipping Policy:</strong> Orders placed by the <strong class="text-foil">25th of each month</strong> ship in the upcoming monthly wave via tracked USPS. Standard flat-rate shipping applies at Square checkout (in-store pickup at Valley Mall &amp; Hagerstown Premium Outlets is always free).
+                  </p>
+                </div>
+              </div>
+
               <!-- Japanese +$20 Add-On Toggle (Visible on Pokémon only) -->
               <label
                 id="japanese-addon-row"
@@ -1341,6 +1417,20 @@
             'fulfillment-pill rounded-xl border border-slate-700 bg-obsidian px-3 py-2.5 text-xs font-bold text-slate-400 transition-all hover:border-slate-500 hover:text-white';
         }
       });
+
+      const shipPanel = document.getElementById('shipping-address-panel');
+      if (shipPanel) {
+        const isShip = fulfillment === 'Ship';
+        shipPanel.classList.toggle('max-h-0', !isShip);
+        shipPanel.classList.toggle('opacity-0', !isShip);
+        shipPanel.classList.toggle('max-h-[420px]', isShip);
+        shipPanel.classList.toggle('opacity-100', isShip);
+        shipPanel.setAttribute('aria-hidden', String(!isShip));
+        if (!isShip) {
+          const errEl = document.getElementById('err-shipping-address');
+          if (errEl) errEl.classList.add('hidden');
+        }
+      }
     }
 
     /**
@@ -1484,6 +1574,29 @@
         isValid = false;
       }
 
+      let shippingAddress = null;
+      if (selectedFulfillment === 'Ship') {
+        const streetEl = document.getElementById('ship-street');
+        const cityEl = document.getElementById('ship-city');
+        const stateEl = document.getElementById('ship-state');
+        const zipEl = document.getElementById('ship-zip');
+        const street = (streetEl?.value || '').trim();
+        const city = (cityEl?.value || '').trim();
+        const st = (stateEl?.value || '').trim().toUpperCase();
+        const zip = (zipEl?.value || '').trim();
+
+        if (!street || !city || !st || !zip) {
+          if (!street && streetEl) streetEl.classList.add('border-rose-500');
+          if (!city && cityEl) cityEl.classList.add('border-rose-500');
+          if (!st && stateEl) stateEl.classList.add('border-rose-500');
+          if (!zip && zipEl) zipEl.classList.add('border-rose-500');
+          document.getElementById('err-shipping-address').classList.remove('hidden');
+          isValid = false;
+        } else {
+          shippingAddress = `${street}, ${city}, ${st} ${zip}`;
+        }
+      }
+
       if (!isValid) return;
 
       // Disable button briefly while dispatching backend requests
@@ -1502,6 +1615,7 @@
       const combinedPreferences = [
         selectedHobby,
         selectedFulfillment,
+        shippingAddress ? `Ship To: ${shippingAddress}` : '',
         priorityCode,
         userNotes ? `Notes: ${userNotes}` : '',
       ]
@@ -1535,6 +1649,7 @@
         totalAmount: Number(monthlyRate.toFixed(2)),
         monthlyRate: Number(monthlyRate.toFixed(2)),
         vipCode: priorityCode,
+        shippingAddress,
         preferences: combinedPreferences,
         squarePaymentLinkUrl: firstCheckoutUrl,
       };

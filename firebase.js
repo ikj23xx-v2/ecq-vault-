@@ -62,6 +62,7 @@ export async function saveVaultSubmission(formData) {
     japaneseAddon: Boolean(formData.japaneseAddon),
     expectedTotal: formData.totalAmount,
     monthlyRate: formData.monthlyRate,
+    shippingAddress: formData.shippingAddress || null,
     preferences: formData.preferences,
     vipCode: formData.vipCode,
     paymentStatus: 'pending', // Updates to "paid" after Square
