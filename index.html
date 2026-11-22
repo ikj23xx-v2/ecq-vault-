@@ -1062,16 +1062,16 @@
           : `${selectedTier} ($${monthlyRate}/mo)`;
 
       const leadPayload = {
-        priority_code: priorityCode,
         full_name: nameVal,
         email: emailVal,
         phone: phoneVal || null,
         hobby_focus: selectedHobby,
         preferred_tier: selectedTier,
-        monthly_rate_usd: monthlyRate,
-        fulfillment_preference: selectedFulfillment,
-        source: 'vault.epiccard.quest',
-        created_at: new Date().toISOString(),
+        monthly_rate: Number(monthlyRate.toFixed(2)),
+        fulfillment_method: selectedFulfillment,
+        vip_code: priorityCode,
+        source_subdomain: 'vault.epiccard.quest',
+        status: 'waitlist',
       };
 
       // Save locally in browser storage

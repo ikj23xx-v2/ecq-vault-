@@ -1,33 +1,53 @@
--- Epic Card Quest — Mystery Vault Waitlist Table Migration
--- Run this in your Supabase Dashboard -> SQL Editor
-
+-- 1. Create the vault_waitlist table matching the index.html form fields
 create table if not exists public.vault_waitlist (
   id uuid primary key default gen_random_uuid(),
   created_at timestamptz not null default now(),
-  priority_code text not null unique,
   full_name text not null,
-  email text not null unique,
+  email text not null,
   phone text,
-  hobby_focus text not null check (hobby_focus in ('Sports Cards', 'Pokémon (CN / KR)', 'Pokémon (Japanese +$10)', 'Both')),
-  preferred_tier text not null check (preferred_tier in ('Starter Rip', 'Pro', 'Quest Master')),
-  monthly_rate_usd integer not null check (monthly_rate_usd in (25, 35, 45, 50, 60)),
-  fulfillment_preference text not null check (fulfillment_preference in ('Valley Mall Pickup', 'Hagerstown Outlets', 'Ship to Door')),
-  source text not null default 'vault.epiccard.quest'
+  hobby_focus text not null,          -- e.g., 'Sports Cards', 'Pokémon (CN / KR)', 'Pokémon (Japanese +$10)', 'Both'
+  preferred_tier text not null,       -- e.g., 'Starter Rip', 'Pro', 'Quest Master'
+  monthly_rate numeric(6,2) not null, -- e.g., 25.00, 35.00, 45.00, 50.00, 60.00
+  fulfillment_method text not null,   -- e.g., 'Valley Mall Pickup', 'Hagerstown Outlets', 'Ship to Door'
+  vip_code text not null unique,      -- e.g., 'ECQ-VIP-8492'
+  source_subdomain text default 'vault.epiccard.quest',
+  status text not null default 'waitlist' -- 'waitlist' | 'invited' | 'subscribed'
 );
 
--- Indexes for fast lookup and drop reporting
-create index if not exists idx_vault_waitlist_created_at on public.vault_waitlist (created_at desc);
-create index if not exists idx_vault_waitlist_tier on public.vault_waitlist (preferred_tier);
-create index if not exists idx_vault_waitlist_fulfillment on public.vault_waitlist (fulfillment_preference);
+-- 2. Add useful indexes for filtering pickups and preventing duplicate signups by email
+create unique index if not exists vault_waitlist_email_unique_idx
+  on public.vault_waitlist (lower(email));
 
--- Enable Row Level Security (RLS)
+create index if not exists vault_waitlist_fulfillment_idx
+  on public.vault_waitlist (fulfillment_method, preferred_tier);
+
+-- 3. Enable Row-Level Security (RLS)
 alter table public.vault_waitlist enable row level security;
 
--- Allow public visitors (anon key) to INSERT waitlist signups only.
--- Reading, updating, or deleting rows stays restricted to service_role / authenticated admins.
-drop policy if exists "Allow anonymous waitlist inserts" on public.vault_waitlist;
-create policy "Allow anonymous waitlist inserts"
+-- 4. Allow public visitors (anon role) to INSERT new waitlist entries only
+drop policy if exists "Allow public waitlist inserts" on public.vault_waitlist;
+create policy "Allow public waitlist inserts"
   on public.vault_waitlist
   for insert
-  to anon
+  to anon, authenticated
+  with check (
+    length(trim(full_name)) > 0
+    and length(trim(email)) > 3
+    and monthly_rate >= 25
+  );
+
+-- 5. Allow authenticated staff/admins to view and manage all waitlist rows
+drop policy if exists "Allow authenticated staff read access" on public.vault_waitlist;
+create policy "Allow authenticated staff read access"
+  on public.vault_waitlist
+  for select
+  to authenticated
+  using (true);
+
+drop policy if exists "Allow authenticated staff update access" on public.vault_waitlist;
+create policy "Allow authenticated staff update access"
+  on public.vault_waitlist
+  for update
+  to authenticated
+  using (true)
   with check (true);
