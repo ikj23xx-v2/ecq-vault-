@@ -42,11 +42,11 @@
   />
   <meta name="twitter:image" content="https://vault.epiccard.quest/assets/og-card.png" />
 
-  <!-- Google Fonts: Inter -->
+  <!-- Google Fonts: Inter + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap"
     rel="stylesheet"
   />
 
@@ -59,6 +59,7 @@
         extend: {
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
           },
           colors: {
             obsidian: '#0F172A',
@@ -726,6 +727,197 @@
     </div>
   </main>
 
+  <!-- ==================== 2B. TRANSPARENT CONSIGNMENT & LIVE SKU PREVIEW ==================== -->
+  <section id="consignment" class="w-full border-t border-slate-800/80 bg-obsidian/70 py-14 sm:py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="grid items-center gap-8 rounded-3xl border border-slate-800/90 bg-surface p-6 shadow-[0_20px_60px_rgba(0,0,0,0.5)] sm:p-8 lg:grid-cols-12 lg:p-10">
+
+        <!-- Left Copy -->
+        <div class="lg:col-span-7">
+          <div class="mb-3 flex flex-wrap items-center gap-2.5">
+            <span class="rounded-full border border-royal/40 bg-royal/15 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.16em] text-blue-400">
+              Transparent Hobby Liquidity
+            </span>
+            <span class="rounded-full border border-foil/40 bg-foil/10 px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.14em] text-foil">
+              Priced 20–25% Below Market Avg
+            </span>
+          </div>
+
+          <h2 class="text-2xl font-black tracking-tight text-white sm:text-3xl">
+            Turn Your Singles &amp; Slabs Into Store Credit or Cash Fast
+          </h2>
+
+          <p class="mt-3 text-sm leading-relaxed text-[#94A3B8] sm:text-base">
+            Our <strong class="font-semibold text-white">130point Quick-Sale Pricing Engine</strong> indexes verified recent sold comps and prices consignment inventory <strong class="font-semibold text-foil">20–25% below market average</strong> for rapid showcase turnover at Valley Mall &amp; Hagerstown Premium Outlets. Every card receives a serialized tracking SKU in <code class="rounded bg-obsidian px-1.5 py-0.5 font-mono text-xs text-blue-300">[Initials]-[Set Code]-[Card #]</code> format.
+          </p>
+
+          <div class="mt-5 flex flex-wrap items-center gap-3 text-xs text-slate-300">
+            <span class="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-obsidian/80 px-3 py-1.5 font-semibold">
+              <span class="h-1.5 w-1.5 rounded-full bg-royal"></span>
+              130point Live Comps
+            </span>
+            <span class="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-obsidian/80 px-3 py-1.5 font-semibold">
+              <span class="h-1.5 w-1.5 rounded-full bg-foil"></span>
+              Custom Serialized Showcase SKUs
+            </span>
+          </div>
+        </div>
+
+        <!-- Right Interactive ECQ SKU Preview Generator -->
+        <div class="lg:col-span-5">
+          <div class="rounded-2xl border border-slate-700/90 bg-obsidian/90 p-5 shadow-inner">
+            <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <span class="text-xs font-extrabold uppercase tracking-wider text-white">
+                Live ECQ SKU Preview Generator
+              </span>
+              <span class="rounded bg-emerald-500/15 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-widest text-emerald-300 ring-1 ring-emerald-500/30">
+                AUTO-UPDATING
+              </span>
+            </div>
+
+            <div class="mt-4 grid grid-cols-3 gap-2.5">
+              <div>
+                <label for="sku-initials" class="mb-1 block text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  Initials
+                </label>
+                <input
+                  type="text"
+                  id="sku-initials"
+                  maxlength="4"
+                  value="JD"
+                  placeholder="JD"
+                  oninput="updateSkuPreview()"
+                  class="w-full rounded-xl border border-slate-700 bg-surface px-3 py-2 font-mono text-xs font-bold uppercase text-white placeholder-slate-500 focus:border-royal focus:outline-none focus:ring-2 focus:ring-royal/30"
+                />
+              </div>
+              <div>
+                <label for="sku-set" class="mb-1 block text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  Set Code
+                </label>
+                <input
+                  type="text"
+                  id="sku-set"
+                  maxlength="6"
+                  value="BLM"
+                  placeholder="151 / PRZ"
+                  oninput="updateSkuPreview()"
+                  class="w-full rounded-xl border border-slate-700 bg-surface px-3 py-2 font-mono text-xs font-bold uppercase text-white placeholder-slate-500 focus:border-royal focus:outline-none focus:ring-2 focus:ring-royal/30"
+                />
+              </div>
+              <div>
+                <label for="sku-number" class="mb-1 block text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  Card / Lot #
+                </label>
+                <input
+                  type="text"
+                  id="sku-number"
+                  maxlength="6"
+                  value="12"
+                  placeholder="12"
+                  oninput="updateSkuPreview()"
+                  class="w-full rounded-xl border border-slate-700 bg-surface px-3 py-2 font-mono text-xs font-bold uppercase text-white placeholder-slate-500 focus:border-royal focus:outline-none focus:ring-2 focus:ring-royal/30"
+                />
+              </div>
+            </div>
+
+            <div class="mt-4 flex items-center justify-between gap-3 rounded-xl border border-foil/40 bg-surfaceElevated px-4 py-3">
+              <div>
+                <div class="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                  Generated Showcase SKU
+                </div>
+                <div id="sku-preview-output" class="mt-0.5 font-mono text-lg font-extrabold tracking-wider text-foil">
+                  JD-BLM-12
+                </div>
+              </div>
+              <button
+                type="button"
+                id="copy-sku-btn"
+                onclick="copySkuPreview()"
+                class="shrink-0 rounded-lg border border-slate-700 bg-obsidian px-3 py-1.5 text-xs font-extrabold text-white transition-all hover:border-foil hover:text-foil"
+              >
+                Copy SKU
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 2C. TWO HAGERSTOWN HOBBY DESTINATIONS ==================== -->
+  <section id="locations" class="w-full border-t border-slate-800/80 py-14 sm:py-16">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <span class="text-[11px] font-extrabold uppercase tracking-[0.18em] text-foil">
+            Visit Our Showcases
+          </span>
+          <h2 class="mt-1 text-2xl font-black tracking-tight text-white sm:text-3xl">
+            Two Hagerstown Hobby Destinations
+          </h2>
+          <p class="mt-1.5 text-sm text-[#94A3B8]">
+            Proudly serving collectors across Hagerstown, Frederick, Jefferson County WV, and Berkeley County WV.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <!-- Location 01: Valley Mall -->
+        <div class="flex flex-col justify-between rounded-2xl border border-slate-800 bg-surface p-6 transition-all hover:border-royal/70 sm:p-7">
+          <div>
+            <div class="flex items-center justify-between gap-2 text-[11px] font-extrabold uppercase tracking-[0.16em]">
+              <span class="text-blue-400">Location 01 • Flagship Showcase</span>
+              <span class="rounded-md bg-royal/15 px-2 py-0.5 text-[10px] text-blue-300 ring-1 ring-royal/30">Free Pickup</span>
+            </div>
+            <h3 class="mt-3 text-xl font-black text-white">Valley Mall</h3>
+            <p class="mt-1 font-mono text-xs text-slate-300">
+              17301 Valley Mall Rd, Hagerstown, MD 21740
+            </p>
+            <p class="mt-3 text-sm leading-relaxed text-[#94A3B8]">
+              Full Pokémon TCG &amp; Sports singles display cases, sealed booster boxes, Mystery Box pickup counter, and Friday Night Live Rip tables.
+            </p>
+          </div>
+          <div class="mt-6">
+            <button
+              type="button"
+              onclick="selectLocationFromShowcase('Valley Mall Pickup')"
+              class="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-obsidian px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider text-white transition-all hover:border-royal hover:bg-royal/20"
+            >
+              <span>Select Valley Mall Pickup →</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Location 02: Hagerstown Premium Outlets -->
+        <div class="flex flex-col justify-between rounded-2xl border border-slate-800 bg-surface p-6 transition-all hover:border-foil/70 sm:p-7">
+          <div>
+            <div class="flex items-center justify-between gap-2 text-[11px] font-extrabold uppercase tracking-[0.16em]">
+              <span class="text-foil">Location 02 • Outlet Hobby Hub</span>
+              <span class="rounded-md bg-foil/15 px-2 py-0.5 text-[10px] text-foil ring-1 ring-foil/30">Free Pickup</span>
+            </div>
+            <h3 class="mt-3 text-xl font-black text-white">Hagerstown Premium Outlets</h3>
+            <p class="mt-1 font-mono text-xs text-slate-300">
+              495 Premium Outlets Blvd, Hagerstown, MD 21740
+            </p>
+            <p class="mt-3 text-sm leading-relaxed text-[#94A3B8]">
+              Graded slabs vault, consignment drop-off station, weekend trade nights, and convenient I-70 / I-81 access for Frederick &amp; WV collectors.
+            </p>
+          </div>
+          <div class="mt-6">
+            <button
+              type="button"
+              onclick="selectLocationFromShowcase('Hagerstown Outlets')"
+              class="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-obsidian px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider text-white transition-all hover:border-foil hover:bg-foil/15 hover:text-foil"
+            >
+              <span>Select Outlets Pickup →</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ==================== 3. FOOTER ==================== -->
   <footer class="w-full border-t border-slate-800/80 bg-obsidian/90 py-6">
     <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 text-center text-xs text-slate-400 sm:px-6 lg:flex-row lg:px-8 lg:text-left">
@@ -1162,6 +1354,65 @@
       document.getElementById('founder-pass-container').classList.add('hidden');
       document.getElementById('waitlist-form-container').classList.remove('hidden');
     }
+
+    /**
+     * Live ECQ Consignment SKU Preview Generator ([Initials]-[Set Code]-[Card #]).
+     */
+    function updateSkuPreview() {
+      const initials = (document.getElementById('sku-initials').value || 'JD')
+        .replace(/[^a-zA-Z0-9]/g, '')
+        .toUpperCase() || 'JD';
+      const setCode = (document.getElementById('sku-set').value || 'BLM')
+        .replace(/[^a-zA-Z0-9]/g, '')
+        .toUpperCase() || 'BLM';
+      const cardNum = (document.getElementById('sku-number').value || '12')
+        .replace(/[^a-zA-Z0-9]/g, '')
+        .toUpperCase() || '12';
+
+      document.getElementById('sku-preview-output').textContent = `${initials}-${setCode}-${cardNum}`;
+    }
+
+    function copySkuPreview() {
+      const skuText = document.getElementById('sku-preview-output').textContent.trim();
+      const btn = document.getElementById('copy-sku-btn');
+      const markCopied = () => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('border-emerald-500', 'text-emerald-400');
+        setTimeout(() => {
+          btn.textContent = 'Copy SKU';
+          btn.classList.remove('border-emerald-500', 'text-emerald-400');
+        }, 1800);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(skuText).then(markCopied).catch(() => fallbackCopy(skuText, markCopied));
+      } else {
+        fallbackCopy(skuText, markCopied);
+      }
+    }
+
+    /**
+     * Selects a Hagerstown boutique from the Locations showcase and scrolls to the VIP form.
+     */
+    function selectLocationFromShowcase(fulfillment) {
+      selectFulfillment(fulfillment);
+      const target = document.getElementById('waitlist-form-container');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    // Sync collector name initials into the SKU preview if user hasn't customized it
+    document.getElementById('collector-name').addEventListener('input', function (e) {
+      const parts = e.target.value.trim().split(/\s+/).filter(Boolean);
+      if (parts.length >= 2) {
+        const initials = (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+        const skuInitialsEl = document.getElementById('sku-initials');
+        if (skuInitialsEl) {
+          skuInitialsEl.value = initials;
+          updateSkuPreview();
+        }
+      }
+    });
   </script>
 </body>
 </html>
