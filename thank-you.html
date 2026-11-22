@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Thank You — Epic Card Quest Mystery Vault</title>
+  <title>Order Confirmed — Epic Card Quest Mystery Vault</title>
   <meta name="robots" content="noindex" />
   <meta name="theme-color" content="#0F172A" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -51,28 +51,29 @@
     </div>
   </header>
 
-  <main class="mx-auto flex w-full max-w-xl flex-1 items-center px-4 py-12 sm:px-6">
-    <div class="w-full rounded-3xl border border-slate-800 bg-surface p-6 shadow-[0_25px_75px_rgba(0,0,0,0.65)] sm:p-8">
+  <main class="mx-auto flex w-full max-w-xl flex-1 items-center px-4 py-10 sm:px-6">
+    <div class="w-full rounded-3xl border border-slate-800 bg-surface p-6 shadow-[0_25px_75px_rgba(0,0,0,0.65)] sm:p-8 space-y-6">
       <div class="text-center">
-        <span class="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-3.5 py-1 text-[11px] font-extrabold uppercase tracking-widest text-emerald-300">
+        <span id="ty-status-pill" class="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-3.5 py-1 text-[11px] font-extrabold uppercase tracking-widest text-emerald-300">
           ✓ Square Checkout Complete
         </span>
-        <h1 class="mt-4 text-2xl font-black text-white sm:text-3xl">
-          Welcome to the ECQ Vault!
+        <h1 id="ty-heading" class="mt-4 text-2xl font-black text-foil sm:text-3xl">
+          Confirming Your Order...
         </h1>
-        <p class="mt-2 text-sm text-slate-400">
-          Your submission and Square payment are synced with our Hagerstown team. Save your VIP Founder Pass code below.
+        <p class="mt-2 text-sm text-slate-300">
+          Thank you for ordering from Epic Card Quest Vault. Your payment and tier selection have been recorded.
         </p>
       </div>
 
-      <div class="mt-6 rounded-2xl border-2 border-foil bg-gradient-to-br from-[#162038] via-[#0F172A] to-[#1E3A8A]/70 p-5 shadow-[0_20px_55px_rgba(245,158,11,0.25)]">
+      <!-- Confirmed VIP Founder Pass -->
+      <div class="rounded-2xl border-2 border-foil bg-gradient-to-br from-[#162038] via-[#0F172A] to-[#1E3A8A]/70 p-5 shadow-[0_20px_55px_rgba(245,158,11,0.25)]">
         <div class="flex items-center justify-between border-b border-slate-700/80 pb-3.5">
           <div>
             <div class="text-xs font-black tracking-wider text-white">EPIC CARD QUEST</div>
             <div class="text-[10px] font-extrabold uppercase tracking-[0.18em] text-foil">VIP FOUNDER PASS</div>
           </div>
           <span class="rounded-md bg-emerald-500/20 border border-emerald-500/40 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-emerald-300">
-            CONFIRMED
+            PAID
           </span>
         </div>
 
@@ -101,7 +102,44 @@
         </div>
       </div>
 
-      <p class="mt-5 text-center text-xs text-slate-400">
+      <!-- Post-Checkout Newsletter & VIP Alert Capture -->
+      <form
+        id="newsletter-prefs-form"
+        class="hidden rounded-2xl border border-slate-700 bg-obsidian/80 p-5 space-y-4"
+      >
+        <div class="text-sm font-bold text-amber-300">
+          Stay Locked In for Allocated Drops &amp; VIP Rip Nights
+        </div>
+
+        <label class="flex items-start gap-3 text-xs sm:text-sm text-slate-200 cursor-pointer">
+          <input
+            type="checkbox"
+            id="newsletter-optin"
+            checked
+            class="mt-0.5 h-4 w-4 rounded accent-amber-500"
+          />
+          <span>
+            Keep me subscribed to the ECQ Newsletter &amp; early release alerts (<span id="ty-email-label" class="font-mono text-foil"></span>)
+          </span>
+        </label>
+
+        <input
+          type="text"
+          id="favorite-focus"
+          placeholder="Main PC / Focus (e.g., MLB, NFL, Pokémon, Japanese)"
+          class="w-full rounded-xl border border-slate-700 bg-surface px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-royal focus:outline-none focus:ring-2 focus:ring-royal/30"
+        />
+
+        <button
+          type="submit"
+          id="save-prefs-btn"
+          class="w-full rounded-xl bg-foil hover:bg-amber-400 py-2.5 text-sm font-extrabold text-obsidian transition-colors"
+        >
+          Save Newsletter Preferences
+        </button>
+      </form>
+
+      <p class="text-center text-xs text-slate-400">
         Questions about pickup at <strong class="text-white">Valley Mall</strong> or <strong class="text-white">Hagerstown Premium Outlets</strong>? Bring your VIP code to the counter.
       </p>
     </div>
@@ -112,31 +150,76 @@
   </footer>
 
   <script type="module">
-    import { markSubmissionPaid } from './firebase.js';
+    import {
+      markSubmissionPaid,
+      upsertCustomerFromOrder,
+      saveCustomerNewsletterPrefs,
+    } from './firebase.js';
 
-    (async function hydrateThankYou() {
+    let customerEmail = '';
+
+    (async function syncOrderAndCustomer() {
+      let savedOrder = null;
+
       try {
-        const saved = localStorage.getItem('ecq_vip_founder_pass');
-        if (saved) {
-          const data = JSON.parse(saved);
-          if (data.vip_code) document.getElementById('ty-vip-code').textContent = data.vip_code;
-          if (data.full_name) document.getElementById('ty-name').textContent = data.full_name;
-          if (data.preferred_tier) {
-            const rate = data.monthly_rate ? ` ($${data.monthly_rate}/mo)` : '';
-            document.getElementById('ty-tier').textContent = `${data.preferred_tier}${rate}`;
+        const raw = localStorage.getItem('ecq_vip_founder_pass');
+        if (raw) {
+          savedOrder = JSON.parse(raw);
+          if (savedOrder.vip_code) document.getElementById('ty-vip-code').textContent = savedOrder.vip_code;
+          if (savedOrder.full_name) document.getElementById('ty-name').textContent = savedOrder.full_name;
+          if (savedOrder.preferred_tier) {
+            const rate = savedOrder.monthly_rate ? ` ($${savedOrder.monthly_rate}/mo)` : '';
+            document.getElementById('ty-tier').textContent = `${savedOrder.preferred_tier}${rate}`;
           }
-          if (data.hobby_focus) document.getElementById('ty-hobby').textContent = data.hobby_focus;
-          if (data.fulfillment_method) document.getElementById('ty-fulfillment').textContent = data.fulfillment_method;
+          if (savedOrder.hobby_focus) document.getElementById('ty-hobby').textContent = savedOrder.hobby_focus;
+          if (savedOrder.fulfillment_method) document.getElementById('ty-fulfillment').textContent = savedOrder.fulfillment_method;
+          if (savedOrder.email) {
+            customerEmail = savedOrder.email.trim().toLowerCase();
+            document.getElementById('ty-email-label').textContent = customerEmail;
+            document.getElementById('newsletter-prefs-form').classList.remove('hidden');
+          }
         }
 
         const submissionId = localStorage.getItem('pendingSubmissionId');
         if (submissionId) {
+          // 1. Mark the Vault order as Paid
           await markSubmissionPaid(submissionId);
+
+          // 2. Auto-upsert customer into CRM's "customers" collection
+          if (savedOrder && customerEmail) {
+            await upsertCustomerFromOrder(savedOrder);
+          }
+
+          localStorage.removeItem('pendingSubmissionId');
         }
       } catch (err) {
-        console.error('Error updating submission:', err);
+        console.error('Post-checkout sync error:', err);
+      } finally {
+        document.getElementById('ty-heading').textContent = 'Order Confirmed!';
       }
     })();
+
+    document.getElementById('newsletter-prefs-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!customerEmail) return;
+
+      const btn = document.getElementById('save-prefs-btn');
+      btn.disabled = true;
+      btn.textContent = 'Saving...';
+
+      try {
+        await saveCustomerNewsletterPrefs(customerEmail, {
+          newsletterSubscribed: document.getElementById('newsletter-optin').checked,
+          favoriteCategory: document.getElementById('favorite-focus').value,
+        });
+        btn.textContent = 'Preferences Saved ✓';
+      } catch (err) {
+        console.error('Preference save error:', err);
+        btn.textContent = 'Save Newsletter Preferences';
+      } finally {
+        btn.disabled = false;
+      }
+    });
   </script>
 </body>
 </html>

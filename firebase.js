@@ -2,8 +2,9 @@
  * Epic Card Quest — Firebase Firestore Bridge (ES Module, zero-build CDN)
  *
  * Reads credentials from window.ECQ_VAULT_CONFIG.firebase (configured in config.js).
- * Saves submissions to the CRM's `vault_submissions` collection with serverTimestamp()
- * and stores `pendingSubmissionId` in localStorage for post-Square confirmation.
+ * - Saves vault submissions to `vault_submissions`
+ * - Marks orders paid on /thank-you
+ * - Upserts customers & newsletter preferences into `customers/{email}`
  */
 import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
 import {
@@ -11,8 +12,10 @@ import {
   collection,
   addDoc,
   doc,
+  setDoc,
   updateDoc,
   serverTimestamp,
+  increment,
 } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
 
 function getFirebaseConfig() {
@@ -90,16 +93,59 @@ export async function markSubmissionPaid(submissionId) {
     paidAt: serverTimestamp(),
   });
 
-  try {
-    localStorage.removeItem('pendingSubmissionId');
-  } catch (_) {}
+  return true;
+}
+
+export async function upsertCustomerFromOrder(orderData) {
+  const db = getDb();
+  if (!db || !orderData || !orderData.email) return false;
+
+  const emailKey = orderData.email.trim().toLowerCase();
+  if (!emailKey) return false;
+
+  await setDoc(
+    doc(db, 'customers', emailKey),
+    {
+      customerName: orderData.customerName || orderData.full_name || '',
+      email: emailKey,
+      phone: orderData.phone || '',
+      newsletterSubscribed: true, // Default opt-in from Vault purchase
+      source: 'ECQ Vault Checkout',
+      lastOrderTier: orderData.tier || orderData.preferred_tier || '',
+      totalOrders: increment(1),
+      totalSpent: increment(Number(orderData.expectedTotal || orderData.monthly_rate || 0)),
+      lastOrderAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    },
+    { merge: true }
+  );
 
   return true;
 }
 
-// Expose bridge to inline script in index.html & thank-you.html
+export async function saveCustomerNewsletterPrefs(email, { newsletterSubscribed, favoriteCategory }) {
+  const db = getDb();
+  if (!db || !email) return false;
+
+  const emailKey = email.trim().toLowerCase();
+  await setDoc(
+    doc(db, 'customers', emailKey),
+    {
+      newsletterSubscribed: Boolean(newsletterSubscribed),
+      favoriteCategory: (favoriteCategory || '').trim(),
+      updatedAt: serverTimestamp(),
+    },
+    { merge: true }
+  );
+
+  return true;
+}
+
+// Expose bridge to inline scripts in index.html & thank-you.html
 window.ECQ_FIREBASE = {
   isConfigured: () => Boolean(getFirebaseConfig()),
   saveVaultSubmission,
   markSubmissionPaid,
+  upsertCustomerFromOrder,
+  saveCustomerNewsletterPrefs,
 };

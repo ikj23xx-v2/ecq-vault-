@@ -2,16 +2,18 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /vault_submissions/{submissionId} {
-      // Anyone can submit the Vault form (must start as "pending")
       allow create: if request.resource.data.paymentStatus == "pending";
-
-      // Public /thank-you page can ONLY update paymentStatus to "paid" and set paidAt
       allow update: if request.auth != null || (
         request.resource.data.diff(resource.data).affectedKeys().hasOnly(['paymentStatus', 'paidAt']) &&
         request.resource.data.paymentStatus == 'paid'
       );
+      allow read, delete: if request.auth != null;
+    }
 
-      // Only authenticated CRM admins can view or delete submissions
+    match /customers/{email} {
+      // Allow post-checkout upsert from /thank-you
+      allow create, update: if true;
+      // Only authenticated CRM admins can view or export the customer list
       allow read, delete: if request.auth != null;
     }
   }
