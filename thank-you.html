@@ -203,15 +203,18 @@
 
         // Handle 2-step "Both" (Sports + Pokémon) checkout flow
         if (pendingOrder && pendingOrder.isBoth && pendingOrder.step === 1 && pendingOrder.secondCheckoutUrl) {
-          document.getElementById('ty-status-pill').textContent = '✓ Step 1 of 2 Complete';
-          document.getElementById('ty-heading').textContent = 'One More Step!';
+          // Advance local step to 2 immediately so next return marks the full order paid
+          pendingOrder.step = 2;
+          localStorage.setItem('pendingVaultOrder', JSON.stringify(pendingOrder));
+
+          document.getElementById('ty-status-pill').textContent = `✓ Step 1 of 2 Complete (${pendingOrder.sportsLabel || 'Sports'})`;
+          document.getElementById('ty-heading').textContent = 'Complete Your Pokémon Box';
           document.getElementById('step2-sports-label').textContent = pendingOrder.sportsLabel || 'Sports Vault';
           document.getElementById('step2-pokemon-label').textContent = pendingOrder.pokemonLabel || 'Pokémon Vault';
+          document.getElementById('step2-continue-btn').textContent = `Step 2 of 2: Pay for ${pendingOrder.pokemonLabel || 'Pokémon Vault'} →`;
           document.getElementById('step2-panel').classList.remove('hidden');
 
           document.getElementById('step2-continue-btn').addEventListener('click', () => {
-            pendingOrder.step = 2;
-            localStorage.setItem('pendingVaultOrder', JSON.stringify(pendingOrder));
             window.location.href = pendingOrder.secondCheckoutUrl;
           });
           return;
