@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth dark">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Epic Card Quest // The Vault — Coming Soon &amp; VIP Early Access</title>
-  <meta name="description" content="Reserve your VIP Founder Pass for Epic Card Quest's Monthly Collector Vaults ($25 / $35 / $50). Sports, Chinese/Korean Pokémon, and Japanese Pokémon (+$10/box). Valley Mall &amp; Hagerstown Premium Outlets, MD." />
+  <title>Epic Card Quest | Mystery Vault — Coming Soon (vault.epiccard.quest)</title>
+  <meta
+    name="description"
+    content="Official Mystery Box Subscription Portal for Epic Card Quest. Curated Sports and Chinese, Korean & Japanese Pokémon TCG mystery boxes with Square recurring billing and Hagerstown, MD store pickup."
+  />
   <meta name="theme-color" content="#0F172A" />
   <link rel="canonical" href="https://vault.epiccard.quest/" />
 
@@ -16,927 +19,1147 @@
 
   <!-- Open Graph / Facebook / SMS (iMessage, RCS, WhatsApp) Preview Card -->
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Epic Card Quest" />
+  <meta property="og:site_name" content="Epic Card Quest • Mystery Vault" />
   <meta property="og:url" content="https://vault.epiccard.quest/" />
-  <meta property="og:title" content="Epic Card Quest // The Vault — VIP Early Access" />
-  <meta property="og:description" content="Monthly Sports &amp; Pokémon Collector Vaults ($25 / $35 / $50 +$10 Japanese Pokémon). Claim your VIP Founder Pass for Valley Mall &amp; Hagerstown Premium Outlets, MD." />
+  <meta property="og:title" content="Epic Card Quest — Mystery Vault VIP Early Access" />
+  <meta
+    property="og:description"
+    content="Rip guaranteed hits every month. Curated Sports & Pokémon mystery boxes starting at $25/mo (+$10/box Japanese Pokémon). Lock in 24-hour VIP early access before Drop #1."
+  />
   <meta property="og:image" content="https://vault.epiccard.quest/assets/og-card.png" />
   <meta property="og:image:secure_url" content="https://vault.epiccard.quest/assets/og-card.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Epic Card Quest — The Vault Coming Soon &amp; VIP Early Access" />
+  <meta property="og:image:alt" content="Epic Card Quest — Mystery Vault VIP Early Access" />
 
   <!-- Twitter / X Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Epic Card Quest // The Vault — VIP Early Access" />
-  <meta name="twitter:description" content="Monthly Sports &amp; Pokémon Collector Vaults ($25 / $35 / $50 +$10 Japanese Pokémon). Claim your VIP Founder Pass in Hagerstown, MD." />
+  <meta name="twitter:title" content="Epic Card Quest — Mystery Vault VIP Early Access" />
+  <meta
+    name="twitter:description"
+    content="Curated Sports & Pokémon TCG mystery boxes starting at $25/mo. Local pickup at Valley Mall & Hagerstown Premium Outlets or shipped to your door."
+  />
   <meta name="twitter:image" content="https://vault.epiccard.quest/assets/og-card.png" />
 
-  <!-- Fonts: Plus Jakarta Sans + JetBrains Mono -->
+  <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
 
-  <!-- Tailwind CSS CDN -->
+  <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
           colors: {
             obsidian: '#0F172A',
-            obsidianDeep: '#090F1E',
-            obsidianCard: '#141E33',
+            surface: '#131C31',
+            surfaceElevated: '#162038',
             royal: '#2563EB',
-            royalDark: '#1D4ED8',
-            gold: '#F59E0B',
-            goldLight: '#FCD34D',
+            royalHover: '#1D4ED8',
+            foil: '#F59E0B',
+            foilLight: '#FBBF24',
           },
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
+          animation: {
+            'foil-sweep': 'foilSweep 4.5s linear infinite',
+            'border-glow': 'borderGlow 3.2s ease-in-out infinite',
           },
-          letterSpacing: {
-            vault: '0.16em',
-            ultra: '0.24em',
-          }
-        }
-      }
+          keyframes: {
+            foilSweep: {
+              '0%': { backgroundPosition: '200% center' },
+              '100%': { backgroundPosition: '-200% center' },
+            },
+            borderGlow: {
+              '0%, 100%': { boxShadow: '0 0 24px rgba(245, 158, 11, 0.22)' },
+              '50%': { boxShadow: '0 0 42px rgba(245, 158, 11, 0.45)' },
+            },
+          },
+        },
+      },
     };
   </script>
 
   <style>
     body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: #0F172A;
       color: #F8FAFC;
-      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* Subtle architectural grid overlay */
-    .vault-grid {
+    /* Subtle dark collector grid + radial spotlight background */
+    .collector-backdrop {
       background-image:
-        linear-gradient(to right, rgba(37, 99, 235, 0.08) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(37, 99, 235, 0.08) 1px, transparent 1px);
-      background-size: 48px 48px;
+        radial-gradient(circle at 16% 12%, rgba(37, 99, 235, 0.20) 0%, transparent 46%),
+        radial-gradient(circle at 84% 20%, rgba(245, 158, 11, 0.14) 0%, transparent 44%),
+        radial-gradient(circle at 50% 96%, rgba(37, 99, 235, 0.12) 0%, transparent 50%),
+        linear-gradient(to right, rgba(148, 163, 184, 0.045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.045) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
     }
 
-    /* Foil gold metallic sheen for the VIP Founder Pass */
-    .founder-pass-card {
-      background:
-        radial-gradient(120% 90% at 100% 0%, rgba(245, 158, 11, 0.22), transparent 55%),
-        radial-gradient(100% 80% at 0% 100%, rgba(37, 99, 235, 0.28), transparent 60%),
-        linear-gradient(145deg, #16213A 0%, #0B1222 100%);
-      box-shadow:
-        0 24px 60px -15px rgba(0, 0, 0, 0.7),
-        0 0 0 1px rgba(245, 158, 11, 0.45),
-        inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    }
-
-    .foil-text {
-      background: linear-gradient(110deg, #FDE68A 0%, #F59E0B 45%, #FEF3C7 70%, #D97706 100%);
+    /* Metallic Gold & White Shimmer Headline */
+    .foil-text-shimmer {
+      background: linear-gradient(
+        110deg,
+        #F59E0B 10%,
+        #FEF3C7 32%,
+        #F59E0B 50%,
+        #FFFFFF 68%,
+        #F59E0B 88%
+      );
+      background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      animation: foilSweep 4.5s linear infinite;
     }
 
-    .tier-card-selected {
-      border-color: #F59E0B !important;
-      box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.55), 0 20px 45px -18px rgba(37, 99, 235, 0.45);
+    /* Holographic Card Sheen for Featured Tier & Founder Pass */
+    .holo-sheen {
+      position: relative;
+      overflow: hidden;
+    }
+    .holo-sheen::after {
+      content: "";
+      position: absolute;
+      inset: -120%;
+      background: linear-gradient(
+        125deg,
+        transparent 38%,
+        rgba(96, 165, 250, 0.14) 46%,
+        rgba(245, 158, 11, 0.22) 50%,
+        rgba(253, 230, 138, 0.14) 54%,
+        transparent 62%
+      );
+      transform: translateX(-100%) rotate(15deg);
+      transition: transform 0.9s ease;
+      pointer-events: none;
+    }
+    .holo-sheen:hover::after {
+      transform: translateX(100%) rotate(15deg);
     }
   </style>
 
-  <!-- Public Supabase / Webhook Configuration -->
+  <!-- Central Supabase / Webhook / Square Configuration -->
   <script src="./config.js"></script>
 </head>
-<body class="bg-obsidian text-slate-100 selection:bg-royal selection:text-white min-h-screen flex flex-col">
+<body class="collector-backdrop flex min-h-screen flex-col justify-between bg-obsidian font-sans text-[#F8FAFC] antialiased selection:bg-foil selection:text-obsidian">
 
-  <!-- TOP STATUS BAR -->
-  <div class="bg-obsidianDeep border-b border-slate-800/90 text-[10px] sm:text-[11px] font-mono uppercase tracking-vault py-2.5 px-4 text-center text-slate-300">
-    <span class="inline-block w-1.5 h-1.5 rounded-full bg-gold mr-2 align-middle animate-pulse"></span>
-    VAULT.EPICCARD.QUEST &nbsp;//&nbsp;
-    <span class="text-gold font-semibold">VIP FOUNDER ACCESS OPEN</span>
-    <span class="hidden sm:inline">&nbsp;//&nbsp; VALLEY MALL &amp; HAGERSTOWN PREMIUM OUTLETS, MD</span>
-  </div>
+  <!-- ==================== 1. HEADER BAR (STRICTLY LEFT-TO-RIGHT) ==================== -->
+  <header dir="ltr" class="w-full border-b border-slate-800/80 bg-obsidian/85 backdrop-blur-xl">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
 
-  <!-- HEADER -->
-  <header class="sticky top-0 z-40 bg-obsidian/90 backdrop-blur-md border-b border-slate-800/80">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3 group">
-        <img src="/assets/favicon.svg" alt="Epic Card Quest Crest" class="w-9 h-9 rounded-lg shadow-md shadow-royal/20 transition-transform group-hover:scale-105" />
-        <div class="leading-tight">
-          <div class="text-xs sm:text-sm font-extrabold uppercase tracking-vault text-white">EPIC CARD QUEST</div>
-          <div class="text-[10px] font-mono uppercase tracking-ultra text-gold">THE VAULT // COMING SOON</div>
+      <!-- LEFT SIDE: [ECQ Monogram Crest Icon] -> [Stacked Brand Title & Sub-Row] -->
+      <a
+        href="#"
+        id="ecq-brand-logo"
+        dir="ltr"
+        class="group inline-flex flex-row items-center gap-3.5 text-left focus:outline-none"
+      >
+        <!-- Logo Crest Container (Default: High-Detail SVG Interlocking ECQ + 4-Point Gold Star) -->
+        <div
+          id="ecq-logo-badge"
+          class="relative flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-[#0B132B] p-1 ring-1 ring-blue-500/40 shadow-[0_6px_20px_rgba(0,0,0,0.6)] transition-all duration-300 group-hover:ring-foil/80 group-hover:shadow-[0_0_26px_rgba(245,158,11,0.45)] sm:h-16 sm:w-16"
+        >
+          <svg
+            viewBox="0 0 100 108"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-full w-full overflow-visible"
+            aria-label="Epic Card Quest Interlocking Monogram Crest"
+          >
+            <defs>
+              <linearGradient id="ecqFrameGrad" x1="14" y1="16" x2="76" y2="96" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#3B82F6" />
+                <stop offset="50%" stop-color="#1D4ED8" />
+                <stop offset="100%" stop-color="#172554" />
+              </linearGradient>
+              <linearGradient id="ecqRoyalBevel" x1="20" y1="22" x2="72" y2="92" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#2563EB" />
+                <stop offset="55%" stop-color="#1E3A8A" />
+                <stop offset="100%" stop-color="#0F172A" />
+              </linearGradient>
+              <linearGradient id="ecqGoldBevel" x1="16" y1="14" x2="84" y2="96" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FEF9C3" />
+                <stop offset="40%" stop-color="#F59E0B" />
+                <stop offset="80%" stop-color="#D97706" />
+                <stop offset="100%" stop-color="#92400E" />
+              </linearGradient>
+              <linearGradient id="ecqStarBright" x1="60" y1="4" x2="78" y2="28" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FEF9C3" />
+                <stop offset="100%" stop-color="#FBBF24" />
+              </linearGradient>
+              <linearGradient id="ecqStarDark" x1="74" y1="22" x2="94" y2="42" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#D97706" />
+                <stop offset="100%" stop-color="#78350F" />
+              </linearGradient>
+            </defs>
+
+            <!-- Outer Rounded Royal-Blue Card Frame -->
+            <rect x="14" y="18" width="60" height="78" rx="9" fill="url(#ecqFrameGrad)" stroke="#60A5FA" stroke-width="1.5" />
+            <rect x="18" y="22" width="52" height="70" rx="6" fill="#091024" stroke="#1E40AF" stroke-width="1.2" />
+
+            <!-- Interlocking Q (Right Loop + Diagonal Tail) -->
+            <path
+              d="M46 31H61L67 37V75L61 81L71 91H61L53 83H46L40 77V37L46 31Z"
+              fill="url(#ecqRoyalBevel)"
+              stroke="url(#ecqGoldBevel)"
+              stroke-width="2.4"
+              stroke-linejoin="round"
+            />
+            <rect x="48" y="40" width="11" height="33" rx="2" fill="#091024" stroke="url(#ecqGoldBevel)" stroke-width="1.8" />
+
+            <!-- Interlocking E (Left Vertical Spine + Top, Center & Bottom Bars) -->
+            <path
+              d="M22 25H51L45 31H30V52H41V58H30V83H52L58 89H22V25Z"
+              fill="url(#ecqRoyalBevel)"
+              stroke="url(#ecqGoldBevel)"
+              stroke-width="2.4"
+              stroke-linejoin="round"
+            />
+
+            <!-- Interlocking C (Center Nested Geometric Bracket) -->
+            <path
+              d="M40 38H55L60 43V51H52V45H42V71H52V65H60V73L55 78H40L35 73V43L40 38Z"
+              fill="url(#ecqRoyalBevel)"
+              stroke="url(#ecqGoldBevel)"
+              stroke-width="2.4"
+              stroke-linejoin="round"
+            />
+
+            <!-- 4-Point Beveled Metallic Gold Star Overlapping Top-Right Corner -->
+            <path d="M74 4L74 23L55 23L74 4Z" fill="url(#ecqStarBright)" />
+            <path d="M74 4L93 23L74 23L74 4Z" fill="url(#ecqGoldBevel)" />
+            <path d="M55 23L74 23L74 42L55 23Z" fill="url(#ecqGoldBevel)" />
+            <path d="M74 23L93 23L74 42L74 23Z" fill="url(#ecqStarDark)" />
+            <path
+              d="M74 4L78.6 18.4L93 23L78.6 27.6L74 42L69.4 27.6L55 23L69.4 18.4L74 4Z"
+              stroke="#FEF08A"
+              stroke-width="1.1"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+
+        <!-- Stacked Brand Title & Mystery Vault Sub-Row -->
+        <div class="flex flex-col items-start text-left">
+          <span class="text-base font-black uppercase tracking-[0.12em] text-white sm:text-lg">
+            EPIC CARD QUEST
+          </span>
+          <div class="mt-0.5 flex flex-wrap items-center gap-2">
+            <span class="rounded-md border border-foil/40 bg-foil/15 px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-[0.16em] text-foil">
+              MYSTERY VAULT
+            </span>
+            <span class="text-[11px] font-medium tracking-wide text-slate-400">vault.epiccard.quest</span>
+          </div>
         </div>
       </a>
 
-      <nav class="hidden md:flex items-center gap-7 text-[11px] font-mono uppercase tracking-vault text-slate-300">
-        <a href="#tiers" class="hover:text-gold transition-colors">Vault Tiers</a>
-        <a href="#waitlist" class="hover:text-gold transition-colors">VIP Pass</a>
-        <a href="#locations" class="hover:text-gold transition-colors">Hagerstown Boutiques</a>
-      </nav>
+      <!-- RIGHT SIDE: Launch Status Pill Badge -->
+      <div class="ml-auto inline-flex items-center gap-2 rounded-full border border-slate-700/90 bg-surfaceElevated/90 px-3.5 py-1.5 shadow-inner">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-foil opacity-75"></span>
+          <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-foil"></span>
+        </span>
+        <span class="text-[10px] font-extrabold uppercase tracking-[0.15em] text-slate-200 sm:text-xs">
+          LAUNCHING SOON • HAGERSTOWN, MD
+        </span>
+      </div>
 
-      <a href="#waitlist" class="bg-royal hover:bg-royalDark text-white px-4 py-2 rounded text-[11px] font-mono font-semibold uppercase tracking-vault transition-colors shadow-lg shadow-royal/25">
-        Claim VIP Pass
-      </a>
     </div>
   </header>
 
-  <main class="flex-1">
+  <!-- ==================== 2. MAIN CONTENT: HERO + VIP WAITLIST (2-COLUMN) ==================== -->
+  <main class="mx-auto flex w-full max-w-6xl flex-1 items-center px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
+    <div class="grid w-full items-center gap-10 lg:grid-cols-12 lg:gap-12">
 
-    <!-- HERO SECTION -->
-    <section class="relative overflow-hidden border-b border-slate-800/80 vault-grid">
-      <!-- Ambient Royal Blue & Foil Gold Glow -->
-      <div class="pointer-events-none absolute -top-24 left-1/4 w-96 h-96 bg-royal/20 rounded-full blur-3xl"></div>
-      <div class="pointer-events-none absolute -bottom-24 right-1/4 w-80 h-80 bg-gold/15 rounded-full blur-3xl"></div>
-
-      <div class="relative max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 text-center">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gold/35 bg-gold/10 text-gold font-mono text-[10px] sm:text-xs uppercase tracking-vault mb-6">
-          <span>Wave 01 // Founding Collector Waitlist</span>
+      <!-- LEFT COLUMN: Hero Promise & Interactive Mystery Box Showcase -->
+      <div class="lg:col-span-6">
+        <!-- Eyebrow Badge -->
+        <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-foil/40 bg-foil/10 px-3.5 py-1.5">
+          <svg class="h-3.5 w-3.5 text-foil" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+          <span class="text-[11px] font-extrabold uppercase tracking-[0.16em] text-foil">
+            OFFICIAL SUBSCRIPTION PORTAL • LIMITED FIRST DROP
+          </span>
         </div>
 
-        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-[1.08]">
-          The Collector Vault Is
-          <span class="foil-text">Almost Open.</span>
+        <!-- Metallic Shimmer Headline -->
+        <h1 class="text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-[3.35rem] lg:leading-[1.06]">
+          Rip <span class="foil-text-shimmer">Guaranteed Hits</span> Every Month.
         </h1>
 
-        <p class="mt-6 text-sm sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-          Monthly curated mystery boxes built by real Hagerstown card-shop collectors—featuring
-          <span class="text-white font-semibold">Sports</span>,
-          <span class="text-white font-semibold">Chinese &amp; Korean Pokémon</span>, and optional
-          <span class="text-gold font-semibold">Japanese Pokémon (+$10/box)</span>.
-          Lock your founding spot for first-wave allocation and instant VIP Founder Pass status.
+        <!-- Subcopy -->
+        <p class="mt-5 text-base leading-relaxed text-[#94A3B8] sm:text-lg">
+          Curated <strong class="font-semibold text-white">Sports</strong> and <strong class="font-semibold text-white">Chinese, Korean, &amp; Japanese Pokémon</strong> mystery boxes powered by hassle-free <strong class="font-semibold text-white">Square recurring billing</strong>. Pick up locally at <strong class="font-semibold text-white">Valley Mall</strong> or <strong class="font-semibold text-white">Hagerstown Premium Outlets</strong> (Hagerstown, MD), or have your box shipped straight to your door.
         </p>
 
-        <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href="#waitlist" class="w-full sm:w-auto bg-royal hover:bg-royalDark text-white px-8 py-4 rounded-md text-xs font-mono font-bold uppercase tracking-vault transition-all shadow-xl shadow-royal/30">
-            Generate VIP Founder Pass
-          </a>
-          <a href="#tiers" class="w-full sm:w-auto border border-slate-700 hover:border-gold/70 bg-obsidianCard/80 text-slate-200 hover:text-gold px-8 py-4 rounded-md text-xs font-mono font-semibold uppercase tracking-vault transition-all">
-            Explore $25 / $35 / $50 Tiers
-          </a>
-        </div>
-
-        <!-- Quick Value Pillars -->
-        <div class="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto text-left">
-          <div class="bg-obsidianCard/85 border border-slate-800 rounded-lg p-5">
-            <div class="font-mono text-[10px] text-gold uppercase tracking-vault mb-1.5">01 // Local &amp; Shipped</div>
-            <div class="text-sm font-bold text-white">2 Hagerstown Pickup Desks</div>
-            <p class="text-xs text-slate-400 mt-1">Zero shipping fees when you pick up at Valley Mall or Hagerstown Premium Outlets.</p>
-          </div>
-          <div class="bg-obsidianCard/85 border border-slate-800 rounded-lg p-5">
-            <div class="font-mono text-[10px] text-royal uppercase tracking-vault mb-1.5">02 // Real Hits Only</div>
-            <div class="text-sm font-bold text-white">Curated Packs &amp; Chase Cards</div>
-            <p class="text-xs text-slate-400 mt-1">Sealed packs, numbered parallels, autos, and slab chasers hand-packed by our shop team.</p>
-          </div>
-          <div class="bg-obsidianCard/85 border border-slate-800 rounded-lg p-5">
-            <div class="font-mono text-[10px] text-gold uppercase tracking-vault mb-1.5">03 // Founder Perks</div>
-            <div class="text-sm font-bold text-white">Priority Drop Allocation</div>
-            <p class="text-xs text-slate-400 mt-1">VIP Founder Pass holders get 48-hour early checkout before public release.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PRICING TIERS + JAPANESE POKEMON +$10 TOGGLE -->
-    <section id="tiers" class="py-20 sm:py-24 border-b border-slate-800/80 bg-obsidianDeep/50">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12">
-          <div>
-            <div class="font-mono text-[11px] uppercase tracking-ultra text-gold mb-2">Monthly Mystery Vaults</div>
-            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
-              Choose Your Vault Tier
-            </h2>
-            <p class="text-sm text-slate-400 mt-2 max-w-xl">
-              Base pricing covers <span class="text-slate-200 font-medium">Sports</span> and
-              <span class="text-slate-200 font-medium">Chinese / Korean Pokémon</span>. Flip the toggle to upgrade any box to authentic <span class="text-gold font-medium">Japanese Pokémon (+$10/box)</span>.
-            </p>
+        <!-- Mystery Box Tier Showcase -->
+        <div class="mt-8 space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <span class="text-[11px] font-extrabold uppercase tracking-[0.18em] text-slate-400">
+              Select Edition to Preview Pricing
+            </span>
+            <span id="edition-status-badge" class="text-[11px] font-semibold text-blue-400">
+              Sports Edition • Base Pricing
+            </span>
           </div>
 
-          <!-- Collector Track & +$10/box Japanese Pokémon Toggle -->
-          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-            <!-- Base Track Pill -->
-            <div class="inline-flex rounded-lg bg-obsidianCard border border-slate-700/80 p-1">
-              <button type="button" id="track-sports" onclick="setTrack('SPORTS')" class="track-btn px-3.5 py-2 rounded-md text-[11px] font-mono font-semibold uppercase tracking-wider transition-colors bg-royal text-white">
-                Sports
-              </button>
-              <button type="button" id="track-cnkr" onclick="setTrack('POKEMON_CN_KR')" class="track-btn px-3.5 py-2 rounded-md text-[11px] font-mono font-semibold uppercase tracking-wider transition-colors text-slate-300 hover:text-white">
-                CN/KR Pokémon
-              </button>
-            </div>
-
-            <!-- Japanese Pokémon +$10/box Toggle -->
+          <!-- Interactive Box Edition Switcher Pills -->
+          <div class="grid grid-cols-1 gap-2 rounded-2xl border border-slate-800 bg-obsidian/85 p-1.5 sm:grid-cols-3" role="group" aria-label="Box Edition Switcher">
             <button
               type="button"
-              id="jp-toggle-btn"
-              role="switch"
-              aria-checked="false"
-              onclick="toggleJapaneseAddon()"
-              class="flex items-center justify-between sm:justify-start gap-3 px-4 py-2.5 rounded-lg border border-slate-700 bg-obsidianCard hover:border-gold/70 transition-all text-left"
+              data-edition="sports"
+              onclick="selectBoxEdition('sports')"
+              class="edition-pill rounded-xl border-2 border-royal bg-royal/20 px-2.5 py-2 text-center text-[11px] font-extrabold leading-tight text-white transition-all shadow-[0_0_16px_rgba(37,99,235,0.2)]"
             >
-              <div>
-                <div class="text-[11px] font-mono font-bold uppercase tracking-wider text-white flex items-center gap-1.5">
-                  Japanese Pokémon
-                  <span class="text-gold">+$10/box</span>
-                </div>
-                <div id="jp-toggle-sub" class="text-[10px] font-mono text-slate-400">Off — Standard $25 / $35 / $50</div>
-              </div>
-              <span id="jp-switch-track" class="relative inline-flex h-6 w-11 shrink-0 items-center rounded-full bg-slate-700 transition-colors">
-                <span id="jp-switch-thumb" class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-1"></span>
+              Sports ($25 / $35 / $50)
+            </button>
+            <button
+              type="button"
+              data-edition="pokemon-cn-kr"
+              onclick="selectBoxEdition('pokemon-cn-kr')"
+              class="edition-pill rounded-xl border border-transparent bg-transparent px-2.5 py-2 text-center text-[11px] font-bold leading-tight text-slate-400 transition-all hover:text-white"
+            >
+              Pokémon • CN &amp; KR ($25 / $35 / $50)
+            </button>
+            <button
+              type="button"
+              data-edition="pokemon-jp"
+              onclick="selectBoxEdition('pokemon-jp')"
+              class="edition-pill rounded-xl border border-transparent bg-transparent px-2.5 py-2 text-center text-[11px] font-bold leading-tight text-slate-400 transition-all hover:text-white"
+            >
+              Pokémon • Japanese (+$10/box)
+            </button>
+          </div>
+
+          <!-- Tier 1: Starter Rip -->
+          <div
+            role="button"
+            tabindex="0"
+            onclick="selectPreferredTier('Starter Rip')"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPreferredTier('Starter Rip');}"
+            class="flex cursor-pointer items-center justify-between gap-3 rounded-2xl border border-slate-800 bg-surface px-4 py-3.5 transition-all hover:border-royal/70"
+          >
+            <div class="flex items-center gap-3">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-royal/15 text-xs font-extrabold text-blue-400 ring-1 ring-royal/30">
+                01
               </span>
-            </button>
-          </div>
-        </div>
-
-        <!-- 3 Tier Cards -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- TIER 1: $25 / $35 -->
-          <div id="card-SCOUT" data-tier="SCOUT" class="tier-card bg-obsidianCard border border-slate-800 rounded-xl p-7 flex flex-col justify-between transition-all">
-            <div>
-              <div class="flex items-center justify-between font-mono text-[10px] uppercase tracking-vault text-slate-400 mb-4">
-                <span>Tier 01 // Starter</span>
-                <span class="jp-badge hidden px-2 py-0.5 rounded bg-gold/15 border border-gold/40 text-gold font-bold">+$10 JP</span>
+              <div>
+                <div class="text-sm font-extrabold text-white">Starter Rip</div>
+                <div class="text-xs text-[#94A3B8]">
+                  3 curated booster packs, 1 guaranteed foil/parallel hit, ECQ loyalty stamp.
+                </div>
               </div>
-              <h3 class="text-xl font-extrabold uppercase tracking-wider text-white">Scout Vault</h3>
-              <div class="mt-4 flex items-baseline gap-1.5">
-                <span id="price-SCOUT" class="text-4xl font-extrabold font-mono text-white">$25</span>
-                <span class="text-xs font-mono text-slate-400 uppercase">/ month</span>
-              </div>
-              <p class="mt-2 text-xs text-slate-400 tier-edition-note">Sports or Chinese/Korean Pokémon</p>
-
-              <ul class="mt-6 space-y-3 text-xs text-slate-300 border-t border-slate-800 pt-6">
-                <li class="flex items-start gap-2.5"><span class="text-gold font-bold">▸</span> <span>Curated sealed booster pack lineup</span></li>
-                <li class="flex items-start gap-2.5"><span class="text-gold font-bold">▸</span> <span>Guaranteed holofoil, insert, or numbered parallel</span></li>
-                <li class="flex items-start gap-2.5"><span class="text-gold font-bold">▸</span> <span>Protective penny sleeves &amp; toploader kit</span></li>
-                <li class="flex items-start gap-2.5"><span class="text-gold font-bold">▸</span> <span>Free Valley Mall or Outlets pickup</span></li>
-              </ul>
             </div>
-
-            <button type="button" onclick="selectTier('SCOUT', true)" class="mt-8 w-full py-3.5 rounded-lg border border-slate-700 hover:border-royal hover:bg-royal text-white font-mono text-[11px] font-bold uppercase tracking-vault transition-colors">
-              Reserve Scout Vault
-            </button>
+            <div class="shrink-0 text-right">
+              <span id="tier-price-starter" class="text-lg font-black text-white">$25</span>
+              <span class="text-xs font-medium text-slate-400">/mo</span>
+            </div>
           </div>
 
-          <!-- TIER 2: $35 / $45 (MOST POPULAR) -->
-          <div id="card-COLLECTOR" data-tier="COLLECTOR" class="tier-card tier-card-selected bg-obsidianCard border-2 border-royal rounded-xl p-7 flex flex-col justify-between relative transition-all">
-            <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-royal text-white font-mono text-[10px] font-bold uppercase tracking-vault px-3.5 py-1 rounded-full shadow-lg shadow-royal/40 whitespace-nowrap">
-              Most Popular // Collector Choice
-            </div>
-
-            <div>
-              <div class="flex items-center justify-between font-mono text-[10px] uppercase tracking-vault text-royal mb-4 mt-1">
-                <span>Tier 02 // Core</span>
-                <span class="jp-badge hidden px-2 py-0.5 rounded bg-gold/15 border border-gold/40 text-gold font-bold">+$10 JP</span>
+          <!-- Tier 2: Pro (Featured with Foil Gold Border & MOST POPULAR Badge) -->
+          <div
+            role="button"
+            tabindex="0"
+            onclick="selectPreferredTier('Pro')"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPreferredTier('Pro');}"
+            class="holo-sheen animate-border-glow relative flex cursor-pointer items-center justify-between gap-3 rounded-2xl border-2 border-foil bg-surfaceElevated px-4 py-3.5 transition-transform hover:scale-[1.005]"
+          >
+            <div class="flex items-center gap-3">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-foil/20 text-xs font-extrabold text-foil ring-1 ring-foil/40">
+                02
+              </span>
+              <div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="text-sm font-extrabold text-white">Pro</span>
+                  <span class="rounded bg-foil px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-obsidian">
+                    MOST POPULAR
+                  </span>
+                </div>
+                <div class="text-xs text-slate-200">
+                  6 modern &amp; vintage packs, 1 guaranteed Illustration Rare / numbered hit, exclusive ECQ promo card, 10% off in-store singles.
+                </div>
               </div>
-              <h3 class="text-xl font-extrabold uppercase tracking-wider text-white">Collector Vault</h3>
-              <div class="mt-4 flex items-baseline gap-1.5">
-                <span id="price-COLLECTOR" class="text-4xl font-extrabold font-mono text-white">$35</span>
-                <span class="text-xs font-mono text-slate-400 uppercase">/ month</span>
-              </div>
-              <p class="mt-2 text-xs text-slate-400 tier-edition-note">Sports or Chinese/Korean Pokémon</p>
-
-              <ul class="mt-6 space-y-3 text-xs text-slate-200 border-t border-slate-800 pt-6">
-                <li class="flex items-start gap-2.5"><span class="text-gold font-bold">▸</span> <span>Expanded hobby &amp; specialty booster mix</span></li>
-                <li class="flex items-start gap-2.5"><span class="text-gold font-bold">▸</span> <span>Guaranteed chase hit (EX/AR, auto, or relic)</span></li>
-                <li class="flex items-start gap-2.5"><span class="text-gold font-bold">▸</span> <span>Monthly Vault Chase Pool entry (PSA/BGS slabs)</span></li>
-                <li class="flex items-start gap-2.5"><span class="text-gold font-bold">▸</span> <span>5% Founding Member in-store singles bonus</span></li>
-              </ul>
             </div>
-
-            <button type="button" onclick="selectTier('COLLECTOR', true)" class="mt-8 w-full py-3.5 rounded-lg bg-royal hover:bg-royalDark text-white font-mono text-[11px] font-bold uppercase tracking-vault transition-colors shadow-lg shadow-royal/30">
-              Reserve Collector Vault
-            </button>
+            <div class="shrink-0 text-right">
+              <span id="tier-price-pro" class="text-lg font-black text-foil">$35</span>
+              <span class="text-xs font-medium text-slate-300">/mo</span>
+            </div>
           </div>
 
-          <!-- TIER 3: $50 / $60 -->
-          <div id="card-VAULT" data-tier="VAULT" class="tier-card bg-obsidianCard border border-gold/40 rounded-xl p-7 flex flex-col justify-between transition-all">
-            <div>
-              <div class="flex items-center justify-between font-mono text-[10px] uppercase tracking-vault text-gold mb-4">
-                <span>Tier 03 // High-End</span>
-                <span class="jp-badge hidden px-2 py-0.5 rounded bg-gold/15 border border-gold/40 text-gold font-bold">+$10 JP</span>
+          <!-- Tier 3: Quest Master -->
+          <div
+            role="button"
+            tabindex="0"
+            onclick="selectPreferredTier('Quest Master')"
+            onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPreferredTier('Quest Master');}"
+            class="flex cursor-pointer items-center justify-between gap-3 rounded-2xl border border-slate-800 bg-surface px-4 py-3.5 transition-all hover:border-royal/70"
+          >
+            <div class="flex items-center gap-3">
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-royal/15 text-xs font-extrabold text-blue-400 ring-1 ring-royal/30">
+                03
+              </span>
+              <div>
+                <div class="text-sm font-extrabold text-white">Quest Master</div>
+                <div class="text-xs text-[#94A3B8]">
+                  10 premium &amp; hobby packs, 1 guaranteed graded slab or auto/relic hit, early access to allocated drops, VIP rip night entry.
+                </div>
               </div>
-              <h3 class="text-xl font-extrabold uppercase tracking-wider text-white">Vault Elite</h3>
-              <div class="mt-4 flex items-baseline gap-1.5">
-                <span id="price-VAULT" class="text-4xl font-extrabold font-mono text-gold">$50</span>
-                <span class="text-xs font-mono text-slate-400 uppercase">/ month</span>
-              </div>
-              <p class="mt-2 text-xs text-slate-400 tier-edition-note">Sports or Chinese/Korean Pokémon</p>
-
-              <ul class="mt-6 space-y-3 text-xs text-slate-300 border-t border-slate-800 pt-6">
-                <li class="flex items-start gap-2.5"><span class="text-gold font-bold">▸</span> <span>Premium booster allocation + specialty packs</span></li>
-                <li class="flex items-start gap-2.5"><span class="text-gold font-bold">▸</span> <span>Guaranteed hit or graded/encased vault single</span></li>
-                <li class="flex items-start gap-2.5"><span class="text-gold font-bold">▸</span> <span>3x entries into monthly Grail Slab Giveaway</span></li>
-                <li class="flex items-start gap-2.5"><span class="text-gold font-bold">▸</span> <span>48-hour early access to restocks &amp; trade nights</span></li>
-              </ul>
             </div>
-
-            <button type="button" onclick="selectTier('VAULT', true)" class="mt-8 w-full py-3.5 rounded-lg bg-gold hover:bg-amber-400 text-obsidian font-mono text-[11px] font-bold uppercase tracking-vault transition-colors">
-              Reserve Vault Elite
-            </button>
+            <div class="shrink-0 text-right">
+              <span id="tier-price-quest-master" class="text-lg font-black text-white">$50</span>
+              <span class="text-xs font-medium text-slate-400">/mo</span>
+            </div>
           </div>
+
+          <!-- Pricing Callout Note -->
+          <p class="rounded-xl border border-slate-800/90 bg-obsidian/75 px-3.5 py-2.5 text-xs leading-relaxed text-slate-300">
+            <span class="font-bold text-foil">Note:</span> Base pricing ($25 / $35 / $50) applies to Sports and Chinese/Korean Pokémon boxes. Japanese Pokémon boxes add +$10/mo per tier.
+          </p>
         </div>
       </div>
-    </section>
 
-    <!-- VIP WAITLIST FORM + INSTANT VIP FOUNDER PASS GENERATOR -->
-    <section id="waitlist" class="py-20 sm:py-24 border-b border-slate-800/80">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <!-- RIGHT COLUMN: Interactive VIP Waitlist Card & Founder Pass Generator -->
+      <div class="lg:col-span-6">
+        <div class="rounded-3xl border border-slate-800/90 bg-surface p-6 shadow-[0_25px_75px_rgba(0,0,0,0.65)] sm:p-8">
 
-          <!-- Left: VIP Waitlist Form -->
-          <div class="lg:col-span-6 bg-obsidianCard border border-slate-800 rounded-xl p-7 sm:p-9">
-            <div class="font-mono text-[10px] uppercase tracking-ultra text-gold mb-2">
-              VIP Early-Access Registration
-            </div>
-            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-              Lock Your Founding Spot
-            </h2>
-            <p class="text-xs sm:text-sm text-slate-400 mt-2">
-              No payment required today. Submit your waitlist reservation to instantly generate your serialized <span class="text-gold font-semibold">VIP Founder Pass</span>.
-            </p>
-
-            <!-- Live Selection Summary Pill -->
-            <div class="mt-6 p-4 rounded-lg bg-obsidianDeep border border-royal/35 flex items-center justify-between gap-4">
-              <div>
-                <div class="font-mono text-[10px] uppercase tracking-vault text-slate-400">Selected Reservation</div>
-                <div id="summary-selection" class="text-sm font-bold text-white mt-0.5">
-                  Collector Vault — Sports
-                </div>
+          <!-- VIEW A: VIP EARLY-ACCESS WAITLIST FORM -->
+          <div id="waitlist-form-container">
+            <div class="border-b border-slate-800/90 pb-5">
+              <div class="flex items-center justify-between gap-2">
+                <h2 class="text-2xl font-black text-white sm:text-3xl">Lock In Early Access</h2>
+                <span class="shrink-0 rounded-lg bg-royal/15 px-2.5 py-1 text-[11px] font-extrabold uppercase tracking-wider text-blue-400 ring-1 ring-royal/30">
+                  VIP Drop #1
+                </span>
               </div>
-              <div class="text-right">
-                <div id="summary-price" class="font-mono text-xl font-extrabold text-gold">$35/mo</div>
-                <div id="summary-jp-tag" class="font-mono text-[10px] text-slate-400 uppercase">Base Rate</div>
-              </div>
+              <p class="mt-2 text-xs leading-relaxed text-[#94A3B8] sm:text-sm">
+                Reserve your spot for <strong class="text-white">24-hour early access</strong> before public release + a <strong class="text-foil">bonus loyalty stamp</strong> on your first box.
+              </p>
             </div>
 
-            <form id="vip-waitlist-form" onsubmit="handleWaitlistSubmit(event)" class="mt-6 space-y-4">
+            <form id="vip-waitlist-form" novalidate class="mt-6 space-y-4">
+              <!-- Full Name -->
               <div>
-                <label for="full_name" class="block font-mono text-[10px] uppercase tracking-vault text-slate-300 mb-1.5">
-                  Collector Name *
+                <label for="collector-name" class="mb-1.5 block text-xs font-extrabold uppercase tracking-wider text-slate-300">
+                  Full Name <span class="text-foil">*</span>
                 </label>
                 <input
-                  id="full_name"
-                  name="full_name"
                   type="text"
+                  id="collector-name"
+                  name="collectorName"
                   required
-                  autocomplete="name"
-                  placeholder="Jordan Rivera"
-                  class="w-full rounded-lg bg-obsidianDeep border border-slate-700 px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-royal"
+                  placeholder="e.g. Jordan Davis"
+                  oninput="clearFieldError('collector-name')"
+                  class="w-full rounded-xl border border-slate-700 bg-obsidian px-4 py-3 text-sm text-white placeholder-slate-500 transition-colors focus:border-royal focus:outline-none focus:ring-2 focus:ring-royal/30"
                 />
+                <p id="err-collector-name" class="mt-1 hidden text-xs font-semibold text-rose-400">
+                  Please enter your full name.
+                </p>
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Email & Phone / SMS Grid -->
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
-                  <label for="email" class="block font-mono text-[10px] uppercase tracking-vault text-slate-300 mb-1.5">
-                    Email Address *
+                  <label for="collector-email" class="mb-1.5 block text-xs font-extrabold uppercase tracking-wider text-slate-300">
+                    Email Address <span class="text-foil">*</span>
                   </label>
                   <input
-                    id="email"
-                    name="email"
                     type="email"
+                    id="collector-email"
+                    name="collectorEmail"
                     required
-                    autocomplete="email"
-                    placeholder="collector@domain.com"
-                    class="w-full rounded-lg bg-obsidianDeep border border-slate-700 px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-royal"
+                    placeholder="you@example.com"
+                    oninput="clearFieldError('collector-email')"
+                    class="w-full rounded-xl border border-slate-700 bg-obsidian px-4 py-3 text-sm text-white placeholder-slate-500 transition-colors focus:border-royal focus:outline-none focus:ring-2 focus:ring-royal/30"
                   />
+                  <p id="err-collector-email" class="mt-1 hidden text-xs font-semibold text-rose-400">
+                    Please enter a valid email address.
+                  </p>
                 </div>
+
                 <div>
-                  <label for="phone" class="block font-mono text-[10px] uppercase tracking-vault text-slate-300 mb-1.5">
-                    SMS Drop Alerts (Optional)
+                  <label for="collector-phone" class="mb-1.5 block text-xs font-extrabold uppercase tracking-wider text-slate-300">
+                    Phone / SMS <span class="font-normal text-slate-500">(Drop Alerts)</span>
                   </label>
                   <input
-                    id="phone"
-                    name="phone"
                     type="tel"
-                    autocomplete="tel"
+                    id="collector-phone"
+                    name="collectorPhone"
+                    maxlength="14"
                     placeholder="(301) 555-0194"
-                    class="w-full rounded-lg bg-obsidianDeep border border-slate-700 px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-royal"
+                    oninput="formatUsPhone(this)"
+                    class="w-full rounded-xl border border-slate-700 bg-obsidian px-4 py-3 text-sm text-white placeholder-slate-500 transition-colors focus:border-royal focus:outline-none focus:ring-2 focus:ring-royal/30"
                   />
                 </div>
               </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label for="tier_select" class="block font-mono text-[10px] uppercase tracking-vault text-slate-300 mb-1.5">
-                    Vault Tier *
-                  </label>
-                  <select
-                    id="tier_select"
-                    name="tier"
-                    onchange="selectTier(this.value, false)"
-                    class="w-full rounded-lg bg-obsidianDeep border border-slate-700 px-4 py-3 text-sm text-white focus:outline-none focus:border-royal"
+              <!-- Hobby Focus Pills -->
+              <div>
+                <span class="mb-2 block text-xs font-extrabold uppercase tracking-wider text-slate-300">
+                  Hobby Focus
+                </span>
+                <div class="grid grid-cols-2 gap-2" role="group" aria-label="Hobby Focus">
+                  <button
+                    type="button"
+                    data-hobby="Sports Cards"
+                    onclick="selectHobbyFocus('Sports Cards')"
+                    class="hobby-pill rounded-xl border-2 border-foil bg-foil/15 px-3 py-2.5 text-xs font-extrabold text-white transition-all shadow-[0_0_16px_rgba(245,158,11,0.18)]"
                   >
-                    <option value="SCOUT">Scout Vault ($25 / $35 JP)</option>
-                    <option value="COLLECTOR" selected>Collector Vault ($35 / $45 JP)</option>
-                    <option value="VAULT">Vault Elite ($50 / $60 JP)</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label for="preferred_location" class="block font-mono text-[10px] uppercase tracking-vault text-slate-300 mb-1.5">
-                    Pickup / Delivery *
-                  </label>
-                  <select
-                    id="preferred_location"
-                    name="preferred_location"
-                    onchange="updatePassPreview()"
-                    class="w-full rounded-lg bg-obsidianDeep border border-slate-700 px-4 py-3 text-sm text-white focus:outline-none focus:border-royal"
+                    Sports Cards
+                  </button>
+                  <button
+                    type="button"
+                    data-hobby="Pokémon (CN / KR)"
+                    onclick="selectHobbyFocus('Pokémon (CN / KR)')"
+                    class="hobby-pill rounded-xl border border-slate-700 bg-obsidian px-3 py-2.5 text-xs font-bold text-slate-400 transition-all hover:border-slate-500 hover:text-white"
                   >
-                    <option value="VALLEY_MALL">Valley Mall Pickup (Free)</option>
-                    <option value="HAGERSTOWN_OUTLETS">Hagerstown Outlets Pickup (Free)</option>
-                    <option value="SHIPPING">Direct Tracked Shipping</option>
-                  </select>
+                    Pokémon (CN / KR)
+                  </button>
+                  <button
+                    type="button"
+                    data-hobby="Pokémon (Japanese +$10)"
+                    onclick="selectHobbyFocus('Pokémon (Japanese +$10)')"
+                    class="hobby-pill rounded-xl border border-slate-700 bg-obsidian px-3 py-2.5 text-xs font-bold text-slate-400 transition-all hover:border-slate-500 hover:text-white"
+                  >
+                    Pokémon (Japanese +$10)
+                  </button>
+                  <button
+                    type="button"
+                    data-hobby="Both"
+                    onclick="selectHobbyFocus('Both')"
+                    class="hobby-pill rounded-xl border border-slate-700 bg-obsidian px-3 py-2.5 text-xs font-bold text-slate-400 transition-all hover:border-slate-500 hover:text-white"
+                  >
+                    Both
+                  </button>
                 </div>
               </div>
 
-              <!-- Form Inline Error -->
-              <div id="form-error" class="hidden rounded-lg border border-red-500/40 bg-red-500/10 px-4 py-3 text-xs text-red-200 font-mono"></div>
+              <!-- Preferred Tier Pills (Live Calculated Monthly Prices) -->
+              <div>
+                <span class="mb-2 block text-xs font-extrabold uppercase tracking-wider text-slate-300">
+                  Preferred Tier
+                </span>
+                <div class="grid grid-cols-3 gap-2" role="group" aria-label="Preferred Tier">
+                  <button
+                    type="button"
+                    data-tier="Starter Rip"
+                    onclick="selectPreferredTier('Starter Rip')"
+                    class="tier-pill rounded-xl border border-slate-700 bg-obsidian px-2 py-2.5 text-xs font-bold text-slate-400 transition-all hover:border-slate-500 hover:text-white"
+                  >
+                    Starter Rip (<span class="tier-pill-price" data-tier-price="Starter Rip">$25</span>)
+                  </button>
+                  <button
+                    type="button"
+                    data-tier="Pro"
+                    onclick="selectPreferredTier('Pro')"
+                    class="tier-pill rounded-xl border-2 border-foil bg-foil/15 px-2 py-2.5 text-xs font-extrabold text-white transition-all shadow-[0_0_16px_rgba(245,158,11,0.18)]"
+                  >
+                    Pro (<span class="tier-pill-price" data-tier-price="Pro">$35</span>)
+                  </button>
+                  <button
+                    type="button"
+                    data-tier="Quest Master"
+                    onclick="selectPreferredTier('Quest Master')"
+                    class="tier-pill rounded-xl border border-slate-700 bg-obsidian px-2 py-2.5 text-xs font-bold text-slate-400 transition-all hover:border-slate-500 hover:text-white"
+                  >
+                    Quest Master (<span class="tier-pill-price" data-tier-price="Quest Master">$50</span>)
+                  </button>
+                </div>
+              </div>
 
-              <button
-                type="submit"
-                id="submit-btn"
-                class="w-full mt-2 bg-royal hover:bg-royalDark disabled:opacity-60 text-white py-4 rounded-lg font-mono text-xs font-bold uppercase tracking-vault transition-all shadow-lg shadow-royal/30 flex items-center justify-center gap-2"
-              >
-                <span id="submit-btn-text">Claim VIP Founder Pass</span>
-              </button>
+              <!-- Fulfillment Preference Pills -->
+              <div>
+                <span class="mb-2 block text-xs font-extrabold uppercase tracking-wider text-slate-300">
+                  Fulfillment Preference
+                </span>
+                <div class="grid grid-cols-1 gap-2 sm:grid-cols-3" role="group" aria-label="Fulfillment Preference">
+                  <button
+                    type="button"
+                    data-fulfillment="Valley Mall Pickup"
+                    onclick="selectFulfillment('Valley Mall Pickup')"
+                    class="fulfillment-pill rounded-xl border-2 border-royal bg-royal/20 px-3 py-2.5 text-xs font-extrabold text-white transition-all shadow-[0_0_16px_rgba(37,99,235,0.22)]"
+                  >
+                    Valley Mall Pickup
+                  </button>
+                  <button
+                    type="button"
+                    data-fulfillment="Hagerstown Outlets"
+                    onclick="selectFulfillment('Hagerstown Outlets')"
+                    class="fulfillment-pill rounded-xl border border-slate-700 bg-obsidian px-3 py-2.5 text-xs font-bold text-slate-400 transition-all hover:border-slate-500 hover:text-white"
+                  >
+                    Hagerstown Outlets
+                  </button>
+                  <button
+                    type="button"
+                    data-fulfillment="Ship to Door"
+                    onclick="selectFulfillment('Ship to Door')"
+                    class="fulfillment-pill rounded-xl border border-slate-700 bg-obsidian px-3 py-2.5 text-xs font-bold text-slate-400 transition-all hover:border-slate-500 hover:text-white"
+                  >
+                    Ship to Door
+                  </button>
+                </div>
+              </div>
 
-              <p class="text-[11px] text-slate-500 text-center">
-                No spam. Unsubscribe anytime. We notify Wave 01 Founders 48 hours before public launch.
+              <!-- Inline Submission Error -->
+              <p id="err-submit" class="hidden rounded-xl border border-rose-500/40 bg-rose-500/10 px-3.5 py-2.5 text-xs font-semibold text-rose-300"></p>
+
+              <!-- Submit CTA -->
+              <div class="pt-2">
+                <button
+                  type="submit"
+                  id="vip-submit-btn"
+                  class="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-foil via-amber-400 to-foil px-6 py-4 text-sm font-black uppercase tracking-wider text-obsidian shadow-[0_10px_30px_rgba(245,158,11,0.35)] transition-all duration-200 hover:scale-[1.01] hover:brightness-110 active:scale-[0.99]"
+                >
+                  <span id="vip-submit-label">Join VIP Drop List →</span>
+                </button>
+              </div>
+
+              <p class="text-center text-[11px] text-slate-400">
+                No payment due today. You’ll receive your private Square subscription link 24 hours before public drop.
               </p>
             </form>
           </div>
 
-          <!-- Right: Live / Confirmed VIP Founder Pass -->
-          <div class="lg:col-span-6">
-            <div class="founder-pass-card rounded-2xl p-6 sm:p-8 relative overflow-hidden">
-              <!-- Subtle Diagonal Foil Shine -->
-              <div class="pointer-events-none absolute -top-24 -right-24 w-64 h-64 rounded-full bg-gold/15 blur-2xl"></div>
+          <!-- VIEW B: METALLIC VIP FOUNDER PASS CONFIRMATION -->
+          <div id="founder-pass-container" class="hidden">
+            <div class="mb-5 text-center">
+              <span id="pass-status-pill" class="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-500/15 px-3 py-1 text-[11px] font-extrabold uppercase tracking-widest text-emerald-300">
+                <svg class="h-3.5 w-3.5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                <span id="pass-status-text">Early Access Reserved</span>
+              </span>
+              <h2 class="mt-3 text-2xl font-black text-white sm:text-3xl">You’re on the VIP Drop List!</h2>
+              <p id="pass-status-subcopy" class="mt-1 text-xs text-slate-400 sm:text-sm">
+                Save your priority code below for 24-hour early access + your bonus Box #1 loyalty stamp.
+              </p>
+            </div>
 
-              <!-- Pass Top Row -->
-              <div class="flex items-center justify-between gap-4 border-b border-white/10 pb-5">
-                <div class="flex items-center gap-3">
-                  <img src="/assets/favicon.svg" alt="ECQ Crest" class="w-10 h-10 rounded-lg" />
+            <!-- Metallic Foil Gold & Royal Blue VIP FOUNDER PASS -->
+            <div class="holo-sheen rounded-2xl border-2 border-foil bg-gradient-to-br from-[#162038] via-[#0F172A] to-[#1E3A8A]/70 p-5 shadow-[0_20px_55px_rgba(245,158,11,0.3)] sm:p-6">
+              <!-- Pass Header Strip -->
+              <div class="flex items-center justify-between border-b border-slate-700/80 pb-4">
+                <div class="flex items-center gap-2.5">
+                  <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#091024] p-1 ring-1 ring-foil/60">
+                    <svg viewBox="0 0 100 108" fill="none" class="h-full w-full overflow-visible" aria-hidden="true">
+                      <rect x="14" y="18" width="60" height="78" rx="9" fill="#1E3A8A" stroke="#60A5FA" stroke-width="2" />
+                      <path d="M46 31H61L67 37V75L61 81L71 91H61L53 83H46L40 77V37L46 31Z" fill="#1D4ED8" stroke="#F59E0B" stroke-width="2.6" />
+                      <path d="M22 25H51L45 31H30V52H41V58H30V83H52L58 89H22V25Z" fill="#2563EB" stroke="#F59E0B" stroke-width="2.6" />
+                      <path d="M40 38H55L60 43V51H52V45H42V71H52V65H60V73L55 78H40L35 73V43L40 38Z" fill="#1E40AF" stroke="#F59E0B" stroke-width="2.6" />
+                      <path d="M74 4L78.6 18.4L93 23L78.6 27.6L74 42L69.4 27.6L55 23L69.4 18.4L74 4Z" fill="#FBBF24" stroke="#FEF08A" stroke-width="1" />
+                    </svg>
+                  </div>
                   <div>
-                    <div class="font-mono text-[10px] uppercase tracking-ultra text-gold font-semibold">Epic Card Quest</div>
-                    <div class="text-sm font-extrabold uppercase tracking-vault text-white">VIP Founder Pass</div>
+                    <div class="text-xs font-black tracking-wider text-white">EPIC CARD QUEST</div>
+                    <div class="text-[10px] font-extrabold uppercase tracking-[0.18em] text-foil">VIP FOUNDER PASS</div>
                   </div>
                 </div>
-                <span id="pass-status-badge" class="px-3 py-1 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider border border-slate-600 bg-slate-800/80 text-slate-300">
-                  Preview
+                <span class="rounded-md bg-gradient-to-r from-foil to-amber-300 px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-obsidian">
+                  DROP #001
                 </span>
               </div>
 
-              <!-- Pass Serial & Collector -->
-              <div class="mt-6 grid grid-cols-2 gap-5">
+              <!-- Unique Priority Code + 1-Click Copy Button -->
+              <div class="my-4 flex items-center justify-between gap-3 rounded-xl border border-foil/40 bg-obsidian/90 px-4 py-3">
                 <div>
-                  <div class="font-mono text-[10px] uppercase tracking-vault text-slate-400">Founder Serial</div>
-                  <div id="pass-serial" class="font-mono text-lg sm:text-xl font-bold text-gold tracking-wider mt-1">
-                    ECQ-VLT-XXXX
+                  <div class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Priority Access Code</div>
+                  <div id="founder-pass-code" class="mt-0.5 text-xl font-black tracking-wider text-foil sm:text-2xl">
+                    ECQ-VIP-4821
                   </div>
                 </div>
-                <div class="text-right">
-                  <div class="font-mono text-[10px] uppercase tracking-vault text-slate-400">Allocation Wave</div>
-                  <div class="font-mono text-sm sm:text-base font-bold text-white mt-1">WAVE 01 // 2026</div>
-                </div>
+                <button
+                  type="button"
+                  id="copy-founder-btn"
+                  onclick="copyFounderCode()"
+                  class="shrink-0 rounded-lg border border-slate-700 bg-surfaceElevated px-3.5 py-2 text-xs font-extrabold text-white transition-all hover:border-foil hover:text-foil"
+                >
+                  Copy
+                </button>
               </div>
 
-              <!-- Pass Details Box -->
-              <div class="mt-6 rounded-xl bg-obsidianDeep/75 border border-white/10 p-4 sm:p-5 space-y-3 text-xs">
-                <div class="flex items-center justify-between gap-3">
-                  <span class="font-mono text-slate-400 uppercase">Holder</span>
-                  <span id="pass-holder" class="font-semibold text-white truncate">Your Name Here</span>
+              <!-- Collector Metadata Rows -->
+              <div class="space-y-2.5 text-xs sm:text-sm">
+                <div class="flex items-center justify-between border-b border-slate-800/90 pb-2">
+                  <span class="text-slate-400">Collector</span>
+                  <span id="pass-collector-name" class="font-bold text-white">Jordan Davis</span>
                 </div>
-                <div class="flex items-center justify-between gap-3">
-                  <span class="font-mono text-slate-400 uppercase">Vault Tier</span>
-                  <span id="pass-tier" class="font-mono font-bold text-gold">COLLECTOR — $35/MO</span>
+                <div class="flex items-center justify-between border-b border-slate-800/90 pb-2">
+                  <span class="text-slate-400">Hobby Focus</span>
+                  <span id="pass-hobby-focus" class="font-bold text-blue-300">Sports Cards</span>
                 </div>
-                <div class="flex items-center justify-between gap-3">
-                  <span class="font-mono text-slate-400 uppercase">Edition</span>
-                  <span id="pass-edition" class="font-semibold text-slate-200">Sports</span>
+                <div class="flex items-center justify-between border-b border-slate-800/90 pb-2">
+                  <span class="text-slate-400">Preferred Tier</span>
+                  <span id="pass-preferred-tier" class="font-bold text-white">Pro ($35/mo)</span>
                 </div>
-                <div class="flex items-center justify-between gap-3">
-                  <span class="font-mono text-slate-400 uppercase">Boutique / Routing</span>
-                  <span id="pass-location" class="font-semibold text-slate-200">Valley Mall Pickup</span>
+                <div class="flex items-center justify-between">
+                  <span class="text-slate-400">Fulfillment Choice</span>
+                  <span id="pass-fulfillment-choice" class="font-bold text-foil">Valley Mall Pickup</span>
                 </div>
               </div>
+            </div>
 
-              <!-- Confirmation Message & Actions (Shown after Submit) -->
-              <div id="pass-confirmed-panel" class="hidden mt-6 pt-5 border-t border-white/10">
-                <div id="pass-confirmed-note" class="text-xs text-emerald-300 font-mono mb-4">
-                  ✓ Reservation locked in the Epic Card Quest Vault waitlist.
-                </div>
-                <div class="flex flex-wrap gap-3">
-                  <button type="button" onclick="copyPassCode()" id="copy-pass-btn" class="flex-1 bg-gold hover:bg-amber-400 text-obsidian font-mono text-[11px] font-bold uppercase tracking-vault py-2.5 px-4 rounded-lg transition-colors">
-                    Copy Pass ID
-                  </button>
-                  <button type="button" onclick="copyShareLink()" id="copy-share-btn" class="flex-1 border border-slate-600 hover:border-gold text-white font-mono text-[11px] font-semibold uppercase tracking-vault py-2.5 px-4 rounded-lg transition-colors">
-                    Share Vault Link
-                  </button>
-                </div>
-              </div>
-
-              <!-- Footer Stamp -->
-              <div class="mt-6 flex items-center justify-between text-[10px] font-mono uppercase tracking-vault text-slate-400">
-                <span>vault.epiccard.quest</span>
-                <span>Hagerstown, MD</span>
-              </div>
+            <!-- Register Another Collector Button -->
+            <div class="mt-5 text-center">
+              <button
+                type="button"
+                onclick="resetWaitlistForm()"
+                class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-400 underline decoration-slate-600 underline-offset-4 transition-colors hover:text-white hover:decoration-foil"
+              >
+                <span>Register Another Collector</span>
+              </button>
             </div>
           </div>
 
         </div>
       </div>
-    </section>
 
-    <!-- 2 HAGERSTOWN LOCATIONS -->
-    <section id="locations" class="py-20 bg-obsidianDeep/60">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="mb-10">
-          <div class="font-mono text-[11px] uppercase tracking-ultra text-gold mb-2">Hagerstown, Maryland</div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-            2 Convenient Collector Boutiques
-          </h2>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="bg-obsidianCard border border-slate-800 rounded-xl p-7 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between font-mono text-[10px] uppercase tracking-vault text-royal mb-3">
-                <span>Location 01</span>
-                <span class="text-gold">Free Vault Pickup</span>
-              </div>
-              <h3 class="text-lg font-extrabold uppercase tracking-wider text-white">Valley Mall</h3>
-              <p class="text-xs sm:text-sm text-slate-400 mt-2">
-                17301 Valley Mall Rd, Hagerstown, MD 21740
-              </p>
-              <p class="text-xs font-mono text-slate-500 mt-2">
-                Sealed Wax &bull; Singles Showcase &bull; Trade-In Desk
-              </p>
-            </div>
-            <button type="button" onclick="chooseLocation('VALLEY_MALL')" class="mt-6 self-start border border-slate-700 hover:border-gold hover:text-gold text-slate-200 px-4 py-2.5 rounded-lg font-mono text-[10px] font-bold uppercase tracking-vault transition-colors">
-              Select Valley Mall Pickup
-            </button>
-          </div>
-
-          <div class="bg-obsidianCard border border-slate-800 rounded-xl p-7 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between font-mono text-[10px] uppercase tracking-vault text-royal mb-3">
-                <span>Location 02</span>
-                <span class="text-gold">Free Vault Pickup</span>
-              </div>
-              <h3 class="text-lg font-extrabold uppercase tracking-wider text-white">Hagerstown Premium Outlets</h3>
-              <p class="text-xs sm:text-sm text-slate-400 mt-2">
-                495 Premium Outlets Blvd, Hagerstown, MD 21740
-              </p>
-              <p class="text-xs font-mono text-slate-500 mt-2">
-                Graded Slabs &bull; Pokémon Imports &bull; Vault Consignment
-              </p>
-            </div>
-            <button type="button" onclick="chooseLocation('HAGERSTOWN_OUTLETS')" class="mt-6 self-start border border-slate-700 hover:border-gold hover:text-gold text-slate-200 px-4 py-2.5 rounded-lg font-mono text-[10px] font-bold uppercase tracking-vault transition-colors">
-              Select Outlets Pickup
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="bg-obsidianDeep border-t border-slate-800/90 py-10">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-      <div class="flex items-center gap-3">
-        <img src="/assets/favicon.svg" alt="ECQ Crest" class="w-7 h-7 rounded" />
-        <span class="font-mono uppercase tracking-vault text-slate-300">Epic Card Quest // The Vault</span>
+  <!-- ==================== 3. FOOTER ==================== -->
+  <footer class="w-full border-t border-slate-800/80 bg-obsidian/90 py-6">
+    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 text-center text-xs text-slate-400 sm:px-6 lg:flex-row lg:px-8 lg:text-left">
+      <!-- Both Hagerstown Locations -->
+      <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 lg:justify-start">
+        <span class="inline-flex items-center gap-1.5 font-semibold text-slate-200">
+          <span class="h-1.5 w-1.5 rounded-full bg-royal"></span>
+          Valley Mall • Hagerstown, MD
+        </span>
+        <span class="hidden text-slate-600 sm:inline">&amp;</span>
+        <span class="inline-flex items-center gap-1.5 font-semibold text-slate-200">
+          <span class="h-1.5 w-1.5 rounded-full bg-foil"></span>
+          Hagerstown Premium Outlets • Hagerstown, MD
+        </span>
       </div>
-      <div class="font-mono text-[11px] text-slate-500">
-        &copy; <span id="year"></span> Epic Card Quest &bull; Hagerstown, MD
+
+      <!-- Regional Reach & Square Attribution -->
+      <div class="flex flex-wrap items-center justify-center gap-2 text-slate-400 lg:justify-end">
+        <span>Serving Western MD &amp; Eastern Panhandle WV</span>
+        <span class="text-slate-600">•</span>
+        <span class="font-semibold text-slate-300">Powered by Square Subscriptions</span>
       </div>
     </div>
   </footer>
 
+  <!-- ==================== 4. INTERACTIVE LOGIC & SUPABASE / WEBHOOK DISPATCH ==================== -->
   <script>
-    const TIERS = {
-      SCOUT: { name: 'Scout Vault', basePrice: 25 },
-      COLLECTOR: { name: 'Collector Vault', basePrice: 35 },
-      VAULT: { name: 'Vault Elite', basePrice: 50 }
+    // Ensure config object exists even if config.js is omitted
+    window.ECQ_VAULT_CONFIG = window.ECQ_VAULT_CONFIG || {
+      customLogoPath: "",
+      supabaseUrl: "",
+      supabaseAnonKey: "",
+      supabaseTable: "vault_waitlist",
+      webhookUrl: "",
+      squareCheckoutLinks: {
+        starter: "",
+        pro: "",
+        questMaster: "",
+        portalUrl: "",
+      },
     };
 
-    const LOCATION_LABELS = {
-      VALLEY_MALL: 'Valley Mall Pickup',
-      HAGERSTOWN_OUTLETS: 'Hagerstown Outlets Pickup',
-      SHIPPING: 'Direct Tracked Shipping'
+    // Optional Custom Logo Loader
+    (function initCustomBrandLogo() {
+      const logoPath = window.ECQ_VAULT_CONFIG && window.ECQ_VAULT_CONFIG.customLogoPath;
+      if (!logoPath) return;
+
+      const logoBadge = document.getElementById('ecq-logo-badge');
+      if (!logoBadge) return;
+
+      const img = document.createElement('img');
+      img.src = logoPath;
+      img.alt = 'Epic Card Quest Logo';
+      img.className = 'h-full w-full rounded-lg object-cover';
+      img.onload = function () {
+        logoBadge.innerHTML = '';
+        logoBadge.appendChild(img);
+      };
+    })();
+
+    // Interactive State
+    let selectedEdition = 'sports';
+    let selectedHobby = 'Sports Cards';
+    let selectedTier = 'Pro';
+    let selectedFulfillment = 'Valley Mall Pickup';
+
+    const EDITION_CONFIG = {
+      sports: {
+        prices: { starter: 25, pro: 35, questMaster: 50 },
+        badge: 'Sports Edition • Base Pricing',
+        hobby: 'Sports Cards',
+      },
+      'pokemon-cn-kr': {
+        prices: { starter: 25, pro: 35, questMaster: 50 },
+        badge: 'Pokémon CN & KR • Base Pricing',
+        hobby: 'Pokémon (CN / KR)',
+      },
+      'pokemon-jp': {
+        prices: { starter: 35, pro: 45, questMaster: 60 },
+        badge: 'Pokémon Japanese • +$10/box Add-on',
+        hobby: 'Pokémon (Japanese +$10)',
+      },
     };
 
-    const state = {
-      tier: 'COLLECTOR',
-      baseTrack: 'SPORTS', // 'SPORTS' | 'POKEMON_CN_KR'
-      japaneseAddon: false,
-      lastPassId: null
+    const TIER_BASE_PRICES = {
+      'Starter Rip': 25,
+      Pro: 35,
+      'Quest Master': 50,
     };
 
-    document.getElementById('year').textContent = new Date().getFullYear();
+    /**
+     * Updates the Mystery Box tier cards and Preferred Tier pills when an Edition is selected.
+     */
+    function selectBoxEdition(editionKey, syncHobby = true) {
+      const config = EDITION_CONFIG[editionKey];
+      if (!config) return;
 
-    function getActivePrice(tierKey = state.tier) {
-      return TIERS[tierKey].basePrice + (state.japaneseAddon ? 10 : 0);
-    }
+      selectedEdition = editionKey;
 
-    function getActiveCategory() {
-      return state.japaneseAddon ? 'POKEMON_JP' : state.baseTrack;
-    }
+      // Update left-column tier card prices
+      document.getElementById('tier-price-starter').textContent = `$${config.prices.starter}`;
+      document.getElementById('tier-price-pro').textContent = `$${config.prices.pro}`;
+      document.getElementById('tier-price-quest-master').textContent = `$${config.prices.questMaster}`;
 
-    function getEditionLabel() {
-      if (state.japaneseAddon) return 'Japanese Pokémon (+$10/box)';
-      return state.baseTrack === 'SPORTS' ? 'Sports' : 'Chinese / Korean Pokémon';
-    }
-
-    function setTrack(track) {
-      state.baseTrack = track;
-      if (state.japaneseAddon) {
-        state.japaneseAddon = false;
-      }
-      syncUI();
-    }
-
-    function toggleJapaneseAddon() {
-      state.japaneseAddon = !state.japaneseAddon;
-      syncUI();
-    }
-
-    function selectTier(tierKey, shouldScroll) {
-      if (!TIERS[tierKey]) return;
-      state.tier = tierKey;
-      document.getElementById('tier_select').value = tierKey;
-      syncUI();
-      if (shouldScroll) {
-        document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
-        setTimeout(() => document.getElementById('full_name').focus(), 400);
-      }
-    }
-
-    function chooseLocation(locKey) {
-      document.getElementById('preferred_location').value = locKey;
-      updatePassPreview();
-      document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function syncUI() {
-      // Update track pills
-      const sportsBtn = document.getElementById('track-sports');
-      const cnkrBtn = document.getElementById('track-cnkr');
-      const isSports = !state.japaneseAddon && state.baseTrack === 'SPORTS';
-      const isCnKr = !state.japaneseAddon && state.baseTrack === 'POKEMON_CN_KR';
-
-      sportsBtn.className = `track-btn px-3.5 py-2 rounded-md text-[11px] font-mono font-semibold uppercase tracking-wider transition-colors ${isSports ? 'bg-royal text-white' : 'text-slate-300 hover:text-white'}`;
-      cnkrBtn.className = `track-btn px-3.5 py-2 rounded-md text-[11px] font-mono font-semibold uppercase tracking-wider transition-colors ${isCnKr ? 'bg-royal text-white' : 'text-slate-300 hover:text-white'}`;
-
-      // Update Japanese +$10 toggle
-      const toggleBtn = document.getElementById('jp-toggle-btn');
-      const switchTrack = document.getElementById('jp-switch-track');
-      const switchThumb = document.getElementById('jp-switch-thumb');
-      const toggleSub = document.getElementById('jp-toggle-sub');
-
-      toggleBtn.setAttribute('aria-checked', String(state.japaneseAddon));
-      if (state.japaneseAddon) {
-        toggleBtn.classList.add('border-gold', 'bg-gold/10');
-        toggleBtn.classList.remove('border-slate-700');
-        switchTrack.classList.add('bg-gold');
-        switchTrack.classList.remove('bg-slate-700');
-        switchThumb.classList.add('translate-x-6');
-        switchThumb.classList.remove('translate-x-1');
-        toggleSub.textContent = 'Active — $35 / $45 / $60 Japanese Edition';
-        toggleSub.classList.add('text-gold');
-        toggleSub.classList.remove('text-slate-400');
-      } else {
-        toggleBtn.classList.remove('border-gold', 'bg-gold/10');
-        toggleBtn.classList.add('border-slate-700');
-        switchTrack.classList.remove('bg-gold');
-        switchTrack.classList.add('bg-slate-700');
-        switchThumb.classList.remove('translate-x-6');
-        switchThumb.classList.add('translate-x-1');
-        toggleSub.textContent = 'Off — Standard $25 / $35 / $50';
-        toggleSub.classList.remove('text-gold');
-        toggleSub.classList.add('text-slate-400');
-      }
-
-      // Update tier prices & badges
-      Object.keys(TIERS).forEach((key) => {
-        document.getElementById(`price-${key}`).textContent = `$${getActivePrice(key)}`;
-        const card = document.getElementById(`card-${key}`);
-        card.classList.toggle('tier-card-selected', state.tier === key);
+      // Update right-column Preferred Tier pill prices
+      document.querySelectorAll('.tier-pill-price').forEach((span) => {
+        const tierName = span.dataset.tierPrice;
+        if (tierName === 'Starter Rip') span.textContent = `$${config.prices.starter}`;
+        if (tierName === 'Pro') span.textContent = `$${config.prices.pro}`;
+        if (tierName === 'Quest Master') span.textContent = `$${config.prices.questMaster}`;
       });
 
-      document.querySelectorAll('.jp-badge').forEach((el) => {
-        el.classList.toggle('hidden', !state.japaneseAddon);
-      });
+      const badgeEl = document.getElementById('edition-status-badge');
+      badgeEl.textContent = config.badge;
+      badgeEl.className =
+        editionKey === 'pokemon-jp'
+          ? 'text-[11px] font-bold text-foil'
+          : 'text-[11px] font-semibold text-blue-400';
 
-      document.querySelectorAll('.tier-edition-note').forEach((el) => {
-        el.textContent = state.japaneseAddon
-          ? 'Authentic Japanese Pokémon Booster Edition (+$10/box)'
-          : state.baseTrack === 'SPORTS'
-            ? 'Curated Sports Cards (NFL, NBA, MLB, NHL)'
-            : 'Chinese & Korean Pokémon Sealed & Chase Hits';
-      });
-
-      // Update reservation summary pill
-      const price = getActivePrice();
-      document.getElementById('summary-selection').textContent = `${TIERS[state.tier].name} — ${getEditionLabel()}`;
-      document.getElementById('summary-price').textContent = `$${price}/mo`;
-      document.getElementById('summary-jp-tag').textContent = state.japaneseAddon ? '+$10 JP Applied' : 'Base Rate';
-
-      updatePassPreview();
-    }
-
-    function updatePassPreview() {
-      const nameVal = document.getElementById('full_name').value.trim();
-      const locVal = document.getElementById('preferred_location').value;
-      const price = getActivePrice();
-
-      document.getElementById('pass-holder').textContent = nameVal || 'Your Name Here';
-      document.getElementById('pass-tier').textContent = `${state.tier} — $${price}/MO`;
-      document.getElementById('pass-edition').textContent = getEditionLabel();
-      document.getElementById('pass-location').textContent = LOCATION_LABELS[locVal] || locVal;
-    }
-
-    document.getElementById('full_name').addEventListener('input', updatePassPreview);
-
-    function generateFounderPassId() {
-      const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
-      let code = '';
-      if (window.crypto && window.crypto.getRandomValues) {
-        const bytes = new Uint8Array(6);
-        window.crypto.getRandomValues(bytes);
-        for (let i = 0; i < bytes.length; i++) {
-          code += alphabet[bytes[i] % alphabet.length];
+      // Style active edition pill
+      document.querySelectorAll('.edition-pill').forEach((btn) => {
+        if (btn.dataset.edition === editionKey) {
+          btn.className =
+            editionKey === 'pokemon-jp'
+              ? 'edition-pill rounded-xl border-2 border-foil bg-foil/15 px-2.5 py-2 text-center text-[11px] font-extrabold leading-tight text-white transition-all shadow-[0_0_16px_rgba(245,158,11,0.2)]'
+              : 'edition-pill rounded-xl border-2 border-royal bg-royal/20 px-2.5 py-2 text-center text-[11px] font-extrabold leading-tight text-white transition-all shadow-[0_0_16px_rgba(37,99,235,0.2)]';
+        } else {
+          btn.className =
+            'edition-pill rounded-xl border border-transparent bg-transparent px-2.5 py-2 text-center text-[11px] font-bold leading-tight text-slate-400 transition-all hover:text-white';
         }
-      } else {
-        for (let i = 0; i < 6; i++) {
-          code += alphabet[Math.floor(Math.random() * alphabet.length)];
+      });
+
+      if (syncHobby) {
+        selectHobbyFocus(config.hobby, false);
+      }
+    }
+
+    /**
+     * Selects Hobby Focus pill and keeps the Mystery Box Edition preview synchronized.
+     */
+    function selectHobbyFocus(hobby, syncEdition = true) {
+      selectedHobby = hobby;
+      document.querySelectorAll('.hobby-pill').forEach((btn) => {
+        if (btn.dataset.hobby === hobby) {
+          btn.className =
+            'hobby-pill rounded-xl border-2 border-foil bg-foil/15 px-3 py-2.5 text-xs font-extrabold text-white transition-all shadow-[0_0_16px_rgba(245,158,11,0.18)]';
+        } else {
+          btn.className =
+            'hobby-pill rounded-xl border border-slate-700 bg-obsidian px-3 py-2.5 text-xs font-bold text-slate-400 transition-all hover:border-slate-500 hover:text-white';
+        }
+      });
+
+      if (syncEdition) {
+        if (hobby === 'Sports Cards') {
+          selectBoxEdition('sports', false);
+        } else if (hobby === 'Pokémon (CN / KR)') {
+          selectBoxEdition('pokemon-cn-kr', false);
+        } else if (hobby === 'Pokémon (Japanese +$10)') {
+          selectBoxEdition('pokemon-jp', false);
         }
       }
-      return `ECQ-VLT-${code}`;
     }
 
-    function isSupabaseConfigured(cfg) {
-      return Boolean(
-        cfg &&
-        cfg.SUPABASE_URL &&
-        cfg.SUPABASE_ANON_KEY &&
-        !cfg.SUPABASE_URL.includes('YOUR_PROJECT_REF') &&
-        !cfg.SUPABASE_ANON_KEY.includes('YOUR_SUPABASE_ANON_KEY')
+    /**
+     * Selects Preferred Tier pill.
+     */
+    function selectPreferredTier(tier) {
+      selectedTier = tier;
+      document.querySelectorAll('.tier-pill').forEach((btn) => {
+        if (btn.dataset.tier === tier) {
+          btn.className =
+            'tier-pill rounded-xl border-2 border-foil bg-foil/15 px-2 py-2.5 text-xs font-extrabold text-white transition-all shadow-[0_0_16px_rgba(245,158,11,0.18)]';
+        } else {
+          btn.className =
+            'tier-pill rounded-xl border border-slate-700 bg-obsidian px-2 py-2.5 text-xs font-bold text-slate-400 transition-all hover:border-slate-500 hover:text-white';
+        }
+      });
+    }
+
+    /**
+     * Selects Fulfillment Preference pill.
+     */
+    function selectFulfillment(fulfillment) {
+      selectedFulfillment = fulfillment;
+      document.querySelectorAll('.fulfillment-pill').forEach((btn) => {
+        if (btn.dataset.fulfillment === fulfillment) {
+          btn.className =
+            'fulfillment-pill rounded-xl border-2 border-royal bg-royal/20 px-3 py-2.5 text-xs font-extrabold text-white transition-all shadow-[0_0_16px_rgba(37,99,235,0.22)]';
+        } else {
+          btn.className =
+            'fulfillment-pill rounded-xl border border-slate-700 bg-obsidian px-3 py-2.5 text-xs font-bold text-slate-400 transition-all hover:border-slate-500 hover:text-white';
+        }
+      });
+    }
+
+    /**
+     * Formats US phone numbers as (XXX) XXX-XXXX while typing.
+     */
+    function formatUsPhone(input) {
+      const digits = input.value.replace(/\D/g, '').substring(0, 10);
+      if (digits.length === 0) {
+        input.value = '';
+      } else if (digits.length <= 3) {
+        input.value = `(${digits}`;
+      } else if (digits.length <= 6) {
+        input.value = `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+      } else {
+        input.value = `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
+      }
+    }
+
+    /**
+     * Clears field validation errors on user input.
+     */
+    function clearFieldError(inputId) {
+      const inputEl = document.getElementById(inputId);
+      const errEl = document.getElementById(`err-${inputId}`);
+      if (inputEl) inputEl.classList.remove('border-rose-500');
+      if (errEl) errEl.classList.add('hidden');
+    }
+
+    /**
+     * Sends waitlist entry to Supabase REST API and/or Webhook if configured in config.js.
+     * Returns { mode: 'verified' | 'duplicate' | 'preview' }.
+     */
+    async function dispatchWaitlistLead(payload) {
+      const cfg = window.ECQ_VAULT_CONFIG || {};
+      const hasSupabase = Boolean(
+        cfg.supabaseUrl &&
+        cfg.supabaseAnonKey &&
+        !cfg.supabaseUrl.includes('your-project-ref')
       );
+      const hasWebhook = Boolean(cfg.webhookUrl && cfg.webhookUrl.trim());
+
+      let mode = 'preview';
+
+      if (hasSupabase) {
+        const cleanUrl = cfg.supabaseUrl.replace(/\/+$/, '');
+        const tableName = cfg.supabaseTable || 'vault_waitlist';
+        const res = await fetch(`${cleanUrl}/rest/v1/${tableName}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: cfg.supabaseAnonKey,
+            Authorization: `Bearer ${cfg.supabaseAnonKey}`,
+            Prefer: 'return=minimal',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (res.ok) {
+          mode = 'verified';
+        } else if (res.status === 409) {
+          mode = 'duplicate';
+        } else {
+          const errBody = await res.text();
+          if (errBody.includes('23505')) {
+            mode = 'duplicate';
+          } else {
+            throw new Error(`Unable to save reservation (${res.status}). Please try again.`);
+          }
+        }
+      }
+
+      if (hasWebhook) {
+        const hookRes = await fetch(cfg.webhookUrl.trim(), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (!hasSupabase) {
+          if (!hookRes.ok) {
+            throw new Error(`Unable to reach waitlist webhook (${hookRes.status}). Please try again.`);
+          }
+          mode = 'verified';
+        }
+      }
+
+      return { mode };
     }
 
-    async function handleWaitlistSubmit(event) {
+    /**
+     * Handles VIP Waitlist form submission, persists data, and displays the VIP Founder Pass.
+     */
+    document.getElementById('vip-waitlist-form').addEventListener('submit', async function (event) {
       event.preventDefault();
 
-      const errorBox = document.getElementById('form-error');
-      const submitBtn = document.getElementById('submit-btn');
-      const submitBtnText = document.getElementById('submit-btn-text');
+      const nameInput = document.getElementById('collector-name');
+      const emailInput = document.getElementById('collector-email');
+      const phoneInput = document.getElementById('collector-phone');
+      const submitBtn = document.getElementById('vip-submit-btn');
+      const submitLabel = document.getElementById('vip-submit-label');
+      const submitErr = document.getElementById('err-submit');
 
-      errorBox.classList.add('hidden');
-      errorBox.textContent = '';
+      submitErr.classList.add('hidden');
+      submitErr.textContent = '';
 
-      const fullName = document.getElementById('full_name').value.trim();
-      const email = document.getElementById('email').value.trim().toLowerCase();
-      const phone = document.getElementById('phone').value.trim() || null;
-      const preferredLocation = document.getElementById('preferred_location').value;
+      const nameVal = nameInput.value.trim();
+      const emailVal = emailInput.value.trim().toLowerCase();
+      const phoneVal = phoneInput.value.trim();
 
-      const params = new URLSearchParams(window.location.search);
-      const founderPassId = generateFounderPassId();
+      let isValid = true;
 
-      const payload = {
-        founder_pass_id: founderPassId,
-        full_name: fullName,
-        email,
-        phone,
-        tier: state.tier,
-        category: getActiveCategory(),
-        japanese_pokemon_addon: state.japaneseAddon,
-        monthly_price: getActivePrice(),
-        preferred_location: preferredLocation,
-        utm_source: params.get('utm_source') || null,
-        referrer: document.referrer || null,
-        user_agent: navigator.userAgent
+      if (!nameVal) {
+        nameInput.classList.add('border-rose-500');
+        document.getElementById('err-collector-name').classList.remove('hidden');
+        isValid = false;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailVal || !emailRegex.test(emailVal)) {
+        emailInput.classList.add('border-rose-500');
+        document.getElementById('err-collector-email').classList.remove('hidden');
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      // Disable button briefly while dispatching backend requests
+      submitBtn.disabled = true;
+      submitBtn.classList.add('opacity-80');
+      submitLabel.textContent = 'Locking In VIP Spot...';
+
+      const randomDigits = Math.floor(1000 + Math.random() * 9000);
+      const priorityCode = `ECQ-VIP-${randomDigits}`;
+
+      const baseRate = TIER_BASE_PRICES[selectedTier] || 35;
+      const isJapanese = selectedHobby === 'Pokémon (Japanese +$10)';
+      const monthlyRate = isJapanese ? baseRate + 10 : baseRate;
+      const tierSummary = isJapanese
+        ? `${selectedTier} ($${monthlyRate}/mo • incl. +$10 JP)`
+        : selectedHobby === 'Both'
+          ? `${selectedTier} ($${monthlyRate}/mo • +$10 if JP)`
+          : `${selectedTier} ($${monthlyRate}/mo)`;
+
+      const leadPayload = {
+        priority_code: priorityCode,
+        full_name: nameVal,
+        email: emailVal,
+        phone: phoneVal || null,
+        hobby_focus: selectedHobby,
+        preferred_tier: selectedTier,
+        monthly_rate_usd: monthlyRate,
+        fulfillment_preference: selectedFulfillment,
+        source: 'vault.epiccard.quest',
+        created_at: new Date().toISOString(),
       };
 
-      submitBtn.disabled = true;
-      submitBtnText.textContent = 'Locking Vault Spot...';
-
-      const cfg = window.ECQ_CONFIG || {};
-      const hasSupabase = isSupabaseConfigured(cfg);
-      const hasWebhook = Boolean(cfg.WEBHOOK_URL && cfg.WEBHOOK_URL.trim());
+      // Save locally in browser storage
+      try {
+        localStorage.setItem('ecq_vip_founder_pass', JSON.stringify(leadPayload));
+      } catch (e) {}
 
       try {
-        let statusMode = 'preview';
+        const result = await dispatchWaitlistLead(leadPayload);
 
-        if (hasSupabase) {
-          const endpoint = `${cfg.SUPABASE_URL.replace(/\/$/, '')}/rest/v1/${cfg.SUPABASE_TABLE || 'vault_waitlist'}`;
-          const res = await fetch(endpoint, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              apikey: cfg.SUPABASE_ANON_KEY,
-              Authorization: `Bearer ${cfg.SUPABASE_ANON_KEY}`,
-              Prefer: 'return=minimal'
-            },
-            body: JSON.stringify(payload)
-          });
+        // Populate Metallic VIP Founder Pass
+        document.getElementById('founder-pass-code').textContent = priorityCode;
+        document.getElementById('pass-collector-name').textContent = nameVal;
+        document.getElementById('pass-hobby-focus').textContent = selectedHobby;
+        document.getElementById('pass-preferred-tier').textContent = tierSummary;
+        document.getElementById('pass-fulfillment-choice').textContent = selectedFulfillment;
 
-          if (res.ok) {
-            statusMode = 'verified';
-          } else if (res.status === 409) {
-            // Unique email already registered in vault_waitlist
-            statusMode = 'duplicate';
-          } else {
-            const errText = await res.text();
-            if (errText.includes('23505')) {
-              statusMode = 'duplicate';
-            } else {
-              throw new Error(`Waitlist save failed (${res.status}). Please try again.`);
-            }
-          }
+        const statusText = document.getElementById('pass-status-text');
+        const statusSub = document.getElementById('pass-status-subcopy');
+        if (result.mode === 'duplicate') {
+          statusText.textContent = 'Already on VIP Drop List';
+          statusSub.textContent = 'This email is already registered—your 24-hour early access priority is active.';
+        } else {
+          statusText.textContent = 'Early Access Reserved';
+          statusSub.textContent = 'Save your priority code below for 24-hour early access + your bonus Box #1 loyalty stamp.';
         }
 
-        // Optional mirror or standalone webhook
-        if (hasWebhook) {
-          const hookRes = await fetch(cfg.WEBHOOK_URL.trim(), {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          if (!hasSupabase && !hookRes.ok) {
-            throw new Error(`Webhook submission failed (${hookRes.status}). Please try again.`);
-          }
-          if (!hasSupabase && hookRes.ok) {
-            statusMode = 'verified';
-          }
-        }
-
-        renderConfirmedPass(payload, statusMode);
+        // Swap from Form to Founder Pass view
+        document.getElementById('waitlist-form-container').classList.add('hidden');
+        document.getElementById('founder-pass-container').classList.remove('hidden');
       } catch (err) {
-        errorBox.textContent = err.message || 'Unable to reach waitlist server. Please try again.';
-        errorBox.classList.remove('hidden');
+        submitErr.textContent = err.message || 'Connection error while saving your spot. Please try again.';
+        submitErr.classList.remove('hidden');
       } finally {
         submitBtn.disabled = false;
-        submitBtnText.textContent = 'Claim VIP Founder Pass';
+        submitBtn.classList.remove('opacity-80');
+        submitLabel.textContent = 'Join VIP Drop List →';
       }
-    }
+    });
 
-    function renderConfirmedPass(payload, statusMode) {
-      state.lastPassId = payload.founder_pass_id;
-      document.getElementById('pass-serial').textContent = payload.founder_pass_id;
-      document.getElementById('pass-holder').textContent = payload.full_name;
-      document.getElementById('pass-tier').textContent = `${payload.tier} — $${payload.monthly_price}/MO`;
-      document.getElementById('pass-edition').textContent = getEditionLabel();
-      document.getElementById('pass-location').textContent = LOCATION_LABELS[payload.preferred_location] || payload.preferred_location;
+    /**
+     * Copies the ECQ-VIP-XXXX code using clipboard API with execCommand fallback.
+     */
+    function copyFounderCode() {
+      const codeText = document.getElementById('founder-pass-code').textContent.trim();
+      const copyBtn = document.getElementById('copy-founder-btn');
 
-      const badge = document.getElementById('pass-status-badge');
-      const note = document.getElementById('pass-confirmed-note');
-      const panel = document.getElementById('pass-confirmed-panel');
+      const markCopied = () => {
+        copyBtn.textContent = 'Copied!';
+        copyBtn.classList.add('border-emerald-500', 'text-emerald-400');
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+          copyBtn.classList.remove('border-emerald-500', 'text-emerald-400');
+        }, 2000);
+      };
 
-      panel.classList.remove('hidden');
-
-      if (statusMode === 'verified') {
-        badge.textContent = 'VERIFIED VIP';
-        badge.className = 'px-3 py-1 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider border border-gold/60 bg-gold/20 text-gold';
-        note.textContent = '✓ Confirmed in Epic Card Quest Vault waitlist. Save your Founder Pass ID below.';
-        note.className = 'text-xs text-emerald-300 font-mono mb-4';
-      } else if (statusMode === 'duplicate') {
-        badge.textContent = 'ACTIVE VIP';
-        badge.className = 'px-3 py-1 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider border border-royal/60 bg-royal/25 text-blue-200';
-        note.textContent = '✓ This email is already on our Wave 01 VIP waitlist—your priority spot is active.';
-        note.className = 'text-xs text-blue-200 font-mono mb-4';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(codeText).then(markCopied).catch(() => {
+          fallbackCopy(codeText, markCopied);
+        });
       } else {
-        badge.textContent = 'PREVIEW PASS';
-        badge.className = 'px-3 py-1 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider border border-gold/50 bg-gold/15 text-gold';
-        note.textContent = '⚡ Local Preview Mode: add your Supabase keys in config.js to save live signups.';
-        note.className = 'text-xs text-amber-300 font-mono mb-4';
+        fallbackCopy(codeText, markCopied);
       }
-
-      document.getElementById('submit-btn-text').textContent = 'VIP Founder Pass Issued ✓';
     }
 
-    async function copyPassCode() {
-      if (!state.lastPassId) return;
+    function fallbackCopy(text, onDone) {
+      const tempInput = document.createElement('input');
+      tempInput.value = text;
+      document.body.appendChild(tempInput);
+      tempInput.select();
       try {
-        await navigator.clipboard.writeText(state.lastPassId);
-        const btn = document.getElementById('copy-pass-btn');
-        btn.textContent = 'Copied!';
-        setTimeout(() => (btn.textContent = 'Copy Pass ID'), 2000);
-      } catch (_) {}
+        document.execCommand('copy');
+      } catch (err) {}
+      document.body.removeChild(tempInput);
+      onDone();
     }
 
-    async function copyShareLink() {
-      try {
-        await navigator.clipboard.writeText('https://vault.epiccard.quest/');
-        const btn = document.getElementById('copy-share-btn');
-        btn.textContent = 'Link Copied!';
-        setTimeout(() => (btn.textContent = 'Share Vault Link'), 2000);
-      } catch (_) {}
+    /**
+     * Resets the form state so another collector can be registered.
+     */
+    function resetWaitlistForm() {
+      document.getElementById('vip-waitlist-form').reset();
+      selectBoxEdition('sports', true);
+      selectPreferredTier('Pro');
+      selectFulfillment('Valley Mall Pickup');
+      document.getElementById('founder-pass-container').classList.add('hidden');
+      document.getElementById('waitlist-form-container').classList.remove('hidden');
     }
-
-    // Initialize state
-    syncUI();
   </script>
 </body>
 </html>
