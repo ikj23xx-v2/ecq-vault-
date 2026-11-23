@@ -1,8 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <script>
+    // Apply saved theme immediately before paint (defaults to light mode)
+    (function () {
+      try {
+        if (localStorage.getItem('ecq_theme') === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (_) {}
+    })();
+  </script>
   <title>Epic Card Quest | Mystery Vault — Coming Soon (vault.epiccard.quest)</title>
   <meta
     name="description"
@@ -94,9 +104,15 @@
       background-color: #FFFFFF;
       color: #0F172A;
       overflow-x: hidden;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
-    /* Crisp white gallery canvas with royal blue & yellow-gold radiant corner glow (top-right) */
+    html.dark body {
+      background-color: #0F172A;
+      color: #F8FAFC;
+    }
+
+    /* Light mode: Crisp white gallery canvas with royal blue & yellow-gold radiant corner glow (top-right) */
     .collector-backdrop {
       background-color: #FFFFFF;
       background-image:
@@ -105,6 +121,18 @@
         linear-gradient(to right, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
       background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    }
+
+    /* Dark mode: Obsidian collector grid + royal blue & foil gold spotlight */
+    html.dark .collector-backdrop {
+      background-color: #0F172A;
+      background-image:
+        radial-gradient(circle at 16% 12%, rgba(37, 99, 235, 0.20) 0%, transparent 46%),
+        radial-gradient(circle at 84% 20%, rgba(245, 158, 11, 0.16) 0%, transparent 44%),
+        radial-gradient(circle at 50% 96%, rgba(37, 99, 235, 0.12) 0%, transparent 50%),
+        linear-gradient(to right, rgba(148, 163, 184, 0.045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.045) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
     }
 
     /* Metallic Gold & Royal Blue Shimmer Headline (high contrast on white) */
@@ -121,6 +149,21 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: foilSweep 4.5s linear infinite;
+    }
+
+    /* Dark mode: Metallic Gold & White Shimmer Headline */
+    html.dark .foil-text-shimmer {
+      background: linear-gradient(
+        110deg,
+        #F59E0B 10%,
+        #FEF3C7 32%,
+        #F59E0B 50%,
+        #FFFFFF 68%,
+        #F59E0B 88%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     /* Holographic Card Sheen for Featured Tier & Founder Pass */
@@ -153,10 +196,10 @@
   <script src="./config.js"></script>
   <script type="module" src="./firebase.js"></script>
 </head>
-<body class="collector-backdrop flex min-h-screen flex-col justify-between bg-white pb-24 font-sans text-obsidian antialiased selection:bg-foil selection:text-obsidian sm:pb-0">
+<body class="collector-backdrop flex min-h-screen flex-col justify-between bg-white pb-24 font-sans text-obsidian antialiased selection:bg-foil selection:text-obsidian dark:bg-obsidian dark:text-[#F8FAFC] sm:pb-0">
 
   <!-- ==================== 1. HEADER BAR (STRICTLY LEFT-TO-RIGHT) ==================== -->
-  <header dir="ltr" class="w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-xl">
+  <header dir="ltr" class="w-full border-b border-slate-200/80 bg-white/80 backdrop-blur-xl transition-colors dark:border-slate-800/80 dark:bg-obsidian/85">
     <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
 
       <!-- LEFT SIDE: [ECQ Monogram Crest Icon] -> [Stacked Brand Title & Sub-Row] -->
@@ -253,27 +296,40 @@
 
         <!-- Stacked Brand Title & Mystery Vault Sub-Row -->
         <div class="flex flex-col items-start text-left">
-          <span class="text-base font-black uppercase tracking-[0.12em] text-obsidian sm:text-lg">
+          <span class="text-base font-black uppercase tracking-[0.12em] text-obsidian dark:text-white sm:text-lg">
             EPIC CARD QUEST
           </span>
           <div class="mt-0.5 flex flex-wrap items-center gap-2">
-            <span class="rounded-md border border-amber-500/40 bg-amber-500/15 px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-[0.16em] text-amber-700">
+            <span class="rounded-md border border-amber-500/40 bg-amber-500/15 px-2 py-0.5 text-[9px] font-extrabold uppercase tracking-[0.16em] text-amber-700 dark:border-foil/40 dark:bg-foil/15 dark:text-foil">
               MYSTERY VAULT
             </span>
-            <span class="text-[11px] font-medium tracking-wide text-slate-500">vault.epiccard.quest</span>
+            <span class="text-[11px] font-medium tracking-wide text-slate-500 dark:text-slate-400">vault.epiccard.quest</span>
           </div>
         </div>
       </a>
 
-      <!-- RIGHT SIDE: Launch Status Pill Badge -->
-      <div class="ml-auto inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-3.5 py-1.5 shadow-sm">
-        <span class="relative flex h-2.5 w-2.5">
-          <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-foil opacity-75"></span>
-          <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-foil"></span>
-        </span>
-        <span class="text-[10px] font-extrabold uppercase tracking-[0.15em] text-obsidian sm:text-xs">
-          LAUNCHING SOON • HAGERSTOWN, MD
-        </span>
+      <!-- RIGHT SIDE: Theme Switcher + Launch Status Pill Badge -->
+      <div class="ml-auto flex flex-wrap items-center gap-2.5">
+        <button
+          type="button"
+          id="theme-toggle-btn"
+          onclick="toggleThemeMode()"
+          aria-label="Toggle Light and Dark Mode"
+          class="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white/90 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.14em] text-obsidian shadow-sm transition-all hover:border-foil dark:border-slate-700/90 dark:bg-surfaceElevated/90 dark:text-slate-200 sm:text-xs"
+        >
+          <span id="theme-toggle-icon" aria-hidden="true">🌙</span>
+          <span id="theme-toggle-label">Dark</span>
+        </button>
+
+        <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/90 px-3.5 py-1.5 shadow-sm dark:border-slate-700/90 dark:bg-surfaceElevated/90 dark:shadow-inner">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-foil opacity-75"></span>
+            <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-foil"></span>
+          </span>
+          <span class="text-[10px] font-extrabold uppercase tracking-[0.15em] text-obsidian dark:text-slate-200 sm:text-xs">
+            LAUNCHING SOON • HAGERSTOWN, MD
+          </span>
+        </div>
       </div>
 
     </div>
@@ -286,32 +342,32 @@
       <!-- LEFT COLUMN: Hero Promise & Interactive Mystery Box Showcase -->
       <div class="lg:col-span-6">
         <!-- Eyebrow Badge -->
-        <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-500/40 bg-amber-500/10 px-3.5 py-1.5">
-          <svg class="h-3.5 w-3.5 text-amber-600" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+        <div class="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-500/40 bg-amber-500/10 px-3.5 py-1.5 dark:border-foil/40 dark:bg-foil/10">
+          <svg class="h-3.5 w-3.5 text-amber-600 dark:text-foil" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
           </svg>
-          <span class="text-[11px] font-extrabold uppercase tracking-[0.16em] text-amber-700">
+          <span class="text-[11px] font-extrabold uppercase tracking-[0.16em] text-amber-700 dark:text-foil">
             OFFICIAL SUBSCRIPTION PORTAL • LIMITED FIRST DROP
           </span>
         </div>
 
         <!-- Metallic Shimmer Headline -->
-        <h1 class="text-4xl font-black tracking-tight text-obsidian sm:text-5xl lg:text-[3.35rem] lg:leading-[1.06]">
+        <h1 class="text-4xl font-black tracking-tight text-obsidian dark:text-white sm:text-5xl lg:text-[3.35rem] lg:leading-[1.06]">
           Rip <span class="foil-text-shimmer">Guaranteed Hits</span> Every Month.
         </h1>
 
         <!-- Subcopy -->
-        <p class="mt-5 text-base leading-relaxed text-slate-600 sm:text-lg">
-          Curated <strong class="font-semibold text-obsidian">Sports</strong> and <strong class="font-semibold text-obsidian">English, Chinese, Korean, &amp; Japanese Pokémon</strong> mystery boxes powered by hassle-free <strong class="font-semibold text-obsidian">recurring billing</strong>. Pick up locally at <strong class="font-semibold text-obsidian">Valley Mall</strong> or <strong class="font-semibold text-obsidian">Hagerstown Premium Outlets</strong> (Hagerstown, MD) — <strong class="font-semibold text-amber-600">coming soon</strong>, have your box shipped straight to your door.
+        <p class="mt-5 text-base leading-relaxed text-slate-600 dark:text-[#94A3B8] sm:text-lg">
+          Curated <strong class="font-semibold text-obsidian dark:text-white">Sports</strong> and <strong class="font-semibold text-obsidian dark:text-white">English, Chinese, Korean, &amp; Japanese Pokémon</strong> mystery boxes powered by hassle-free <strong class="font-semibold text-obsidian dark:text-white">recurring billing</strong>. Pick up locally at <strong class="font-semibold text-obsidian dark:text-white">Valley Mall</strong> or <strong class="font-semibold text-obsidian dark:text-white">Hagerstown Premium Outlets</strong> (Hagerstown, MD) — <strong class="font-semibold text-amber-600 dark:text-foil">coming soon</strong>, have your box shipped straight to your door.
         </p>
 
         <!-- Mystery Box Tier Showcase -->
         <div class="mt-8 space-y-3">
           <div class="flex flex-wrap items-center justify-between gap-2">
-            <span class="text-[11px] font-extrabold uppercase tracking-[0.18em] text-slate-600">
+            <span class="text-[11px] font-extrabold uppercase tracking-[0.18em] text-slate-600 dark:text-slate-400">
               Select Edition to Preview Pricing
             </span>
-            <span id="edition-status-badge" class="text-[11px] font-bold text-royal">
+            <span id="edition-status-badge" class="text-[11px] font-bold text-royal dark:text-blue-400">
               Sports Edition • Base Pricing
             </span>
           </div>
@@ -877,17 +933,17 @@
   </main>
 
   <!-- ==================== 2C. TWO HAGERSTOWN HOBBY DESTINATIONS ==================== -->
-  <section id="locations" class="w-full border-t border-slate-200/80 py-14 sm:py-16">
+  <section id="locations" class="w-full border-t border-slate-200/80 py-14 dark:border-slate-800/80 sm:py-16">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
       <div class="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <span class="text-[11px] font-extrabold uppercase tracking-[0.18em] text-amber-600">
+          <span class="text-[11px] font-extrabold uppercase tracking-[0.18em] text-amber-600 dark:text-foil">
             Visit Our Showcases
           </span>
-          <h2 class="mt-1 text-2xl font-black tracking-tight text-obsidian sm:text-3xl">
+          <h2 class="mt-1 text-2xl font-black tracking-tight text-obsidian dark:text-white sm:text-3xl">
             Two Hagerstown Hobby Destinations
           </h2>
-          <p class="mt-1.5 text-sm text-slate-600">
+          <p class="mt-1.5 text-sm text-slate-600 dark:text-[#94A3B8]">
             Proudly serving collectors across Hagerstown, Frederick, Jefferson County WV, and Berkeley County WV.
           </p>
         </div>
@@ -1218,8 +1274,8 @@
       const badgeEl = document.getElementById('edition-status-badge');
       badgeEl.textContent = config.badge;
       badgeEl.className = isJapanese
-        ? 'text-[11px] font-bold text-amber-600'
-        : 'text-[11px] font-bold text-royal';
+        ? 'text-[11px] font-bold text-amber-600 dark:text-foil'
+        : 'text-[11px] font-bold text-royal dark:text-blue-400';
 
       // Style active edition pill
       document.querySelectorAll('.edition-pill').forEach((btn) => {
@@ -1668,7 +1724,27 @@
       updateCheckoutTotal();
     }
 
-    // Initialize total & CTA label on load
+    /**
+     * Toggles Light (white + blue/gold radiant) and Dark (obsidian) modes and persists preference.
+     */
+    function syncThemeToggleUI() {
+      const isDark = document.documentElement.classList.contains('dark');
+      const iconEl = document.getElementById('theme-toggle-icon');
+      const labelEl = document.getElementById('theme-toggle-label');
+      if (iconEl) iconEl.textContent = isDark ? '☀️' : '🌙';
+      if (labelEl) labelEl.textContent = isDark ? 'Light' : 'Dark';
+    }
+
+    function toggleThemeMode() {
+      const isDark = document.documentElement.classList.toggle('dark');
+      try {
+        localStorage.setItem('ecq_theme', isDark ? 'dark' : 'light');
+      } catch (_) {}
+      syncThemeToggleUI();
+    }
+
+    // Initialize theme toggle & total/CTA label on load
+    syncThemeToggleUI();
     updateCheckoutTotal();
 
     /**
